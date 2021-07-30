@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {observer} from "mobx-react";
+import './App.css'
+import AppRepository from "store/Repository";
+import AppPagePresenter from "page/PagePresenter"
+import BottomTab from "page/component/tab/BottomTab";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const TAG = "BottomTab"
+const repository = AppRepository()
+const presenter = AppPagePresenter()
+
+
+function App (){
+    return(
+        <div className="App">
+            <PageDisplayer presenter = {presenter} />
+            <PageNavi presenter = {presenter}/>
+        </div>
+    )
 }
 
-export default App;
+const PageDisplayer = observer(({ presenter }) =>
+    presenter.getPage(presenter.pageObj)
+)
+
+const PageNavi = observer(({ presenter }) =>
+    <BottomTab currentPageId = {presenter.pageObj.pageId} />
+)
+
+export default App
