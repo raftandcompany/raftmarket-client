@@ -63,8 +63,6 @@ export class DataModel {
     }
 }
 
-
-
 export class NetworkError {
     constructor(type, err, isOption, id) {
         this.id = id
@@ -73,11 +71,6 @@ export class NetworkError {
         this.isOption = isOption
     }
 }
-
-export const ApiType = Object.freeze ({
-    account : "account"
-})
-
 
 const dataProvider = new DataProvider()
 export default function AppDataProvider() {

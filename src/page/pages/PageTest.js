@@ -1,13 +1,15 @@
 import React from "react";
 import Test from "skeleton/component/test/Test"
-import {Title} from "style/TextStyle";
-import {PageBg} from "style/LayoutStyle";
-
+import {PageBg} from "style/layoutStyle";
+import {slideInUp, fadeIn} from "style/ani";
+import PageTab from "../component/tab/PageTab";
 
 export default function PageTest({pageObj}){
     return (
-        <PageBg>
-            <Title>{pageObj.params.title}</Title>
+        <PageBg color="black"
+                isPopup={pageObj.isPopup}
+                ani={pageObj.isPopup ? slideInUp : fadeIn}>
+            <PageTab pageObj={pageObj}/>
             <Test pageObj={pageObj}/>
         </PageBg>
     )

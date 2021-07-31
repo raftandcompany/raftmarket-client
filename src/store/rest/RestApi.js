@@ -1,4 +1,5 @@
 import AppDataProvider , * as DataProvider from "store/provider/DataProvider"
+import * as Rest from "store/rest/Rest"
 import * as Account from  "store/rest/api/Account"
 
 class RestApi {
@@ -28,7 +29,7 @@ class RestApi {
 
     getApi(request){
          switch (request.type) {
-            case DataProvider.ApiType.account :
+            case Rest.ApiType.account :
                 return Account.account(request.params.adress)
             default : return null
         }

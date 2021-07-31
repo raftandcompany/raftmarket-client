@@ -15,11 +15,11 @@ export const TextA = styled.h2`
 export const TextB = styled.h3`
   font-size: 1.0em;
   text-align: left;
-  color: black;
+  color: white;
 `;
 
 export const TextC = styled.h4`
   font-size: 1.0em;
   text-align: left;
-  color: black;
+  color: white;
 `;

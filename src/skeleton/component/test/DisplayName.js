@@ -1,8 +1,8 @@
 import React from "react";
-
+import {TextC} from "style/textStyle"
 function DisplayName({ name }){
     return (
-        <div>{name}</div>
+        <TextC>{name}</TextC>
     )
 }
 export default DisplayName;

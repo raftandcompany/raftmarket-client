@@ -1,6 +1,6 @@
 import React from "react"
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
-import { Tab }  from "style/LayoutStyle"
+import { Tab }  from "style/layoutStyle"
 import NaviButton from "skeleton/component/button/NaviButton"
 
 
@@ -18,10 +18,27 @@ export default function BottomTab({currentPageId}){
                 isSelectd = {currentPageId === PageId.Test}
                 action = {()=>{action( new PageObjcet(PageId.Test, {title: "test"}))}}
             />
+
+            <NaviButton
+                title = "testPopup"
+                isSelectd = {false}
+                action = {()=>{ action( new PageObjcet(PageId.Test, {title: "test popup"}, true) )}}
+            />
+            <NaviButton
+                title = "Login"
+                isSelectd = {false}
+                action = {()=>{ action( new PageObjcet(PageId.Login, {title: "Login"}, true) )}}
+            />
         </Tab>
     )
 }
 
 function action(pageObj){
-    AppPagePresenter().changePage( pageObj )
+    console.log(TAG, pageObj)
+    if(pageObj.isPopup){
+        AppPagePresenter().openPopup(pageObj)
+    }else{
+        AppPagePresenter().changePage( pageObj )
+    }
+
 }

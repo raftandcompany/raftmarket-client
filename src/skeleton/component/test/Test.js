@@ -1,8 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react"
-import {makeAutoObservable, autorun, observable} from "mobx"
+import {makeAutoObservable} from "mobx"
 import DisplayName from "./DisplayName"
 import AppDataProvider, * as DataProvider from "store/provider/DataProvider"
+import * as Rest from "store/rest/Rest"
+
 
 const TAG = "Test"
 
@@ -50,11 +52,9 @@ export default function Test({pageObj}){
 let me = new Person("jc kim")
 let myCar = new Car("modelS")
 
-
-
 function action (){
     me.changeName()
     myCar.changeModel()
-    AppDataProvider().requestQ(new DataProvider.DataRequest(DataProvider.ApiType.account, {address:"address1"}))
+    AppDataProvider().requestQ(new DataProvider.DataRequest(Rest.ApiType.account, {address:"address1"}))
 }
 

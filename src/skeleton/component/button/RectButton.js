@@ -1,9 +1,8 @@
 import React from "react";
-
-export default function RectButton({title, action}){
+import { Button }  from "style/buttonStyle"
+import { v4 as uuidv4 } from 'uuid';
+export default function RectButton({title, action, visible}){
     return (
-        <div>
-            <button onClick={action}>{title}</button>
-        </div>
+        <Button onClick={action} visible={visible} >{title}</Button>
     )
 }

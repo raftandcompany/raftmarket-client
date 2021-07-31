@@ -1,6 +1,11 @@
 export const API_KEY = 'ironright'
 export const API_PATH = "http://dev.api.raftmarket.net/v1/"
 
+export const ApiType = Object.freeze ({
+    account : "account"
+})
+
+
 export const ErrorCode = Object.freeze ({
     DBError : '901',
     DuplicatedKey : '902',
