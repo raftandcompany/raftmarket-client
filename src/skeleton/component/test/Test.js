@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react"
-import {makeAutoObservable} from "mobx"
+import {autorun, makeAutoObservable, runInAction} from "mobx"
 import DisplayName from "./DisplayName"
 import AppDataProvider, * as DataProvider from "store/provider/DataProvider"
 import * as Rest from "store/rest/Rest"
@@ -49,12 +49,23 @@ export default function Test({pageObj}){
     )
 }
 
+let dataProvider = AppDataProvider()
 let me = new Person("jc kim")
 let myCar = new Car("modelS")
+
 
 function action (){
     me.changeName()
     myCar.changeModel()
-    AppDataProvider().requestQ(new DataProvider.DataRequest(Rest.ApiType.account, {address:"address1"}))
+    dataProvider.requestQ(new DataProvider.DataRequest(Rest.ApiType.getAccount, {address:"address1"}))
 }
+
+autorun(() => {
+    let response = dataProvider.response
+    if (response != null){
+        if (dataProvider.response.type === Rest.ApiType.getAccount){
+            console.log(TAG + "response", response)
+        }
+    }
+})
 

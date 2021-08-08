@@ -1,6 +1,8 @@
 export const Request = Object.freeze ({
     install : "install",
-    connect : "connect"
+    autoConnect : "autoConnect",
+    connect : "connect",
+    getAccount : "getAccount"
 })
 
 export const Event = Object.freeze ({
@@ -17,7 +19,9 @@ export const Status = Object.freeze ({
 })
 
 export const Error = Object.freeze ({
-    connected : "connected"
+    autoConnect : "autoConnect",
+    connect : "connect",
+    getAccount : "getAccount"
 })
 
 export class MetamaskError {

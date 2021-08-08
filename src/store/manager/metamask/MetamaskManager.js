@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 import MetaMaskOnboarding from "@metamask/onboarding"
 import * as Metamask from './Metamask'
 
@@ -13,10 +13,23 @@ class MetamaskManager {
         this.status = this.isMetaMaskInstalled ? Metamask.Status.disconnect : Metamask.Status.uninstall
         this.event = null
         this.error = null
+        this.accounts = null
         makeAutoObservable(this)
+        this.subscribe()
+
+
     }
 
     destory(){
+    }
+
+    subscribe(){
+        if(!this.isMetaMaskInstalled()) {return}
+        let ethereum = window.ethereum
+        ethereum.on("accountsChanged", (account) => {
+            console.log(this.TAG, account)
+            this.getAccount()
+        })
     }
 
     requestQ(request){
@@ -26,6 +39,12 @@ class MetamaskManager {
                 break
             case Metamask.Request.connect :
                 this.connectMetaMask()
+                break
+            case Metamask.Request.autoConnect :
+                this.connectMetaMask(true)
+                break
+            case Metamask.Request.getAccount :
+                this.getAccount()
                 break
             default : break
         }
@@ -42,21 +61,50 @@ class MetamaskManager {
         onboarding.startOnboarding()
     }
 
-    async connectMetaMask() {
-        if (typeof window.ethereum !== 'undefined') {
-            console.log(this.TAG, 'MetaMask is installed!')
+    async connectMetaMask(isAutoConnect = false) {
+        if (typeof window.ethereum === 'undefined') {
+            console.error(this.TAG, 'MetaMask is uninstalled!')
+            return
         }
         let ethereum = window.ethereum
         this.status = Metamask.Status.connecting
         try {
             console.log(this.TAG, 'MetaMask connecting')
             await ethereum.request({method: 'eth_requestAccounts'});
-            this.status = Metamask.Status.connected
-            this.event = Metamask.Event.connected
+            runInAction(() => {
+                this.status = Metamask.Status.connected
+                this.event = Metamask.Event.connected
+            })
+
         } catch (error) {
-            console.error(error);
-            this.status = Metamask.Status.disconnect
-            this.error = new Metamask.MetamaskError(Metamask.Error.connected, error)
+            console.error(this.TAG, error);
+            runInAction(() => {
+                this.status = Metamask.Status.disconnect
+                this.error = new Metamask.MetamaskError(
+                    isAutoConnect ? Metamask.Error.autoConnect : Metamask.Error.connect, error)
+            })
+        }
+    }
+
+    async getAccount() {
+        if (typeof window.ethereum === 'undefined') {
+            console.error(this.TAG, 'MetaMask is uninstalled!')
+            return
+        }
+        let ethereum = window.ethereum
+        try {
+            console.log(this.TAG, 'MetaMask get accounts')
+            const accounts = await ethereum.request({ method: 'eth_accounts' });
+            runInAction(() => {
+                console.log(this.TAG, accounts)
+                this.accounts = accounts
+            })
+
+        } catch (error) {
+            console.error(this.TAG, error);
+            runInAction(() => {
+                this.error = new Metamask.MetamaskError(Metamask.Error.getAccount, error)
+            })
         }
     }
 }

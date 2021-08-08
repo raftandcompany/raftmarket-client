@@ -7,7 +7,6 @@ import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab";
 import {Popup, Body} from "style/layoutStyle"
 
-
 const TAG = "App"
 const controller = AppController()
 const repository = AppRepository()

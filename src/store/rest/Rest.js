@@ -1,9 +1,6 @@
 export const API_KEY = 'ironright'
 export const API_PATH = "http://dev.api.raftmarket.net/v1/"
-
-export const ApiType = Object.freeze ({
-    account : "account"
-})
+const TAG = "Rest"
 
 
 export const ErrorCode = Object.freeze ({
@@ -18,5 +15,56 @@ export const ErrorCode = Object.freeze ({
     ValidationServerKey : '909',
     UnregisteredData : '910'
 })
+
+
+export const ApiType = Object.freeze ({
+    postAccount : "postAccount",
+    getAccount : "getAccount",
+    putAccount : "putAccount",
+
+    postAsset : "postAsset",
+    getAsset : "getAsset",
+
+    getCollection : "getCollection",
+    getCollectionAddress : "getCollectionAddress",
+
+    getHistoryTrading : "getHistoryTrading",
+    getHistoryPrice : "getHistoryPrice",
+
+    getListing : "getListing",
+    getOffer : "getOffer"
+})
+
+
+export function toQueryString(data, model, isFirst = true){
+    let query = ""
+    let first = isFirst
+    for (const [key, value] of Object.entries(model)) {
+        console.log(TAG, "key : " + key + " value : " + value)
+        if (data[key] !== null) {
+            model[key] = data[key]
+        }
+        console.log(TAG, key + " : " + model[key])
+        if (first) {
+            query= "?" + key + "=" + model[key]
+            first = false
+        } else {
+            query= "&" + key + "=" + model[key]
+        }
+    }
+    return query
+}
+
+export function toData(data, model){
+    for (const [key, value] of Object.entries(model)) {
+        console.log(TAG, "key : " + key + " value : " + value)
+        if (data[key] !== undefined) {
+            model[key] = data[key]
+        }
+        console.log(TAG, key+ " : " + model[key])
+    }
+    return model
+
+}
 
 
