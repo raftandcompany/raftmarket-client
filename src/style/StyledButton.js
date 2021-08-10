@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { color } from './common/variable';
 import { rem } from './common/mixin';
@@ -52,9 +51,9 @@ export const StyledButton = styled.button`
     }
 `;
 
-
-function Button({ children, disabled, type }) {
-  return <StyledButton disabled={disabled} type={type}>{children}</StyledButton>;
-}
-
-export default Button;
+// 
+// function Button({ children, disabled, type }) {
+//   return <StyledButton disabled={disabled} type={type}>{children}</StyledButton>;
+// }
+//
+// export default Button;
