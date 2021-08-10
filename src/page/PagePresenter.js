@@ -56,6 +56,8 @@ class PagePresenter {
                 return <Page.Login key={pageObj.id} pageObj={pageObj}></Page.Login>
             case PageId.Test :
                 return <Page.Test key={pageObj.id} pageObj={pageObj}></Page.Test>
+            case PageId.Sample :
+                return <Page.Sample key={pageObj.id} pageObj={pageObj}></Page.Sample>
             default : return null
         }
     }
@@ -74,11 +76,10 @@ export const PageId = Object.freeze ({
     Test : 1,
     Home : 100,
     Login : 9999,
+    Sample : 11,
 })
 
 const pagePresenter = new PagePresenter()
 export default function AppPagePresenter() {
     return pagePresenter
 }
-
-

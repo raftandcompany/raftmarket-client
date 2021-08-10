@@ -29,6 +29,11 @@ export default function BottomTab({currentPageId}){
                 isSelectd = {false}
                 action = {()=>{ action( new PageObjcet(PageId.Login, {title: "Login"}, true) )}}
             />
+            <NaviButton
+                title = "Sample"
+                isSelectd = {false}
+                action = {()=>{ action( new PageObjcet(PageId.Sample, {title: "Sample"}, true) )}}
+            />
         </Tab>
     )
 }
