@@ -33,13 +33,15 @@ export const StyledButton = styled.button`
     border-radius: ${rem(22)};
     font-size: ${rem(16)};
 
-    /* 색상 */
+    /* 색상
     &:not(:disabled):hover {
+        hover: ${color.white};
         background: ${color.purpleDark};
     }
     &:active {
+        hover: ${color.white};
         background: ${color.purpleDark};
-    }
+    }*/
     &:disabled {
         cursor : default;
         color: ${color.gray2};
@@ -51,7 +53,7 @@ export const StyledButton = styled.button`
     }
 `;
 
-// 
+//
 // function Button({ children, disabled, type }) {
 //   return <StyledButton disabled={disabled} type={type}>{children}</StyledButton>;
 // }
