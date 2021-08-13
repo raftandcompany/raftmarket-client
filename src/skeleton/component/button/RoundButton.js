@@ -1,8 +1,8 @@
 import React from "react"
-import { RoundEdgeButton }  from "style/RoundEdgeButton"
+import { RoundButton }  from "style/roundButton"
 
-function Button({ children, disabled, type }) {
-  return <RoundEdgeButton disabled={disabled} type={type}>{children}</RoundEdgeButton>;
+function Button({ children, type, ...rest }) {
+    return <RoundButton type={type} {...rest}>{children}</RoundButton>;
 }
 
 export default Button;

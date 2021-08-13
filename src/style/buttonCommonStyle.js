@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { color } from './common/variable';
 import { rem } from './common/mixin';
 
+/* 버튼 공통 스타일 */
 const setButtonType = type => {
     switch (type) {
         case 'active' :
@@ -15,8 +16,7 @@ const setButtonType = type => {
     }
 }
 
-export const RoundButton = styled.button`
-    /* 공통 스타일 */
+export const buttonCommon = styled.button`
     display: inline-flex;
     outline: none;
     border: none;
@@ -26,12 +26,7 @@ export const RoundButton = styled.button`
     padding-right: ${rem(28)};
 
     ${({ type }) => setButtonType(type)};
-
-    /* 크기*/
-    height: ${rem(44)};
-    line-height: ${rem(44)};
-    border-radius: ${rem(22)};
-    font-size: ${rem(14)};
+    ${props => `font-size:${rem(props.fontSize)}`};
 
     &:disabled {
         cursor : default;

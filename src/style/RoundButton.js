@@ -1,51 +1,22 @@
 import styled from 'styled-components';
-import { color } from './common/variable';
+import { buttonCommon } from './buttonCommonStyle';
 import { rem } from './common/mixin';
 
-const setButtonType = type => {
-    switch (type) {
-        case 'active' :
-            return `background-color:${color.purpleDark};color:${color.white};`;
-        case 'reset' :
-            return `background-color:${color.white};color:${color.black};`;
-        case 'apply' :
-            return `background-color:${color.blueDark};color:${color.white};`;
-        default :
-            return `background-color:${color.blackLight};color:${color.white};`;
-    }
-}
-
-export const RoundButton = styled.button`
-    /* 공통 스타일 */
-    display: inline-flex;
-    outline: none;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    padding-left: ${rem(28)};
-    padding-right: ${rem(28)};
-
-    ${({ type }) => setButtonType(type)};
-
-    /* 크기*/
-    height: ${rem(44)};
-    line-height: ${rem(44)};
-    border-radius: ${rem(22)};
-    font-size: ${rem(14)};
-
-    &:disabled {
-        cursor : default;
-        color: ${color.gray2};
-    }
-
-    /* 기타 */
-    & + & {
-        margin-left: 1rem;
-    }
+export const RoundButton = styled(buttonCommon)`
+    ${props => `
+        height:${rem(props.height)};
+        line-height: ${rem(props.height)};
+        border-radius: ${rem(props.height/2)};
+        `
+    };
 `;
 
-// function Button({ children, disabled, type }) {
-//   return <RoundButton disabled={disabled} type={type}>{children}</RoundButton>;
-// }
-//
-// export default Button;
+
+export const BorderRadiusButton = styled(buttonCommon)`
+    ${props => `
+        height:${rem(props.height)};
+        line-height: ${rem(props.height)};
+        border-radius: ${rem(props.radius)};
+        `
+    };
+`;
