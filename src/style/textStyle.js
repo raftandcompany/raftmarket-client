@@ -1,9 +1,26 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { color } from './common/variable';
+import { rem } from './common/mixin';
 
 export const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: blue;
+    line-height: ${rem(32)};
+    font-size: ${rem(24)};
+    text-align: center;
+    color: ${color.white};
+`;
+
+export const TitleLarge = styled.h3`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 16px 0 10px;
+    letter-spacing: -.5px;
+    span {
+        line-height: ${rem(24)};
+        font-size: ${rem(18)};
+        color: ${color.white};
+        font-weight: 600;
+    }
 `;
 
 export const TextA = styled.h2`

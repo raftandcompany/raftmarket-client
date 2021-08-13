@@ -5,11 +5,11 @@ import { rem } from './common/mixin';
 /* 버튼 공통 스타일 */
 const setButtonType = type => {
     switch (type) {
-        case 'active' :
+        case 'purple' :
             return `background-color:${color.purpleDark};color:${color.white};`;
-        case 'reset' :
+        case 'white' :
             return `background-color:${color.white};color:${color.black};`;
-        case 'apply' :
+        case 'blue' :
             return `background-color:${color.blueDark};color:${color.white};`;
         default :
             return `background-color:${color.blackLight};color:${color.white};`;
@@ -26,7 +26,12 @@ export const buttonCommon = styled.button`
     padding-right: ${rem(28)};
 
     ${({ type }) => setButtonType(type)};
-    ${props => `font-size:${rem(props.fontSize)}`};
+    ${props => {
+        if (props.fontSize) {
+            return `font-size:${rem(props.fontSize)}`
+        }
+        return null
+    }};
 
     &:disabled {
         cursor : default;
