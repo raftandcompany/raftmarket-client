@@ -15,7 +15,7 @@ const setButtonType = type => {
     }
 }
 
-export const StyledButton = styled.button`
+export const RoundButton = styled.button`
     /* 공통 스타일 */
     display: inline-flex;
     outline: none;
@@ -31,17 +31,8 @@ export const StyledButton = styled.button`
     height: ${rem(44)};
     line-height: ${rem(44)};
     border-radius: ${rem(22)};
-    font-size: ${rem(16)};
+    font-size: ${rem(14)};
 
-    /* 색상
-    &:not(:disabled):hover {
-        hover: ${color.white};
-        background: ${color.purpleDark};
-    }
-    &:active {
-        hover: ${color.white};
-        background: ${color.purpleDark};
-    }*/
     &:disabled {
         cursor : default;
         color: ${color.gray2};
@@ -53,9 +44,8 @@ export const StyledButton = styled.button`
     }
 `;
 
-//
 // function Button({ children, disabled, type }) {
-//   return <StyledButton disabled={disabled} type={type}>{children}</StyledButton>;
+//   return <RoundButton disabled={disabled} type={type}>{children}</RoundButton>;
 // }
 //
 // export default Button;

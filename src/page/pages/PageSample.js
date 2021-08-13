@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "skeleton/component/button/StyledButton"
+import Button from "skeleton/component/button/RoundButton"
 import {Title} from "style/textStyle";
 import {PageBg} from "style/layoutStyle";
 import PageTab from "../component/tab/PageTab";
