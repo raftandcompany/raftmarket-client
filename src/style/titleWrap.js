@@ -7,10 +7,8 @@ export const TitleWrap = styled.div`
     display: -webkit-flex;
     display: flex;
     position: relative;
-    margin: 0 15px;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
     align-items: flex-start;
 
-    
 `;

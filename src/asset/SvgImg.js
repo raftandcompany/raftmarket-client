@@ -1,11 +1,11 @@
 import * as React from "react";
+import { rem } from 'style/common/mixin';
 
 export function SvgKing(props) {
   return (
-      <span>
     <svg
-      width={24}
-      height={24}
+      width={rem(24)}
+      height={rem(24)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -29,7 +29,6 @@ export function SvgKing(props) {
         />
       </defs>
     </svg>
-    </span>
   );
 }
 
