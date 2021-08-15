@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { color } from './common/variable';
-import { rem } from './common/mixin';
 
 export const TitleWrap = styled.div`
     display: -webkit-box;

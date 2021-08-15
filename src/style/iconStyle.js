@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { rem } from './common/mixin';
+import { rem } from 'style/common/mixin';
 
 export const Icon = styled.img`
     width: 60px;
