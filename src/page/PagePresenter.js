@@ -10,7 +10,7 @@ class PagePresenter {
     }
 
     createObservable(){
-        this.pageObj = new PageObjcet(PageId.Home, {title: "APP Init"})
+        this.pageObj = new PageObjcet(PageId.Intro, {title: "APP Init"})
         this.popups = []
         makeAutoObservable(this)
     }
@@ -50,6 +50,8 @@ class PagePresenter {
 
     getPageDom(pageObj){
         switch (pageObj.pageId) {
+            case PageId.Intro :
+                return <Page.Intro key={pageObj.id} pageObj={pageObj}></Page.Intro>
             case PageId.Home :
                 return <Page.Home key={pageObj.id} pageObj={pageObj}></Page.Home>
             case PageId.Login :
@@ -74,6 +76,7 @@ export class PageObjcet {
 
 export const PageId = Object.freeze ({
     Test : 1,
+    Intro : 0,
     Home : 100,
     Login : 9999,
     Sample : 11,

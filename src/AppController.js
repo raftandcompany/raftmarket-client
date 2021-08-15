@@ -3,11 +3,12 @@ import React from "react";
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import * as Metamask from "store/manager/metamask/Metamask"
-import {MetamaskError} from "store/manager/metamask/Metamask";
+
 class AppController {
     constructor() {
         this.createObservable()
         this.TAG = "AppController"
+        this.accountIsInitate = false
         this.initApp()
         this.subscribe()
     }
@@ -58,11 +59,18 @@ class AppController {
                             let page = new PageObjcet(PageId.Login, {title: "Login"})
                             AppPagePresenter().openPopup(page)
                             break
-
                         default :
                             break
                     }
                     this.metamaskManager.error = null
+                })
+            }
+
+            if (this.metamaskManager.accounts != null && !this.accountIsInitate) {
+                runInAction(() => {
+                    let page = new PageObjcet(PageId.Home, {title: "InitHome"})
+                    AppPagePresenter().changePage(page)
+                    this.accountIsInitate = true
                 })
             }
         })

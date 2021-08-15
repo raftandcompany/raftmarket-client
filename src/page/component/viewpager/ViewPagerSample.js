@@ -1,7 +1,7 @@
 import React from "react"
 import { ViewPager, Frame, Track, View } from 'react-view-pager'
 import ItemSample from "page/component/item/ItemSample";
-
+import { v4 as uuidv4 } from 'uuid';
 const TAG = "ViewPagerSample"
 export default function ViewPagerSample({pageObj}){
     let track = null
@@ -14,28 +14,28 @@ export default function ViewPagerSample({pageObj}){
                     infinite
                     className="track"
                 >
-                    <View className="view">
+                    <View key={uuidv4()} className="view">
                         <ItemSample pageObj={{
                             color:"yellow",
                             title:"title1",
                             text:"text1"
                         }}/>
                     </View>
-                    <View className="view">
+                    <View key={uuidv4()} className="view">
                         <ItemSample pageObj={{
                             color:"black",
                             title:"title2",
                             text:"text2"
                         }}/>
                     </View>
-                    <View className="view">
+                    <View key={uuidv4()} className="view">
                         <ItemSample pageObj={{
                             color:"black",
                             title:"title3",
                             text:"text3"
                         }}/>
                     </View>
-                    <View className="view">
+                    <View key={uuidv4()} className="view">
                         <ItemSample pageObj={{
                             color:"black",
                             title:"title4",

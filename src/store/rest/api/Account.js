@@ -1,9 +1,6 @@
 import Axios from 'axios'
 import * as Rest from  "store/rest/Rest"
 const path = Rest.API_PATH + "account"
-
-
-
 export function get(data){
     return Axios.request({
         method: 'get',

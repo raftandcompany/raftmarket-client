@@ -40,16 +40,16 @@ export function toQueryString(data, model, isFirst = true){
     let query = ""
     let first = isFirst
     for (const [key, value] of Object.entries(model)) {
-        console.log(TAG, "key : " + key + " value : " + value)
-        if (data[key] !== null) {
+        //console.log(TAG, "key : " + key + " value : " + value)
+        if (data[key] !== undefined) {
             model[key] = data[key]
         }
-        console.log(TAG, key + " : " + model[key])
+        //console.log(TAG, key + " : " + model[key])
         if (first) {
-            query= "?" + key + "=" + model[key]
+            query += "?" + key + "=" + model[key]
             first = false
         } else {
-            query= "&" + key + "=" + model[key]
+            query += "&" + key + "=" + model[key]
         }
     }
     return query
@@ -57,11 +57,11 @@ export function toQueryString(data, model, isFirst = true){
 
 export function toData(data, model){
     for (const [key, value] of Object.entries(model)) {
-        console.log(TAG, "key : " + key + " value : " + value)
+        //console.log(TAG, "key : " + key + " value : " + value)
         if (data[key] !== undefined) {
             model[key] = data[key]
         }
-        console.log(TAG, key+ " : " + model[key])
+        //console.log(TAG, key+ " : " + model[key])
     }
     return model
 

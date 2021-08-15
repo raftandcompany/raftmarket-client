@@ -8,6 +8,7 @@ export function get(data){
         method: 'get',
         url: path + Rest.toQueryString(data,
             {
+                chain : "ETHERIUM",
                 address: "address1",
                 page: 0,
                 size: 10
