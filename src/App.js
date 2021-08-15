@@ -6,6 +6,8 @@ import AppRepository from "store/Repository";
 import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab";
 import {Popup, Body} from "style/layoutStyle"
+import {GlobalStyle} from "style/common/globalStyle"
+
 
 const TAG = "App"
 const controller = AppController()
@@ -15,6 +17,7 @@ const presenter = AppPagePresenter()
 function App (){
     return(
         <Body className="App">
+            <GlobalStyle />
             <PageDisplayer presenter = {presenter} />
             <PageNavi presenter = {presenter}/>
             <PopupDisplayer presenter = {presenter}/>
