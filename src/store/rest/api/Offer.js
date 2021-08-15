@@ -3,7 +3,7 @@ import * as Rest from  "store/rest/Rest"
 
 const path = Rest.API_PATH + "offers"
 
-export function get(data){
+export function get(data, cancel){
     return Axios.request({
         method: 'post',
         url: path + Rest.toQueryString(data,
@@ -16,7 +16,8 @@ export function get(data){
                 offerType: "ACCOUNT",
                 assetId: "assetId1",
                 address: "address1"
-            })
+            }),
+        cancelToken:cancel.token
     })
 }
 

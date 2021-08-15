@@ -10,26 +10,32 @@ class PagePresenter {
     }
 
     createObservable(){
-        this.pageObj = new PageObjcet(PageId.Intro, {title: "APP Init"})
+        this.pageObj = new PageObjcet(PageId.Regist, {title: "APP Init"})
         this.popups = []
+        this.event = null
         makeAutoObservable(this)
     }
 
     changePage(pageObj){
         console.log(this.TAG, "changePage " + pageObj.pageId)
+        this.event = new PageEvent(PageEventType.ChangePage, pageObj)
         pageObj.isPopup = false
         this.pageObj = pageObj
+
     }
 
     openPopup(pageObj){
         console.log(this.TAG, "openPopup " + pageObj.pageId)
+        this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
         pageObj.isPopup = true
         this.popups.push(pageObj)
+
     }
 
     closePopup(pageObj){
         let found = this.popups.findIndex(element => element.id === pageObj.id )
         if(found != null){
+            this.event = new PageEvent(PageEventType.ClosePopup, pageObj)
             this.popups.splice(found, 1)
             console.log(this.TAG, "closePopup " + this.popups)
         }
@@ -56,6 +62,8 @@ class PagePresenter {
                 return <Page.Home key={pageObj.id} pageObj={pageObj}></Page.Home>
             case PageId.Login :
                 return <Page.Login key={pageObj.id} pageObj={pageObj}></Page.Login>
+            case PageId.Regist :
+                return <Page.Regist key={pageObj.id} pageObj={pageObj}></Page.Regist>
             case PageId.Test :
                 return <Page.Test key={pageObj.id} pageObj={pageObj}></Page.Test>
             case PageId.Sample :
@@ -78,8 +86,23 @@ export const PageId = Object.freeze ({
     Test : 1,
     Intro : 0,
     Home : 100,
-    Login : 9999,
+    Login : 9000,
+    Regist : 9001,
     Sample : 11,
+})
+
+
+export class PageEvent {
+    constructor( type, data) {
+        this.type = type
+        this.data = data
+    }
+}
+
+export const PageEventType = Object.freeze ({
+    ChangePage : "ChangePage",
+    OpenPopup : "OpenPopup",
+    ClosePopup : "ClosePopup"
 })
 
 const pagePresenter = new PagePresenter()

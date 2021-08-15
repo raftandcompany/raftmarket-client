@@ -1,15 +1,14 @@
 import React from "react"
 import {PageBg} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-import PageTab from "page/component/tab/PageTab"
 import * as DataProvider from "../../store/provider/DataProvider"
 import * as Rest from "../../store/rest/Rest"
 import AppDataProvider from "../../store/provider/DataProvider"
-import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import {autorun, runInAction} from "mobx";
+import InputProfile from "page/component/input/InputProfile"
 
-export default function PageHome({pageObj}){
-    const TAG = "PageHome"
+export default function PageRegist({pageObj}){
+    const TAG = "PageRegist"
     let dataProvider = AppDataProvider()
     let disposer = null
     React.useEffect(() => {
@@ -20,8 +19,6 @@ export default function PageHome({pageObj}){
 
     function onAppear (){
         console.log(TAG, "onAppear")
-        let address = AppMetamaskManager().accounts[0]
-        dataProvider.requestQ(new DataProvider.DataRequest(Rest.ApiType.getCollection, {address:address}))
     }
     function onSubscribe(){
         disposer = autorun(() => {
@@ -32,7 +29,6 @@ export default function PageHome({pageObj}){
 
                 })
             }
-
             let error = dataProvider.error
             if (error != null){
                 console.log(TAG + "error", error.type)
@@ -48,9 +44,15 @@ export default function PageHome({pageObj}){
         }
     }
 
+    function regist (data){
+        console.log(TAG, data)
+    }
+
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <PageTab pageObj={pageObj}/>
+            <InputProfile emailAddress={""} nickName={""} action={data => {
+                regist(data)
+            }} />
         </PageBg>
     )
 }

@@ -7,6 +7,7 @@ class DataProvider {
         this.request = null
         this.response = null
         this.error = null
+        this.user = null
         makeAutoObservable(this)
     }
     destory(){

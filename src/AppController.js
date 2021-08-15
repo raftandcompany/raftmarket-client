@@ -3,6 +3,10 @@ import React from "react";
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import * as Metamask from "store/manager/metamask/Metamask"
+import AppDataProvider from "store/provider/DataProvider";
+import * as Rest from "store/rest/Rest";
+import User from "store/provider/model/User";
+import * as DataProvider from "./store/provider/DataProvider";
 
 class AppController {
     constructor() {
@@ -14,6 +18,7 @@ class AppController {
     }
 
     createObservable(){
+        this.dataProvider = AppDataProvider()
         this.metamaskManager = AppMetamaskManager()
         makeAutoObservable(this)
     }
@@ -68,10 +73,34 @@ class AppController {
 
             if (this.metamaskManager.accounts != null && !this.accountIsInitate) {
                 runInAction(() => {
-                    let page = new PageObjcet(PageId.Home, {title: "InitHome"})
-                    AppPagePresenter().changePage(page)
                     this.accountIsInitate = true
+                    let address =  this.metamaskManager.accounts[0]
+                    this.dataProvider.requestQ(new DataProvider.DataRequest(Rest.ApiType.getAccount, {address:address}))
                 })
+            }
+
+            let response = this.dataProvider.response
+            if (response != null){
+                switch (response.type){
+                    case  Rest.ApiType.getAccount :
+                        let address =  this.metamaskManager.accounts[0]
+                        let user = new User().setData(response.data,address)
+                        runInAction(() => {this.dataProvider.response = null})
+                        let page = new PageObjcet(PageId.Home, {title: "InitHome"})
+                        AppPagePresenter().changePage(page)
+                        break
+                }
+
+            }
+
+            let error = this.dataProvider.error
+            if (error != null){
+                switch (error.type){
+                    case  Rest.ApiType.getAccount :
+                        let page = new PageObjcet(PageId.Regist, {title: "regist profile"})
+                        AppPagePresenter().changePage(page)
+                        break
+                }
             }
         })
     }

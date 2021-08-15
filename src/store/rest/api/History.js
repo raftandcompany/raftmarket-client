@@ -3,7 +3,7 @@ import * as Rest from  "store/rest/Rest"
 
 const path = Rest.API_PATH + "history"
 
-export function getTrading(data){
+export function getTrading(data, cancel){
     return Axios.request({
         method: 'post',
         url: path + "/trading" + Rest.toQueryString(data,
@@ -19,11 +19,12 @@ export function getTrading(data){
                 chain: "ETHERIUM",
                 assetId: "assetId1",
                 address: "address1"
-            })
+            }),
+        cancelToken:cancel.token
     })
 }
 
-export function getPrice(data){
+export function getPrice(data, cancel){
     return Axios.request({
         method: 'get',
         url: path + "/price" + Rest.toQueryString(data,
@@ -32,7 +33,8 @@ export function getPrice(data){
                 timeRange : "LAST_7_DAYS",
                 page: 0,
                 size: 10
-            })
+            }),
+        cancelToken:cancel.token
     })
 }
 

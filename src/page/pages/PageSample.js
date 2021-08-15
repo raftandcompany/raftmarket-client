@@ -6,7 +6,6 @@ import {Title} from "style/textStyle";
 import {PageBg} from "style/layoutStyle";
 import ListTitle from "skeleton/component/title/ListTitle";
 
-
 export default function PageSample({pageObj}){
     return (
         <PageBg>
