@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { buttonCommon } from './buttonCommonStyle';
-import { rem } from './common/mixin';
+import { buttonCommon } from 'style/buttonCommonStyle';
+import { rem } from 'style/common/mixin';
 
 export const EllipseButton = styled(buttonCommon)`
     ${props => `

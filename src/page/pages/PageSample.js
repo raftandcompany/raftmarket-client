@@ -4,7 +4,6 @@ import Button2 from "skeleton/component/button/BorderRadiusButton"
 import Button3 from "skeleton/component/button/RoundButton"
 import {Title} from "style/textStyle";
 import {PageBg} from "style/layoutStyle";
-import PageTab from "../component/tab/PageTab";
 import ListTitle from "skeleton/component/title/ListTitle";
 
 

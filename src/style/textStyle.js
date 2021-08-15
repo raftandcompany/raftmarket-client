@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { color } from './common/variable';
-import { rem } from './common/mixin';
+import { color } from 'style/common/variable';
+import { rem } from 'style/common/mixin';
 
 export const Title = styled.h1`
     line-height: ${rem(32)};

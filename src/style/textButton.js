@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { buttonCommon } from './buttonCommonStyle';
-import { rem } from './common/mixin';
+import { rem } from 'style/common/mixin';
 
 export const MoreButton = styled.a`
     ${props => `
