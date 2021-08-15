@@ -6,17 +6,17 @@ import { TextA, TextB }  from "style/textStyle"
 
 export default function NaviButton({title, isSelectd, action}){
 
-    return (
-        <Button onClick={action}>
+    return (<Button onClick={action}>
             <span>
                 <Icon src={ logo }></Icon>
                 {
-                  isSelectd
-                      ? <TextA>{title + "Me"}</TextA>
-                      : <TextB>{title}</TextB>
+                    isSelectd
+                        ? <TextA>{title + "Me"}</TextA>
+                        : <TextB>{title}</TextB>
                 }
             </span>
-        </Button>
+    </Button>
+
 
     )
 }
