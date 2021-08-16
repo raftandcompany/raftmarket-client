@@ -36,7 +36,6 @@ export default function PageLogin({pageObj}){
 }
 
 const metamaskManager = AppMetamaskManager()
-
 const ConnectButton = observer(({ visible , metamaskManager }) =>
     <RectButton
         key = "ConnectButton"

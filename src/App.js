@@ -30,7 +30,7 @@ const PageDisplayer = observer(({ presenter }) =>
 )
 
 const PopupDisplayer = observer(({ presenter }) =>
-    <Popup>
+    <Popup hasPopup = {presenter.popups.length !== 0}>
         { presenter.popups.map(pop => presenter.getPage(pop)) }
     </Popup>
 )

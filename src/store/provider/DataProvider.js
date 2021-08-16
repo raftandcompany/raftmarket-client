@@ -7,6 +7,7 @@ class DataProvider {
         this.request = null
         this.response = null
         this.error = null
+        this.user = null
         makeAutoObservable(this)
     }
     destory(){
@@ -23,6 +24,7 @@ class DataProvider {
     responseError(dataError){
         this.error = dataError
     }
+
 }
 
 export class DataRequest {

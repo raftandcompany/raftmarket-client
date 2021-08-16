@@ -16,8 +16,6 @@ class MetamaskManager {
         this.accounts = null
         makeAutoObservable(this)
         this.subscribe()
-
-
     }
 
     destory(){

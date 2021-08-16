@@ -3,22 +3,25 @@ import * as Rest from  "store/rest/Rest"
 
 const path = Rest.API_PATH + "collections"
 
-export function get(data){
+export function get(data, cancel){
     return Axios.request({
         method: 'get',
         url: path + Rest.toQueryString(data,
             {
+                chain : "ETHERIUM",
                 address: "address1",
                 page: 0,
                 size: 10
-            })
+            }),
+        cancelToken:cancel.token
     })
 }
 
-export function getCollectionAddress(collectionAddress){
+export function getCollectionAddress(collectionAddress, cancel){
     return Axios.request({
         method: 'get',
-        url: path + "/" + collectionAddress
+        url: path + "/" + collectionAddress,
+        cancelToken:cancel.token
     })
 }
 
