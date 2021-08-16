@@ -9,8 +9,17 @@ export default class User {
         makeAutoObservable(this)
     }
 
+    isJoin(){
+        return !(this.adress === null || this.adress === undefined)
+
+    }
+    needProfile(){
+        return this.name === null || this.name === undefined || this.name === ""
+
+    }
+
     setData(date, address){
-        this.adress = address
+        this.adress = date.address
         this.name = date.userName
         this.bio = date.bio
         this.email = date.emailAddress

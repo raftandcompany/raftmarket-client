@@ -26,10 +26,9 @@ class RestApi {
         let api = this.getApi(request, cancel)
 
         api.then( (response) => {
-            console.log(this.TAG, response)
+            console.log(this.TAG + " SUCCESS", response)
             if( response["status"] != null ) {
-                let ststus =  response.status
-                console.log(this.TAG, ststus)
+                //let ststus =  response.status
                 if( response["data"] != null ) {
                     let data =  response.data
                     if (data["contents"] != null) {
@@ -46,7 +45,7 @@ class RestApi {
                 let error = {
                     message : "status not found"
                 }
-                console.log(this.TAG, error)
+                console.log(this.TAG + " ERORR", error)
                 this.dataProvider.responseError( new DataProvider.NetworkError(request.type, {}, request.isOption ,request.id) )
             }
         })

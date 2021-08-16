@@ -24,6 +24,7 @@ class DataProvider {
     responseError(dataError){
         this.error = dataError
     }
+
 }
 
 export class DataRequest {

@@ -10,6 +10,9 @@ export const Popup = styled.div`
   z-index: 999;
   left: 0;
   top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: ${props => props.hasPopup ? "auto" : "none" };
 `;
 
 export const PageBg = styled.div`
@@ -19,6 +22,8 @@ export const PageBg = styled.div`
   background: ${props => props.color || "white"};
   left: 0;
   top: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 

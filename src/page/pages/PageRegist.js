@@ -1,11 +1,15 @@
 import React from "react"
+import {observable, autorun } from "mobx"
 import {PageBg} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-import * as DataProvider from "../../store/provider/DataProvider"
-import * as Rest from "../../store/rest/Rest"
-import AppDataProvider from "../../store/provider/DataProvider"
-import {autorun, runInAction} from "mobx";
+
+import AppDataProvider, {DataRequest} from "store/provider/DataProvider"
+import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
+import AppPagePresenter from "page/PagePresenter"
+
+import * as Rest from "store/rest/Rest"
 import InputProfile from "page/component/input/InputProfile"
+import PageTab from "page/component/tab/PageTab";
 
 export default function PageRegist({pageObj}){
     const TAG = "PageRegist"
@@ -18,23 +22,19 @@ export default function PageRegist({pageObj}){
     }, []);
 
     function onAppear (){
+        observable(this,dataProvider)
         console.log(TAG, "onAppear")
     }
+
     function onSubscribe(){
         disposer = autorun(() => {
             let response = dataProvider.response
             if (response != null){
-                console.log(TAG + "response", response.type)
-                runInAction(() => {
-
-                })
-            }
-            let error = dataProvider.error
-            if (error != null){
-                console.log(TAG + "error", error.type)
-                runInAction(() => {
-
-                })
+                switch (response.type) {
+                    case  Rest.ApiType.putAccount :
+                        AppPagePresenter().closePopup(pageObj)
+                        break
+                }
             }
         })
     }
@@ -46,10 +46,22 @@ export default function PageRegist({pageObj}){
 
     function regist (data){
         console.log(TAG, data)
+        let address =  AppMetamaskManager().accounts[0]
+        dataProvider.requestQ(new DataRequest(
+            Rest.ApiType.putAccount,
+            {
+                address:address,
+                userName: data.nickName,
+                bio: "",
+                emailAddress:data.emailAddress
+            }
+        ))
+
     }
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
+            <PageTab pageObj={pageObj}/>
             <InputProfile emailAddress={""} nickName={""} action={data => {
                 regist(data)
             }} />

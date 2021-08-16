@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import {makeAutoObservable, runInAction} from "mobx"
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
 import * as Page from 'page/Pages';
@@ -10,7 +10,7 @@ class PagePresenter {
     }
 
     createObservable(){
-        this.pageObj = new PageObjcet(PageId.Regist, {title: "APP Init"})
+        this.pageObj = new PageObjcet(PageId.Intro, {title: "APP Intro"})
         this.popups = []
         this.event = null
         makeAutoObservable(this)
@@ -18,35 +18,42 @@ class PagePresenter {
 
     changePage(pageObj){
         console.log(this.TAG, "changePage " + pageObj.pageId)
-        this.event = new PageEvent(PageEventType.ChangePage, pageObj)
-        pageObj.isPopup = false
-        this.pageObj = pageObj
-
+        runInAction( () => {
+            this.event = new PageEvent(PageEventType.ChangePage, pageObj)
+            pageObj.isPopup = false
+            this.pageObj = pageObj
+        })
     }
 
     openPopup(pageObj){
         console.log(this.TAG, "openPopup " + pageObj.pageId)
-        this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
-        pageObj.isPopup = true
-        this.popups.push(pageObj)
+        runInAction( () => {
+            this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
+            pageObj.isPopup = true
+            this.popups.push(pageObj)
+        })
 
     }
 
     closePopup(pageObj){
-        let found = this.popups.findIndex(element => element.id === pageObj.id )
-        if(found != null){
-            this.event = new PageEvent(PageEventType.ClosePopup, pageObj)
-            this.popups.splice(found, 1)
-            console.log(this.TAG, "closePopup " + this.popups)
-        }
+        runInAction( () => {
+            let found = this.popups.findIndex(element => element.id === pageObj.id )
+            if(found != null){
+                this.event = new PageEvent(PageEventType.ClosePopup, pageObj)
+                this.popups.splice(found, 1)
+                console.log(this.TAG, "closePopup " + this.popups)
+            }
+        })
     }
 
     closePopupByPageId(pageId){
-        let found = this.popups.findIndex(element => element.pageId === pageId )
-        if(found != null){
-            this.popups.splice(found, 1)
-            console.log(this.TAG, "closePopup " + this.popups)
-        }
+        runInAction( () => {
+            let found = this.popups.findIndex(element => element.pageId === pageId )
+            if(found != null){
+                this.popups.splice(found, 1)
+                console.log(this.TAG, "closePopup " + this.popups)
+            }
+        })
     }
 
     getPage(pageObj){

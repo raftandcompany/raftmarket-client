@@ -22,7 +22,12 @@ export function put(data, cancel){
     return Axios.request({
         method: 'put',
         url: path + "/generalSetting",
-        data: Rest.toData(data, {address : ""}),
+        data: Rest.toData(data, {
+            address : "",
+            userName: "",
+            bio: "",
+            emailAddress:""
+        }),
         cancelToken:cancel.token
     })
 }
