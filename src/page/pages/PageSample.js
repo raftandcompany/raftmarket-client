@@ -12,7 +12,9 @@ export default function PageSample({pageObj}){
         <PageBg>
             <Title>{pageObj.params.title}</Title>
 
-            <ListTitle children={<span>Newly Minuted</span>} icon="King" />
+            <ListTitle children1={<span>Top NFTs</span>} icon="King" children2="See All Rankings" type="blue" />
+
+            <ListTitle children1={<span>Newly Minuted</span>} children2="See More" />
 
             <div>
                 <Button1 children="default button" height={52} fontSize={16} />

@@ -13,17 +13,16 @@ export const TitleLarge = styled.h3`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size:0;
 
     span {
-        display: inline-block;
         line-height: ${rem(24)};
         font-size: ${rem(18)};
         color: ${color.white};
         font-weight: 600;
     }
     svg {
-        vertical-align:-1px;
+        margin-left: ${rem(8)};
+        vertical-align: ${rem(-3)};
     }
 `;
 

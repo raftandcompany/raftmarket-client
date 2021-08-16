@@ -1,12 +1,12 @@
 import React from "react"
 import { MoreButton }  from "style/textButton"
-import * as All from "asset/SvgCategory"
+import { SvgArrowRight } from "asset/SvgImg";
 
 function Button({ children, type, ...rest }) {
     return (
         <MoreButton type={type} {...rest}>
-            See More
-            <i></i>
+            <span>{children}</span>
+            <SvgArrowRight type={type} />
         </MoreButton>
     )
 }
