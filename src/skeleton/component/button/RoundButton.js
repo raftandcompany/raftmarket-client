@@ -11,12 +11,13 @@ function Button({ icon, type, ...rest }) {
                     'Art'   : <All.SvgArt />,
                     'Music' : <All.SvgMusic />,
                     'Sports': <All.SvgSports />,
-                    'Vr'    : <All.SvgVr />,
-                    'SdCard': <All.SvgSdCard />,
-                    'Items' : <All.SvgItems />,
-                    'Domain' : <All.SvgDomain />,
+                    'Virtual Reality'    : <All.SvgVr />,
+                    'Trading Card': <All.SvgSdCard />,
+                    'Collective Items' : <All.SvgItems />,
+                    'Domain Name' : <All.SvgDomain />,
                 }[icon]
             }
+            <span>{icon}</span>
         </RoundButton>
     )
 }

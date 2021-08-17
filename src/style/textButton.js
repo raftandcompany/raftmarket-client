@@ -16,7 +16,7 @@ export const MoreButton = styled.a`
 
     position: relative;
     display: block;
-    margin: 0 ${rem(-15)} 0 auto;
+    margin: 0 0 0 auto;
     padding-top: ${rem(6)};
     -webkit-flex-shrink: 0;
     flex-shrink: 0;

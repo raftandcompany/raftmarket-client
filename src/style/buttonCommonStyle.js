@@ -21,8 +21,8 @@ export const buttonCommon = styled.button`
     font-weight: bold;
     justify-content: center;
     cursor: pointer;
-    padding-left: ${rem(28)};
-    padding-right: ${rem(28)};
+    padding-left: ${rem(26)};
+    padding-right: ${rem(26)};
 
     ${({ type }) => setButtonType(type)};
     ${props => props.fullSize ? `width:100%` : null};
@@ -32,6 +32,8 @@ export const buttonCommon = styled.button`
         color:${color.purpleLight};
         ` : null
     };
+    ${props => props.grow ? `flex-grow:${props.grow}` : null};
+    flex-basis: ${rem(64)};
     font-size:${props => rem(props.fontSize) || rem(12)};
 
     &:disabled {
@@ -39,10 +41,6 @@ export const buttonCommon = styled.button`
         color: ${color.gray2};
     }
 
-    /* 기타
-    & + & {
-        margin-left: 1rem;
-    }*/
 `;
 
 // function Button({ children, disabled, type }) {

@@ -15,11 +15,22 @@ export function rem($pxval) {
 }
 
 export const radiusBox = css`
-	height: ${props => rem(props.height)};
-	line-height: ${props => rem(props.height)};
-	border-radius: ${props => rem(props.radius)};
+	${props => {
+		let height = props.height || 52;
+		let radius = props.radius || 12;
+		let fontSize = props.fontSize || 16;
+		return `
+		height:${rem(height)};
+		line-height:${rem(height)};
+		border-radius: ${rem(radius)};
+		font-size: ${rem(fontSize)};
+		`
+	}};
 `;
 
+/* height: ${props => rem(props.height)};
+line-height: ${props => rem(props.height)};
+border-radius: ${props => rem(props.radius)}; */
 // import { createGlobalStyle } from "styled-components";
 //
 // const GlobalStyle = createGlobalStyle`

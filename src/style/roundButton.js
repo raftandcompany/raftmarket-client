@@ -27,13 +27,45 @@ export const RoundButton = styled(buttonCommon)`
         height:${rem(height)};
         `
     }};
+    position:relative;
     padding:0;
     line-height: 0;
     border-radius: 50%;
-    font-size:0;
-    color:transparent;
 
     svg {
         margin:auto;
     }
+
+    span {
+        display:block;
+        position:absolute;
+        top:calc(100% + ${rem(8)});
+        left:0;
+        width:100%;
+        line-height:${rem(16)};
+        text-align:center;
+        color:white;
+        font-size:${rem(12)};
+        font-weight:normal;
+        white-space:normal;
+    }
+    & + & {
+        margin-left: ${rem(11)};
+    }
+`;
+
+export const StyledButtonWrap = styled.div`
+    display:flex;
+    padding-top: ${rem(24)};
+    width: 100%;
+
+    button + button {
+        margin-left: ${rem(11)};
+    }
+`;
+
+
+export const StyledFullButtonWrap = styled.div`
+    padding-top: ${rem(24)};
+    width: 100%;
 `;

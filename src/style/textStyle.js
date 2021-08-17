@@ -3,6 +3,7 @@ import { color } from 'style/common/variable';
 import { rem } from 'style/common/mixin';
 
 export const Title = styled.h1`
+    padding-bottom: ${rem(20)};
     line-height: ${rem(36)};
     font-size: ${rem(24)};
     font-weight: 600;

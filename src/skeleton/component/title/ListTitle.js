@@ -16,7 +16,7 @@ function ListTitle({ children1, icon, children2, type }) {
                     }[icon]
                 }
             </TitleLarge>
-            <MoreButton href="www.naver.com" type={type}>
+            <MoreButton href="www.naver.com" type={type} icon={true}>
                 {children2}
             </MoreButton>
         </TitleWrap>
