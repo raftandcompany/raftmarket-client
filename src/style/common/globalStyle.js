@@ -8,13 +8,13 @@ export const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background-color:#191A1F;
   }
   a {
     color: inherit;
     text-decoration: none;
   }
   input, button {
-    background-color: transparent;
     border: none;
     outline: none;
   }

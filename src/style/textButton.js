@@ -14,18 +14,15 @@ const setColor = type => {
 export const MoreButton = styled.a`
     ${({ type }) => setColor(type)};
 
-    ${props => `
-        position: relative;
-        display: block;
-        margin: 0 ${rem(-15)} 0 auto;
-        padding-top: ${rem(6)};
-        -webkit-flex-shrink: 0;
-        flex-shrink: 0;
-        font-size: ${rem(14)};
-        line-height: ${rem(20)};
-        font-weight: 500;
-        `
-    };
+    position: relative;
+    display: block;
+    margin: 0 ${rem(-15)} 0 auto;
+    padding-top: ${rem(6)};
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    font-size: ${rem(14)};
+    line-height: ${rem(20)};
+    font-weight: 500;
 
     span {
         display:inline-block;

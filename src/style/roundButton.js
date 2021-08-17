@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { buttonCommon } from 'style/buttonCommonStyle';
-import { rem } from 'style/common/mixin';
+import { rem, radiusBox } from 'style/common/mixin';
 
 export const EllipseButton = styled(buttonCommon)`
     ${props => `
@@ -12,12 +12,8 @@ export const EllipseButton = styled(buttonCommon)`
 `;
 
 export const BorderRadiusButton = styled(buttonCommon)`
-    ${props => `
-        height:${rem(props.height)};
-        line-height: ${rem(props.height)};
-        border-radius: ${rem(props.radius)};
-        `
-    };
+    ${props => radiusBox};
+    ${props => props.unactive ? `opacity:0.4` : null};
 `;
 
 export const RoundButton = styled(buttonCommon)`
@@ -27,15 +23,16 @@ export const RoundButton = styled(buttonCommon)`
             height = props.height
         }
         return `
-        padding:0;
         width:${rem(height)};
         height:${rem(height)};
-        line-height: 0;
-        border-radius: 50%;
-        font-size:0;
-        color:transparent;
         `
     }};
+    padding:0;
+    line-height: 0;
+    border-radius: 50%;
+    font-size:0;
+    color:transparent;
+
     svg {
         margin:auto;
     }

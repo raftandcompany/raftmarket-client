@@ -1,3 +1,5 @@
+import styled, { keyframes, css } from 'styled-components';
+
 const emBase = 16;
 const vwBase = 720; //width
 
@@ -12,6 +14,11 @@ export function rem($pxval) {
 	return ($pxval / $base) * 1 + 'rem';
 }
 
+export const radiusBox = css`
+	height: ${props => rem(props.height)};
+	line-height: ${props => rem(props.height)};
+	border-radius: ${props => rem(props.radius)};
+`;
 
 // import { createGlobalStyle } from "styled-components";
 //

@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import * as Ani from 'style/ani'
+import * as Var from 'style/common/variable'
 
 export const Body = styled.div`
   position: absolute;
@@ -19,7 +20,7 @@ export const PageBg = styled.div`
   position: ${props => props.isPopup === true ? "absolute" : "relative" };
   animation: 0.5s ${props => props.ani || Ani.fadeIn};
   padding: 4em;
-  background: ${props => props.color || "white"};
+  background: ${props => props.color || Var.color.black};
   left: 0;
   top: 0;
   width: 100%;

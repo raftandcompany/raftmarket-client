@@ -3,9 +3,10 @@ import { color } from 'style/common/variable';
 import { rem } from 'style/common/mixin';
 
 export const Title = styled.h1`
-    line-height: ${rem(32)};
+    line-height: ${rem(36)};
     font-size: ${rem(24)};
-    text-align: center;
+    font-weight: 600;
+    text-align: left;
     color: ${color.white};
 `;
 
