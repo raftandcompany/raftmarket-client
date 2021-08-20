@@ -84,6 +84,10 @@ export default function PageSample({pageObj}){
                 <Button2 children="disabled button" disabled={true} height={36} fontSize={12} radius={4} />
             </div>
 
+            <StyledInputWrap>
+                <InputText placeHolder="Search items, collections" height={44} fontSize={14} radius={8} />
+            </StyledInputWrap>
+
             <StyledScrollWrap>
                 <div>
                     <Button3 as={"a"} href={"/"} icon="New" type="purple" />
