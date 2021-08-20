@@ -87,7 +87,6 @@ class AppController {
                         if (user.isJoin()) {
                             let page = new PageObjcet(PageId.Home, {title: "InitHome"})
                             AppPagePresenter().changePage(page)
-
                             if(user.needProfile()){
                                 let pop = new PageObjcet(PageId.Regist, {title: "regist profile"})
                                 AppPagePresenter().openPopup(pop)

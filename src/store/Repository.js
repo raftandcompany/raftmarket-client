@@ -1,4 +1,4 @@
-import { makeAutoObservable, autorun , runInAction} from "mobx"
+import { makeAutoObservable, autorun , runInAction, action} from "mobx"
 import AppDataProvider from "store/provider/DataProvider"
 import AppRestApi from "store/rest/RestApi"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
@@ -40,7 +40,7 @@ class Repository {
             if (response != null){
                 console.log(this.TAG + "response", response.type)
 
-                //runInAction(() => {this.dataProvider.response = null})
+                action(() => {this.dataProvider.response = null})
             }
             let error = this.dataProvider.error
             if (this.dataProvider.error != null){
@@ -48,17 +48,17 @@ class Repository {
                 if (error.isOption == false) {
                     alert(error.err.message)
                 }
-                //runInAction(() => {this.dataProvider.error = null})
+                action(() => {this.dataProvider.error = null})
             }
 
 
             if (this.metamaskManager.event != null) {
                 console.log(this.TAG + "metamaskManager event")
-                //runInAction(() => { this.metamaskManager.event = null })
+                action(() => { this.metamaskManager.event = null })
             }
             if (this.metamaskManager.error != null) {
                 console.log(this.TAG + "metamaskManager error")
-                //runInAction(() => { this.metamaskManager.error = null })
+                action(() => { this.metamaskManager.error = null })
             }
         })
     }

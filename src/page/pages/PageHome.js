@@ -1,5 +1,5 @@
 import React ,  {useState}from "react"
-import {autorun, observable} from "mobx"
+import {autorun,  observable} from "mobx"
 import {observer} from "mobx-react"
 import {PageBg, Popup} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
@@ -38,6 +38,7 @@ export default function PageHome({pageObj}){
             if (response != null){
                 switch (response.type) {
                     case  Rest.ApiType.getCollection :
+                        console.log(TAG, "recieved getCollection")
                         //setCollections(response.data)
                         break
                 }
