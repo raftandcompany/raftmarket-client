@@ -40,7 +40,7 @@ class Repository {
             if (response != null){
                 console.log(this.TAG + "response", response.type)
 
-                runInAction(() => {this.dataProvider.response = null})
+                //runInAction(() => {this.dataProvider.response = null})
             }
             let error = this.dataProvider.error
             if (this.dataProvider.error != null){
@@ -48,15 +48,17 @@ class Repository {
                 if (error.isOption == false) {
                     alert(error.err.message)
                 }
-                runInAction(() => {this.dataProvider.error = null})
+                //runInAction(() => {this.dataProvider.error = null})
             }
 
 
             if (this.metamaskManager.event != null) {
-                runInAction(() => { this.metamaskManager.event = null })
+                console.log(this.TAG + "metamaskManager event")
+                //runInAction(() => { this.metamaskManager.event = null })
             }
             if (this.metamaskManager.error != null) {
-                runInAction(() => { this.metamaskManager.error = null })
+                console.log(this.TAG + "metamaskManager error")
+                //runInAction(() => { this.metamaskManager.error = null })
             }
         })
     }

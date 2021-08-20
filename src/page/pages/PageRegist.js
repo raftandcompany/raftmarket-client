@@ -10,6 +10,7 @@ import AppPagePresenter from "page/PagePresenter"
 import * as Rest from "store/rest/Rest"
 import InputProfile from "page/component/input/InputProfile"
 import PageTab from "page/component/tab/PageTab";
+import {Title} from "style/textStyle";
 
 export default function PageRegist({pageObj}){
     const TAG = "PageRegist"
@@ -61,7 +62,7 @@ export default function PageRegist({pageObj}){
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <PageTab pageObj={pageObj}/>
+            <Title>Welcome, <br />Sign In</Title>
             <InputProfile emailAddress={""} nickName={""} action={data => {
                 regist(data)
             }} />

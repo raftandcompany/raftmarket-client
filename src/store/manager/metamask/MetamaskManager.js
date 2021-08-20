@@ -62,6 +62,7 @@ class MetamaskManager {
     async connectMetaMask(isAutoConnect = false) {
         if (typeof window.ethereum === 'undefined') {
             console.error(this.TAG, 'MetaMask is uninstalled!')
+            this.error = new Metamask.MetamaskError(Metamask.Error.autoConnect,null)
             return
         }
         let ethereum = window.ethereum
@@ -87,6 +88,7 @@ class MetamaskManager {
     async getAccount() {
         if (typeof window.ethereum === 'undefined') {
             console.error(this.TAG, 'MetaMask is uninstalled!')
+            this.error = new Metamask.MetamaskError(Metamask.Error.autoConnect,null)
             return
         }
         let ethereum = window.ethereum

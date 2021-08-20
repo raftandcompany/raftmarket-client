@@ -24,11 +24,8 @@ class AppController {
     }
 
     initApp(){
+        console.log(this.TAG, 'this.metamaskManager.status ' + this.metamaskManager.status)
         switch ( this.metamaskManager.status){
-            case Metamask.Status.uninstall :
-                let page = new PageObjcet(PageId.Login, {title: "Login"})
-                AppPagePresenter().openPopup(page)
-                break
             case Metamask.Status.disconnect :
                 this.metamaskManager.requestQ(Metamask.Request.autoConnect)
                 break
@@ -38,6 +35,7 @@ class AppController {
     }
 
     subscribe(){
+
         this.disposer = autorun(() => {
             if (this.metamaskManager.event != null) {
                 runInAction(() => {
@@ -45,6 +43,7 @@ class AppController {
                         case Metamask.Event.installed :
                             alert("please reload page")
                             break
+
                         case Metamask.Event.connected :
                             alert("Metamask connected")
                             AppPagePresenter().closePopupByPageId(PageId.Login)
@@ -58,6 +57,7 @@ class AppController {
             }
 
             if (this.metamaskManager.error != null) {
+                console.error(this.TAG, 'this.metamaskManager.error ' + this.metamaskManager.error.type)
                 switch (this.metamaskManager.error.type) {
                     case Metamask.Error.autoConnect :
                         let page = new PageObjcet(PageId.Login, {title: "Login"})
@@ -94,7 +94,7 @@ class AppController {
                             }
                         } else {
                             if (this.joinRetryCount > 2) {
-                                alert("서버가 개판이라 가입할수 없습니다 몃일후 다시시도해주세요")
+                                alert("auto connect server error")
                                 return
                             }
                             this.joinRetryCount += 1
