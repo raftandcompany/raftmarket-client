@@ -1,5 +1,11 @@
 import React, {useState} from "react"
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton"
+import {StyledInputWrap} from "style/formStyle";
+import InputLabel from "skeleton/component/input/InputLabel";
+import InputText from "skeleton/component/input/InputText";
+import Button2 from "../../../skeleton/component/button/BorderRadiusButton";
+import {StyledFullButtonWrap} from "../../../style/roundButton";
+
 export default function InputProfile({nickName, emailAddress, action}){
     const TAG = "InputProfile"
     const [inputNickName, setNickName] = useState(nickName)
@@ -17,16 +23,30 @@ export default function InputProfile({nickName, emailAddress, action}){
     }
     return (
         <div>
-            <label>nick name:</label>
-            <input type="text"
-                   defaultValue={inputNickName}
-                   onChange={e=>setNickName(e.target.value)}/>
-            <label>email:</label>
-            <input type="text"
-                   defaultValue={inputEmailAddress}
-                   onChange={e=>setEmailAddress(e.target.value)}/>
+            <StyledInputWrap>
+                <InputLabel children="mail" />
+                <InputText placeHolder="ex) marketplace@gmail.com"
+                           defaultValue={ inputEmailAddress }
+                           height={48} fontSize={14}
+                           onChange={e=>setNickName(e.target.value)}
+                />
+            </StyledInputWrap>
 
-            <BorderRadiusButton children="submit" height={52} fontSize={16} radius={6}  onClick={e => submit(e)}/>
+            <StyledInputWrap>
+                <InputLabel children="Nickname" />
+                <InputText placeHolder="ex) marketplace"  defaultValue={ inputNickName }
+                           height={48} fontSize={14}
+                           onChange={e=>setEmailAddress(e.target.value)}
+                />
+            </StyledInputWrap>
+
+            <StyledFullButtonWrap>
+                <Button2 children="Sign Up" type="purple"
+                         unactive={inputNickName === "" || inputEmailAddress === ""}
+                         fullSize={true}
+                         onClick={e => submit(e)}
+                />
+            </StyledFullButtonWrap>
 
         </div>
     )

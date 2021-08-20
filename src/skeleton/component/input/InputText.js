@@ -1,12 +1,13 @@
 import React from "react"
 import { StyledInput }  from "style/formStyle"
 
-function InputText({ placeHolder, type, ...rest }) {
+function InputText({ placeHolder, type,children, ...rest }) {
+
     return (
         <StyledInput
             placeHolder={placeHolder}
             type={type}
-            {...rest} />
+            {...rest} >{children}</StyledInput>
     )
 }
 

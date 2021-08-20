@@ -44,6 +44,9 @@ class MetamaskManager {
             case Metamask.Request.getAccount :
                 this.getAccount()
                 break
+            case Metamask.Request.checkAccountStatus :
+                this.checkAccountStatus()
+                break
             default : break
         }
     }
@@ -59,11 +62,17 @@ class MetamaskManager {
         onboarding.startOnboarding()
     }
 
-    async connectMetaMask(isAutoConnect = false) {
+    checkEthereum(){
         if (typeof window.ethereum === 'undefined') {
             console.error(this.TAG, 'MetaMask is uninstalled!')
-            return
+            this.error = new Metamask.MetamaskError(Metamask.Error.autoConnect,null)
+            return false
         }
+        return true
+    }
+
+    async connectMetaMask(isAutoConnect = false) {
+        if (!this.checkEthereum()) { return }
         let ethereum = window.ethereum
         this.status = Metamask.Status.connecting
         try {
@@ -85,16 +94,19 @@ class MetamaskManager {
     }
 
     async getAccount() {
-        if (typeof window.ethereum === 'undefined') {
-            console.error(this.TAG, 'MetaMask is uninstalled!')
-            return
-        }
+        if (!this.checkEthereum()) { return }
         let ethereum = window.ethereum
         try {
-            console.log(this.TAG, 'MetaMask get accounts')
+            console.log(this.TAG, 'getAccount')
             const accounts = await ethereum.request({ method: 'eth_accounts' });
             runInAction(() => {
                 console.log(this.TAG, accounts)
+                if (accounts.length == 0){
+                    this.accounts = null
+                    this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
+                    console.log(this.TAG, 'checkAccountStatus error')
+                    return
+                }
                 this.accounts = accounts
             })
 
@@ -102,6 +114,40 @@ class MetamaskManager {
             console.error(this.TAG, error);
             runInAction(() => {
                 this.error = new Metamask.MetamaskError(Metamask.Error.getAccount, error)
+            })
+        }
+    }
+
+    async checkAccountStatus() {
+        if (!this.checkEthereum()) { return }
+        let ethereum = window.ethereum
+        try {
+            console.log(this.TAG, 'checkAccountStatus')
+            const accounts = await ethereum.request({ method: 'eth_accounts' });
+            runInAction(() => {
+                console.log(this.TAG, accounts)
+                if (accounts.length == 0){
+                    this.accounts = null
+                    this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
+                    console.log(this.TAG, 'checkAccountStatus error')
+                    return
+                }
+                if(this.accounts[0] !== accounts[0]){
+                    this.accounts = null
+                    this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
+                    console.log(this.TAG, 'checkAccountStatus error')
+
+                } else {
+                    this.event = Metamask.Event.avaibleAccountStatus
+                    console.log(this.TAG, 'checkAccountStatus success')
+                }
+            })
+
+        } catch (error) {
+            console.error(this.TAG, error);
+            runInAction(() => {
+                this.accounts = null
+                this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
             })
         }
     }

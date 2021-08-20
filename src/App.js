@@ -10,9 +10,10 @@ import {GlobalStyle} from "style/common/globalStyle"
 
 
 const TAG = "App"
-const controller = AppController()
+
 const repository = AppRepository()
 const presenter = AppPagePresenter()
+const controller = AppController()
 
 function App (){
     return(
