@@ -11,12 +11,14 @@ import AppPagePresenter from "page/PagePresenter"
 import PageTab from "page/component/tab/PageTab"
 import InputSearch from "page/component/input/InputSearch"
 import * as Scroll from 'react-scroll'
+import * as Metamask from "store/manager/metamask/Metamask";
 
 export default function PageHome({pageObj}){
     const TAG = "PageHome"
     const [collections, setCollections] = useState([
         {name :"Collection1"},{name :"Collection2"},{name :"Collection3"},{name :"Collection4"}
     ])
+    let metamaskManager = AppMetamaskManager()
     let dataProvider = AppDataProvider()
     let disposer = null
     React.useEffect(() => {
@@ -30,6 +32,7 @@ export default function PageHome({pageObj}){
         observable(this,dataProvider)
         let address = AppMetamaskManager().accounts[0]
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getCollection, {address:address}))
+
     }
 
     function onSubscribe(){

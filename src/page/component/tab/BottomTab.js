@@ -24,11 +24,7 @@ export default function BottomTab({currentPageId}){
                 isSelectd = {false}
                 action = {()=>{ action( new PageObjcet(PageId.Test, {title: "test popup"}, true) )}}
             />
-            <NaviButton
-                title = "Login"
-                isSelectd = {false}
-                action = {()=>{ action( new PageObjcet(PageId.Login, {title: "Login"}, true) )}}
-            />
+
             <NaviButton
                 title = "Sample"
                 isSelectd = {false}

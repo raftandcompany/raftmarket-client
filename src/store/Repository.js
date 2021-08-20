@@ -2,7 +2,8 @@ import { makeAutoObservable, autorun , runInAction, action} from "mobx"
 import AppDataProvider from "store/provider/DataProvider"
 import AppRestApi from "store/rest/RestApi"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
-import AppPagePresenter from "page/PagePresenter"
+import AppPagePresenter, {PageId,  PageEventType} from "page/PagePresenter"
+import * as Metamask from "./manager/metamask/Metamask";
 
 class Repository {
     constructor() {
@@ -19,48 +20,60 @@ class Repository {
     }
 
     subscribe(){
-        this.disposer = autorun(() => {
+
+        let presenterSubscribe = autorun(() => {
             let presenterEvent = this.presenter.event
             if (presenterEvent != null){
-                console.log(this.TAG, "page change")
-                this.restApi.cancel()
-                runInAction(() => {
+                switch (presenterEvent.type) {
+                    case  PageEventType.ChangePage :
+                        this.restApi.cancel()
+                        this.metamaskManager.requestQ(Metamask.Request.checkAccountStatus)
+                        break
+                    default :
+                        break
+                }
+                action(() => {
                     this.presenter.event = null
                 })
             }
+        })
 
-
+        let dataProvideSubscribe = autorun(() => {
             let request = this.dataProvider.request
             if (request != null){
-                console.log(this.TAG + "request", request.type)
+                console.log(this.TAG + " request", request.type)
                 this.restApi.load(request)
-                runInAction(() => {this.dataProvider.request = null})
+                runInAction(() => {
+                    this.dataProvider.request = null
+                })
             }
             let response = this.dataProvider.response
             if (response != null){
-                console.log(this.TAG + "response", response.type)
-
+                console.log(this.TAG + " response", response.type)
                 action(() => {this.dataProvider.response = null})
             }
             let error = this.dataProvider.error
             if (this.dataProvider.error != null){
-                console.log(this.TAG + "error", error.type)
+                console.log(this.TAG + " error", error.type)
                 if (error.isOption == false) {
                     alert(error.err.message)
                 }
                 action(() => {this.dataProvider.error = null})
             }
+        })
 
-
+        let metamaskSubscribe = autorun(() => {
             if (this.metamaskManager.event != null) {
-                console.log(this.TAG + "metamaskManager event")
+                console.log(this.TAG + " metamaskManager event")
                 action(() => { this.metamaskManager.event = null })
             }
             if (this.metamaskManager.error != null) {
-                console.log(this.TAG + "metamaskManager error")
+                console.log(this.TAG + " metamaskManager error")
                 action(() => { this.metamaskManager.error = null })
             }
         })
+
+        this.disposers = [presenterSubscribe , dataProvideSubscribe, metamaskSubscribe]
     }
 
 

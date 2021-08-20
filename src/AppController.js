@@ -63,6 +63,10 @@ class AppController {
                         let page = new PageObjcet(PageId.Login, {title: "Login"})
                         AppPagePresenter().openPopup(page)
                         break
+                    case Metamask.Error.checkAccountStatus:
+                        alert("User account status has changed and the page is refreshed")
+                        window.location.reload()
+                        break
                     default :
                         break
                 }
