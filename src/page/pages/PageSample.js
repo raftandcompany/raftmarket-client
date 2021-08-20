@@ -86,6 +86,7 @@ export default function PageSample({pageObj}){
             </div>
 
             <SearchBox new={true} />
+            <SearchBox result={true} />
 
             <StyledScrollWrap>
                 <div>

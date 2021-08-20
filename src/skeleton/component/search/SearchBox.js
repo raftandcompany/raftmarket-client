@@ -9,11 +9,14 @@ function SearchBox({ ...props }) {
     return (
         <StyledInputWrap>
             <div className="search-area">
+                {props.result ? <Button as={"a"} href={"/"} icon="back" /> : null }
                 <div className="search-box">
                     <InputText placeHolder="Search items, collections" height={44} fontSize={14} radius={8} />
                     <Button as={"a"} href={"/search"} icon="search" />
                 </div>
-                <Button as={"a"} href={"/alarm"} icon="alarm" />
+                { !props.result ?
+                    <Button as={"a"} href={"/alarm"} icon="alarm" /> : null
+                }
                 { props.new ? <i></i> : null }
             </div>
         </StyledInputWrap>

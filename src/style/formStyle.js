@@ -12,6 +12,9 @@ export const StyledInputWrap = styled.div`
         padding-top: ${rem(28)};
         height: ${rem(72)};
 
+        > a {
+            float: left;
+        }
         .search-box {
             position:relative;
             float:left;
@@ -24,11 +27,10 @@ export const StyledInputWrap = styled.div`
                 left:0;top:0;
             }
             & + a {
-                float:right;
+                margin-right: ${rem(-10)};
             }
         }
         a {
-            margin-right: ${rem(-10)};
             background-color:transparent;
             span {
                 display:none;

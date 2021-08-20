@@ -64,7 +64,7 @@ export const StyledScrollWrap = styled.div`
         display: -webkit-inline-flex;
         display: inline-flex;
         max-width: ${rem(429)};
-        height: ${rem(132)};
+        min-height: ${rem(132)};
         -webkit-box-pack: justify;
         -webkit-justify-content: space-between;
         justify-content: space-between;
