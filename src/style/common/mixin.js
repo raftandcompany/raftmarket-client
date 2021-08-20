@@ -20,6 +20,8 @@ export const radiusBox = css`
 		let radius = props.radius || 12;
 		let fontSize = props.fontSize || 16;
 		return `
+		padding-left: ${rem(16)};
+	    padding-right: ${rem(16)};
 		height:${rem(height)};
 		line-height:${rem(height)};
 		border-radius: ${rem(radius)};

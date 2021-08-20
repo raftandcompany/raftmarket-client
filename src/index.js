@@ -1,12 +1,29 @@
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './App';
+// import reportWebVitals from './reportWebVitals';
+//
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import * as Page from './page/Pages';
+import {GlobalStyle} from "./style/common/globalStyle"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <GlobalStyle />
+
+    <Page.Sample />
   </React.StrictMode>,
   document.getElementById('root')
 );

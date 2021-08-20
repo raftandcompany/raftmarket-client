@@ -1,6 +1,7 @@
 import React from "react"
 import { RoundButton }  from "style/roundButton"
 import * as All from "asset/SvgCategory"
+import { SvgSearch, SvgAlarm } from "asset/SvgImg"
 
 function Button({ icon, type, ...rest }) {
     return (
@@ -15,6 +16,8 @@ function Button({ icon, type, ...rest }) {
                     'Trading Card': <All.SvgSdCard />,
                     'Collective Items' : <All.SvgItems />,
                     'Domain Name' : <All.SvgDomain />,
+                    'search' : <SvgSearch />,
+                    'alarm' : <SvgAlarm />,
                 }[icon]
             }
             <span>{icon}</span>
