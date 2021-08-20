@@ -33,6 +33,7 @@ export default function PageRegist({pageObj}){
             if (response != null){
                 switch (response.type) {
                     case  Rest.ApiType.putAccount :
+                        alert("Welcome to join raftmarket")
                         AppPagePresenter().closePopup(pageObj)
                         break
                 }
