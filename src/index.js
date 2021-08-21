@@ -23,7 +23,7 @@ ReactDOM.render(
   <React.StrictMode>
   <GlobalStyle />
 
-    <Page.Sample />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -4,7 +4,7 @@ import {observer} from "mobx-react"
 import {v4 as uuidv4} from "uuid"
 import * as Scroll from 'react-scroll'
 
-import {PageBg, Popup} from "style/layoutStyle"
+import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
 
 import * as Rest from "store/rest/Rest"
@@ -16,6 +16,8 @@ import InputSearch from "page/component/input/InputSearch"
 import ViewPager from "page/component/viewpager/ViewPagerSample"
 import ItemAsset, {AssetData} from "page/component/item/ItemAsset"
 import {Title} from "style/textStyle"
+import SearchBox from "skeleton/component/search/SearchBox";
+import RoundButton from "skeleton/component/button/RoundButton";
 
 
 export default function PageHome({pageObj}){
@@ -36,7 +38,6 @@ export default function PageHome({pageObj}){
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getAsset, "main"))
 
     }
-
     function onSubscribe(){
         disposer = autorun(() => {
             let response = dataProvider.response
@@ -67,6 +68,7 @@ export default function PageHome({pageObj}){
             disposer()
         }
     }
+
     const CollectionList = observer(({ datas }) =>
         <div key={uuidv4()}>
             { datas.map(set => <CollectionItemList set={ set }/>) }
@@ -78,11 +80,29 @@ export default function PageHome({pageObj}){
             { set.datas.map(data => <Scroll.Element key={uuidv4()}><ItemAsset data={data}/></Scroll.Element>) }
         </div>
 
+    function onSearch (keyword){
+        console.log(TAG, "onSearch " + keyword)
+    }
+
+    function onSearchBack (){
+        console.log(TAG, "onSearchBack")
+    }
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <PageTab pageObj={pageObj}/>
-            <InputSearch/>
+            <SearchBox new={true} keyword={""} back={onSearchBack}  search={onSearch} />
+            <StyledScrollWrap>
+                <div>
+                    <RoundButton as={"a"} href={"/"} icon="New" type="purple" />
+                    <RoundButton icon="Art" type="blue" />
+                    <RoundButton icon="Music" type="purple" />
+                    <RoundButton icon="Sports" type="blue" />
+                    <RoundButton icon="Virtual Reality" type="purple" />
+                    <RoundButton icon="Trading Card" type="blue" />
+                    <RoundButton icon="Collective Items" type="purple" />
+                    <RoundButton icon="Domain Name" type="blue" />
+                </div>
+            </StyledScrollWrap>
             <ViewPager/>
             <CollectionList datas = {assets} />
         </PageBg>
