@@ -6,6 +6,7 @@ import ListTitle from "skeleton/component/title/ListTitle";
 import InputText from "skeleton/component/input/InputText";
 import InputLabel from "skeleton/component/input/InputLabel";
 import MoreButton from "skeleton/component/button/MoreButton"
+import SearchBox from "skeleton/component/search/SearchBox"
 
 import {Title} from "style/textStyle";
 import {PageBg, StyledScrollWrap} from "style/layoutStyle";
@@ -83,6 +84,9 @@ export default function PageSample({pageObj}){
                 <Button2 children="active button" type="purple" height={44} fontSize={14} radius={4}/>
                 <Button2 children="disabled button" disabled={true} height={36} fontSize={12} radius={4} />
             </div>
+
+            <SearchBox new={true} />
+            <SearchBox result={true} />
 
             <StyledScrollWrap>
                 <div>

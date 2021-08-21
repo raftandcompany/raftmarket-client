@@ -63,13 +63,13 @@ export const StyledScrollWrap = styled.div`
         display: -webkit-inline-box;
         display: -webkit-inline-flex;
         display: inline-flex;
-        min-width: 100%;
-        height: ${rem(132)};
+        max-width: ${rem(429)};
+        min-height: ${rem(132)};
         -webkit-box-pack: justify;
         -webkit-justify-content: space-between;
         justify-content: space-between;
         vertical-align: top;
-        padding: ${rem(24)} 0 ;
+        padding: ${rem(4)} 0 ${rem(24)};
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }

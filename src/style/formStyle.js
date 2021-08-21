@@ -6,6 +6,49 @@ import { rem, radiusBox } from 'style/common/mixin';
 
 export const StyledInputWrap = styled.div`
     padding-bottom: ${rem(20)};
+
+    .search-area {
+        position:relative;
+        padding-top: ${rem(28)};
+        height: ${rem(72)};
+
+        > a {
+            float: left;
+        }
+        .search-box {
+            position:relative;
+            float:left;
+            width: calc(100% - ${rem(44)});
+            input {
+                padding-left: ${rem(44)};
+            }
+            a {
+                position:absolute;
+                left:0;top:0;
+            }
+            & + a {
+                margin-right: ${rem(-10)};
+            }
+        }
+        a {
+            background-color:transparent;
+            span {
+                display:none;
+            }
+
+        }
+        i {
+            display:block;
+            position:absolute;
+            right: ${rem(-1)};
+            top: ${rem(39)};
+            width: ${rem(4.67)};
+            height: ${rem(4.67)};
+            border-radius:50%;
+            background-color: ${color.blueDark};
+        }
+    }
+
 `;
 
 export const StyledInput = styled.input.attrs(props => ({

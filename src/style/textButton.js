@@ -17,7 +17,6 @@ export const MoreButton = styled.a`
     position: relative;
     display: block;
     margin: 0 0 0 auto;
-    padding-top: ${rem(6)};
     -webkit-flex-shrink: 0;
     flex-shrink: 0;
     font-size: ${rem(14)};

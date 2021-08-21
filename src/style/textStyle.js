@@ -26,6 +26,10 @@ export const TitleLarge = styled.h3`
         margin-left: ${rem(8)};
         vertical-align: ${rem(-3)};
     }
+
+    & + a {
+        padding-top: ${rem(4)};
+    }
 `;
 
 export const TextA = styled.h2`
