@@ -14,16 +14,19 @@ export function get(assetId, cancel){
 export function post(data, cancel){
     return Axios.request({
         method: 'post',
-        url: path,
+        url: path + "/search" + Rest.toQueryString(data,{page: 0, size: 10}) ,
         data: Rest.toData(data,
             {
+                assetSearchType: "OWNER",
                 nftCategory: "NEW",
                 currency: "USD",
                 minPrice: 0,
-                maxPrice: 100,
+                maxPrice: 9999,
                 status: "BUY_NOW",
-                chain: "ETHERIUM",
-                collectionAddress: "collectionAddress1"
+                chain: "RINKEBY",
+                collectionAddress: "collectionAddress1",
+                address: "address1",
+                mainCategoryId: 1
             }),
         cancelToken:cancel.token
     })

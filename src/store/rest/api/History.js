@@ -16,7 +16,7 @@ export function getTrading(data, cancel){
                 tradingType: "ACTIVITY",
                 tradingHistoryEventType: "LISTINGS",
                 collectionAddress: "collectionAddress1",
-                chain: "ETHERIUM",
+                chain: "RINKEBY",
                 assetId: "assetId1",
                 address: "address1"
             }),

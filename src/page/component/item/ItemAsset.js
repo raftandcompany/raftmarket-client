@@ -1,6 +1,7 @@
 import {ItemBg} from "../../../style/listStyle";
 import {TextA, Title} from "../../../style/textStyle";
 import React from "react";
+import {v4 as uuidv4} from "uuid";
 
 export class AssetData{
     constructor(data) {

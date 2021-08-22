@@ -44,13 +44,15 @@ class Repository {
                 console.log(this.TAG + " request", request.type)
                 this.restApi.load(request)
                 runInAction(() => {
+                    this.dataProvider.response = null
+                    this.dataProvider.error = null
                     this.dataProvider.request = null
+
                 })
             }
             let response = this.dataProvider.response
             if (response != null){
                 console.log(this.TAG + " response", response.type)
-                action(() => {this.dataProvider.response = null})
             }
             let error = this.dataProvider.error
             if (this.dataProvider.error != null){
@@ -58,24 +60,20 @@ class Repository {
                 if (error.isOption == false) {
                     alert(error.err.message)
                 }
-                action(() => {this.dataProvider.error = null})
             }
         })
 
         let metamaskSubscribe = autorun(() => {
             if (this.metamaskManager.event != null) {
                 console.log(this.TAG + " metamaskManager event")
-                action(() => { this.metamaskManager.event = null })
             }
             if (this.metamaskManager.error != null) {
                 console.log(this.TAG + " metamaskManager error")
-                action(() => { this.metamaskManager.error = null })
             }
         })
 
         this.disposers = [presenterSubscribe , dataProvideSubscribe, metamaskSubscribe]
     }
-
 
     destory(){
         this.disposer()
