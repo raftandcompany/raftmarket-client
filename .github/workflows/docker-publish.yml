@@ -48,7 +48,7 @@ jobs:
 
       - name: Push image
         run: |
-          IMAGE_ID=578623754193.dkr.ecr.ap-northeast-2.amazonaws.com/$IMAGE_NAME
+          IMAGE_ID=621063010376.dkr.ecr.ap-northeast-2.amazonaws.com/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
