@@ -71,6 +71,7 @@ jobs:
           echo docker push by tag or branch
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          echo "::set-output name=image::$IMAGE_ID:$VERSION"
 
           # docker push by latest
           echo docker push by latest
