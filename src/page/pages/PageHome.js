@@ -11,8 +11,6 @@ import * as Rest from "store/rest/Rest"
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import AppPagePresenter from "page/PagePresenter"
-import PageTab from "page/component/tab/PageTab"
-import InputSearch from "page/component/input/InputSearch"
 import ViewPager from "page/component/viewpager/ViewPagerSample"
 import ItemAsset, {AssetData} from "page/component/item/ItemAsset"
 import {Title} from "style/textStyle"
@@ -23,6 +21,7 @@ import RoundButton from "skeleton/component/button/RoundButton";
 export default function PageHome({pageObj}){
     const TAG = "PageHome"
     const [assets, setAssets] = useState([])
+    const [currentCategory, setCurrentCategory] = useState("")
     let dataProvider = AppDataProvider()
     let disposer = null
     React.useEffect(() => {
@@ -38,6 +37,7 @@ export default function PageHome({pageObj}){
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getAsset, "main"))
 
     }
+
     function onSubscribe(){
         disposer = autorun(() => {
             let response = dataProvider.response
@@ -51,60 +51,69 @@ export default function PageHome({pageObj}){
                             return obj
                         }))
                         break
-                }
-            }
-
-            let error = dataProvider.error
-            if (error != null){
-                switch (response.type) {
-                    case  Rest.ApiType.getAsset :
+                    case  Rest.ApiType.postAsset :
+                        setAssets ([{
+                                name: currentCategory,
+                                datas: response.data.map(d => new AssetData(d))
+                            }]
+                        )
                         break
                 }
             }
         })
     }
+
     function onDisappear (){
         if (disposer != null) {
             disposer()
         }
     }
 
-    const CollectionList = observer(({ datas }) =>
-        <div key={uuidv4()}>
-            { datas.map(set => <CollectionItemList set={ set }/>) }
-        </div>
-    )
-    const CollectionItemList = ({ set }) =>
-        <div key={uuidv4()} >
-            <Title>{ set.name }</Title>
-            { set.datas.map(data => <Scroll.Element key={uuidv4()}><ItemAsset data={data}/></Scroll.Element>) }
-        </div>
-
-    function onSearch (keyword){
-        console.log(TAG, "onSearch " + keyword)
+    function onSearchKeyword (keyword){
+        console.log(TAG, "onSearch Keyword " + keyword)
     }
-
     function onSearchBack (){
         console.log(TAG, "onSearchBack")
     }
 
+    function onSearchCategory (category){
+        console.log(TAG, "onSearch Category " + category)
+        setCurrentCategory(category)
+        setAssets([])
+
+        let data = {nftCategory:category}
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.postAsset, data ))
+    }
+
+    const CategoryItem = ({name, category}) =>
+        <RoundButton
+            icon = { name }
+            type = { (currentCategory === category) ? "purple" : "blue" }
+            onClick={ e=> onSearchCategory(category) }/>
+
+    const CollectionItemList = ({ set }) =>
+        <div>
+            <Title>{ set.name }</Title>
+            { set.datas.map(data => <Scroll.Element key={ uuidv4().toString() }><ItemAsset data={data}/></Scroll.Element>) }
+        </div>
+
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <SearchBox new={true} keyword={""} back={onSearchBack}  search={onSearch} />
+            <SearchBox new={true} keyword={""} back={onSearchBack}  search={onSearchKeyword} />
             <StyledScrollWrap>
                 <div>
-                    <RoundButton as={"a"} href={"/"} icon="New" type="purple" />
-                    <RoundButton icon="Art" type="blue" />
-                    <RoundButton icon="Music" type="purple" />
-                    <RoundButton icon="Sports" type="blue" />
-                    <RoundButton icon="Virtual Reality" type="purple" />
-                    <RoundButton icon="Trading Card" type="blue" />
-                    <RoundButton icon="Collective Items" type="purple" />
-                    <RoundButton icon="Domain Name" type="blue" />
+                    <CategoryItem name={"New"} category={"NEW"}/>
+                    <CategoryItem name={"Art"} category={"ART"}/>
+                    <CategoryItem name={"Music"} category={"MUSIC"}/>
+                    <CategoryItem name={"Sports"} category={"SPORTS"}/>
+                    <CategoryItem name={"Virtual Reality"} category={"VIRTUAL_REALRITY"}/>
+                    <CategoryItem name={"Trading Card"} category={"TRADING_CARD"}/>
+                    <CategoryItem name={"Collective Items"} category={"COLLECTIVE_ITEMS"}/>
+                    <CategoryItem name={"Domain Name"} category={"DOMAIN_NAME"}/>
                 </div>
             </StyledScrollWrap>
-            <ViewPager/>
-            <CollectionList datas = {assets} />
+            { assets.map(set => <CollectionItemList  key={ uuidv4().toString() } set={ set }/>) }
+
         </PageBg>
     )
 
