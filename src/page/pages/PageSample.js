@@ -5,8 +5,9 @@ import Button3 from "skeleton/component/button/RoundButton"
 import ListTitle from "skeleton/component/title/ListTitle";
 import InputText from "skeleton/component/input/InputText";
 import InputLabel from "skeleton/component/input/InputLabel";
-import MoreButton from "skeleton/component/button/MoreButton"
-import SearchBox from "skeleton/component/search/SearchBox"
+import MoreButton from "skeleton/component/button/MoreButton";
+import SearchBox from "skeleton/component/search/SearchBox";
+import Typography from "skeleton/component/text/Typography";
 
 import {Title} from "style/textStyle";
 import {PageBg, StyledScrollWrap} from "style/layoutStyle";
@@ -16,6 +17,7 @@ import { TitleWrap }  from "style/titleWrap";
 
 
 import Dialog from "skeleton/component/dialog/Dialog";
+
 
 export default function PageSample({pageObj}){
     return (
@@ -105,6 +107,8 @@ export default function PageSample({pageObj}){
             <ListTitle children1={<span>Top NFTs</span>} icon="King" children2="See All Rankings" type="blue" />
 
             <ListTitle children1={<span>Newly Minuted</span>} children2="See More" />
+
+
 
             <div style={{height:600}}></div>
         </PageBg>

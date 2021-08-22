@@ -1,22 +1,21 @@
-import React from "react"
-import logo from "asset/logo.svg"
-import { Button }  from "style/buttonStyle"
-import { Icon }  from "style/iconStyle"
-import { TextA, TextB }  from "style/textStyle"
+import React from "react";
+import { Button }  from "style/layoutStyle";
+import { SvgHome, SvgBuy, SvgStore } from "asset/SvgImg";
+
 
 export default function NaviButton({title, isSelectd, action}){
-
-    return (<Button onClick={action}>
+    return (
+        <Button onClick={action} className={isSelectd? "active":null}>
             <span>
-                <Icon src={ logo }></Icon>
                 {
-                    isSelectd
-                        ? <TextA>{title + "Me"}</TextA>
-                        : <TextB>{title}</TextB>
+                    {
+                        'Home' : <SvgHome />,
+                        'My Buys' : <SvgBuy />,
+                        'My Store' : <SvgStore />,
+                    }[title]
                 }
+                <span>{title}</span>
             </span>
-    </Button>
-
-
+        </Button>
     )
 }

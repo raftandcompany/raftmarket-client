@@ -109,3 +109,54 @@ export function SvgBack(props) {
         </svg>
     );
 }
+
+export function SvgHome(props) {
+    return (
+        <svg
+            width={rem(20)}
+            height={rem(17)}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+            d="M10 2.69L15 7.19V15H13V9H7V15H5V7.19L10 2.69ZM10 0L0 9H3V17H9V11H11V17H17V9H20L10 0Z"
+            fill={color.gray1}
+            />
+        </svg>
+    );
+}
+
+export function SvgBuy(props) {
+    return (
+        <svg
+            width={rem(22)}
+            height={rem(19)}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+            d="M21 7.00002H16.21L11.83 0.44002C11.64 0.16002 11.32 0.0200195 11 0.0200195C10.68 0.0200195 10.36 0.16002 10.17 0.45002L5.79 7.00002H1C0.45 7.00002 0 7.45002 0 8.00002C0 8.09002 0.00999996 8.18002 0.04 8.27002L2.58 17.54C2.81 18.38 3.58 19 4.5 19H17.5C18.42 19 19.19 18.38 19.43 17.54L21.97 8.27002L22 8.00002C22 7.45002 21.55 7.00002 21 7.00002ZM11 2.80002L13.8 7.00002H8.2L11 2.80002ZM17.5 17L4.51 17.01L2.31 9.00002H19.7L17.5 17ZM11 11C9.9 11 9 11.9 9 13C9 14.1 9.9 15 11 15C12.1 15 13 14.1 13 13C13 11.9 12.1 11 11 11Z"
+            fill={color.gray1}
+            />
+        </svg>
+    );
+}
+
+export function SvgStore(props) {
+    return (
+        <svg
+            width={rem(18)}
+            height={rem(16)}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+            d="M15.36 5L15.96 8H2.04L2.64 5H15.36ZM17 0H1V2H17V0ZM17 3H1L0 8V10H1V16H11V10H15V16H17V10H18V8L17 3ZM3 14V10H9V14H3Z"
+            fill={color.gray1}
+            />
+        </svg>
+    );
+}

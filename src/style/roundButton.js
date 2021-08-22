@@ -24,6 +24,7 @@ export const RoundButton = styled(buttonCommon)`
         }
         return `
         width:${rem(height)};
+        max-width:${rem(height)};
         height:${rem(height)};
         `
     }};

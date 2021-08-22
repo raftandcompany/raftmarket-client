@@ -24,6 +24,7 @@ ReactDOM.render(
   <GlobalStyle />
 
     <App />
+    <Page.Sample />
   </React.StrictMode>,
   document.getElementById('root')
 );

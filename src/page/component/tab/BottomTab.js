@@ -9,26 +9,20 @@ export default function BottomTab({currentPageId}){
     return (
         <Tab>
             <NaviButton
-                title = "home"
+                title = "Home"
                 isSelectd = {currentPageId === PageId.Home}
-                action = {()=>{action( new PageObjcet(PageId.Home, {title: "home"}))}}
+                action = {()=>{action( new PageObjcet(PageId.Home, {title: "Home"}))}}
             />
             <NaviButton
-                title = "test"
+                title = "My Buys"
                 isSelectd = {currentPageId === PageId.Test}
-                action = {()=>{action( new PageObjcet(PageId.Test, {title: "test"}))}}
+                action = {()=>{action( new PageObjcet(PageId.Test, {title: "My Buys"}))}}
             />
 
             <NaviButton
-                title = "testPopup"
-                isSelectd = {false}
-                action = {()=>{ action( new PageObjcet(PageId.Test, {title: "test popup"}, true) )}}
-            />
-
-            <NaviButton
-                title = "Sample"
-                isSelectd = {false}
-                action = {()=>{ action( new PageObjcet(PageId.Sample, {title: "Sample"}, true) )}}
+                title = "My Store"
+                isSelectd = {currentPageId === PageId.Store}
+                action = {()=>{ action( new PageObjcet(PageId.Test, {title: "My Store"}, true) )}}
             />
         </Tab>
     )
