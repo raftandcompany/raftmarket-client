@@ -7,6 +7,9 @@ import InputText from "skeleton/component/input/InputText";
 import InputLabel from "skeleton/component/input/InputLabel";
 import MoreButton from "skeleton/component/button/MoreButton";
 import SearchBox from "skeleton/component/search/SearchBox";
+import CardTypeRow from "skeleton/component/card/CardTypeRow";
+import CardTypeCol from "skeleton/component/card/CardTypeCol";
+
 import Typography from "skeleton/component/text/Typography";
 
 import {Title} from "style/textStyle";
@@ -105,9 +108,28 @@ export default function PageSample({pageObj}){
 
 
             <ListTitle children1={<span>Top NFTs</span>} icon="King" children2="See All Rankings" type="blue" />
+            <StyledScrollWrap>
+                <div class="list list-scroll">
+                    <CardTypeRow size="medium" />
+                    <CardTypeRow size="medium" />
+                    <CardTypeRow size="medium" />
+                    <CardTypeRow size="medium" />
+                </div>
+            </StyledScrollWrap>
 
             <ListTitle children1={<span>Newly Minuted</span>} children2="See More" />
 
+            <div className="list list-collection">
+                <CardTypeRow size="small" />
+                <CardTypeRow size="small" />
+                <CardTypeRow size="small" />
+            </div>
+            <div className="list">
+                <CardTypeRow size="large" />
+                <CardTypeRow size="large" />
+                <CardTypeRow size="large" />
+            </div>
+            <CardTypeRow />
 
 
             <div style={{height:600}}></div>

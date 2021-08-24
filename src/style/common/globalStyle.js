@@ -37,4 +37,8 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
       width:100%;
   }
+
+  .list {
+      overflow:hidden;
+  }
 `;
