@@ -10,5 +10,7 @@ export const color = {
     blueLight: '#76ADFF',
     purpleDark: '#8D6AE5',
     purpleLight: '#A5A6F6',
-    red: '#D95757'
+    red: '#D95757',
+    pink: '#EF5DA8',
+    orange: '#FC9144'
 }

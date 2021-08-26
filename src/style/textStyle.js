@@ -15,6 +15,7 @@ export const TitleLarge = styled.h3`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    height: ${rem(24)};
 
     span {
         line-height: ${rem(24)};
