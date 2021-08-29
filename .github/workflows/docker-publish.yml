@@ -47,6 +47,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Push image
+        id: build-image
         run: |
           IMAGE_ID=621063010376.dkr.ecr.ap-northeast-2.amazonaws.com/$IMAGE_NAME
 
