@@ -39,55 +39,12 @@ export const setSize = size => {
 }
 
 export const card = css`
-    ${({ size }) => setSize(size)};
-    ${props => props.multiple ? `float:left` : null };
     overflow: hidden;
     padding: ${rem(24)} 0;
-`;
-
-export const CardRow = styled.div`
-    ${card};
-`;
-
-export const CardAction = styled.a.attrs(props => ({
-    href: props.href
-}))`
-    display: block;
-    width: 100%;
-    position: relative;
-    .ico-favorite {
-        position:absolute;
-        right: ${rem(12)};
-        top: ${rem(8)};
-    }
-
-    .image {
-        overflow: hidden;
-        position: relative;
-        padding-top: 75%;
-
-        border-radius: ${rem(8)};
-
-        .list-scroll & {
-            padding-top: 80%;
-        }
-    }
-`;
-
-
-export const CardContent = styled.div`
-    overflow: hidden;
-    position: relative;
     .typo-emphasis {
         display: block;
-        margin-top: ${rem(13)};
-        margin-bottom: ${rem(12)};
-        line-height: ${rem(20)};
-        font-size: ${rem(16)};
-        font-weight: 600;
         color: ${color.white};
         svg {
-            margin-right: ${rem(8)};
             vertical-align: ${rem(-1)};
         }
     }
@@ -96,10 +53,12 @@ export const CardContent = styled.div`
         margin-bottom: ${rem(6)};
         line-height: ${rem(14)};
         font-size: ${rem(12)};
-        color: ${color.purpleLight};
 
         & + .typo-body1 {
             margin-top: ${rem(4)};
+        }
+        &.pre {
+            color: ${color.gray3};
         }
         &.basket {
             color: ${color.orange};
@@ -118,7 +77,131 @@ export const CardContent = styled.div`
         line-height: ${rem(14)};
         font-size: ${rem(13)};
         color: ${color.gray3};
+        &.status {
+            display:flex;
+            align-items:center;
+            line-height: ${rem(28)};
+            font-size: ${rem(16)};
+            span {
+                margin-right: ${rem(8)};
+                svg {
+                    vertical-align: ${rem(-3)};
+                }
+            }
+        }
+        &.cart {
+            color: ${color.purpleLight};
+        }
+        &.list {
+            color: ${color.blueLight};
+        }
+        &.offer {
+            color: ${color.orange};
+        }
+        &.transfer {
+            color: ${color.pink};
+        }
     }
+`;
+
+export const CardRow = styled.div`
+    ${card};
+    ${({ size }) => setSize(size)};
+    ${props => props.multiple ? `float:left` : null };
+
+    .image {
+        margin-bottom: ${rem(12)};
+    }
+    .typo-emphasis {
+        margin-bottom: ${rem(12)};
+        line-height: ${rem(20)};
+        font-size: ${rem(16)};
+        font-weight: 600;
+        svg {
+            margin-right: ${rem(8)};
+        }
+    }
+    .typo-body1 {
+        color: ${color.purpleLight};
+    }
+`;
+
+export const CardCol = styled.div`
+    ${card};
+    margin-bottom: ${rem(12)};
+    padding: ${rem(12)} ${rem(9)};
+    border-radius: ${rem(12)};
+    background-color: ${color.blackCard};
+
+    .image {
+        float:left;
+        margin-top: ${rem(2)};
+        margin-right: ${rem(16)};
+        width: ${rem(88)};
+        padding-top: ${rem(88)} !important;
+    }
+    .typo-emphasis {
+        line-height: ${rem(28)};
+        font-size: ${rem(18)};
+        font-weight: 500;
+        svg {
+            margin-right: ${rem(12)};
+            transform: scale(1.2);
+        }
+        .bar {
+            margin: 0 ${rem(16)};
+            border-left: 1px solid ${color.gray2};
+        }
+        .unit {
+            margin-left: ${rem(8)};
+            font-size: ${rem(12)};
+            color: ${color.gray3};
+        }
+    }
+    .owner {
+        display:flex;
+        align-items:center;
+        clear: both;
+        margin-top: ${rem(22)};
+        height: ${rem(20)};
+        > * {
+            display:flex;
+            align-items:center;
+        }
+        svg {
+            margin: 0 ${rem(16)};
+        }
+    }
+`;
+
+export const CardAction = styled.a.attrs(props => ({
+    href: props.href
+}))`
+    display: block;
+    width: 100%;
+    position: relative;
+    .ico-favorite {
+        position:absolute;
+        right: ${rem(12)};
+        top: ${rem(8)};
+    }
+
+    .image {
+        overflow: hidden;
+        position: relative;
+        padding-top: 75%;
+        border-radius: ${rem(8)};
+
+        .list-scroll & {
+            padding-top: 80%;
+        }
+    }
+`;
+
+
+export const CardContent = styled.div`
+    overflow: hidden;
+    position: relative;
 `;
 
 export const CardImage = styled.img.attrs(props => ({
@@ -130,4 +213,14 @@ export const CardImage = styled.img.attrs(props => ({
     top:0;
     object-fit: cover;
 
+`;
+
+export const UserImage = styled.span`
+    display: inline-block;
+    margin-right: ${rem(8)};
+    width: ${rem(20)};
+    height: ${rem(20)};
+    border-radius: 50%;
+    background-color : ${color.gray2};
+    background-image: ${props => props.src};
 `;

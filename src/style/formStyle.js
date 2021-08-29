@@ -99,6 +99,7 @@ export const StyledDialog = styled.div`
     position:fixed;
     left: 0;
     right: 0;
+    z-index:99;
     bottom: ${rem(48)};
     text-align: center;
     p {

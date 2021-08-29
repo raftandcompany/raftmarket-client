@@ -109,7 +109,7 @@ export default function PageSample({pageObj}){
 
             <ListTitle children1={<span>Top NFTs</span>} icon="King" children2="See All Rankings" type="blue" />
             <StyledScrollWrap>
-                <div class="list list-scroll">
+                <div className="list list-scroll">
                     <CardTypeRow size="medium" />
                     <CardTypeRow size="medium" />
                     <CardTypeRow size="medium" />
@@ -127,12 +127,14 @@ export default function PageSample({pageObj}){
             <div className="list">
                 <CardTypeRow size="large" />
                 <CardTypeRow size="large" />
-                <CardTypeRow size="large" />
             </div>
-            <CardTypeRow />
 
+            <div className="list">
+                <CardTypeCol />
+                <CardTypeCol />
+            </div>
 
-            <div style={{height:600}}></div>
+            <div style={{height:600}}>여백용</div>
         </PageBg>
     )
 }

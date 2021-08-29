@@ -27,8 +27,9 @@ function Typography({ variant = 'body1', variantMapping = defaultMapping, childr
     if (component === undefined) {
         throw Error(`variant ${variant} is not exist`)
     }
+    name === undefined ? name = '' : name = ' ' + name;
 
-    return React.createElement(component, {className: name + ' typo-'+variant}, children)
+    return React.createElement(component, {className: 'typo-' + variant + name}, children)
 }
 
 export default Typography;
