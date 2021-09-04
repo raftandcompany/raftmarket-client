@@ -16,12 +16,11 @@ export const TitleLarge = styled.h3`
     text-overflow: ellipsis;
     white-space: nowrap;
     height: ${rem(24)};
-
+    font-size: ${rem(18)};
+    color: ${color.white};
+    font-weight: 600;
     span {
-        line-height: ${rem(24)};
-        font-size: ${rem(18)};
-        color: ${color.white};
-        font-weight: 600;
+
     }
     svg {
         margin-left: ${rem(8)};

@@ -9,7 +9,7 @@ import MoreButton from "skeleton/component/button/MoreButton";
 import SearchBox from "skeleton/component/search/SearchBox";
 import CardTypeRow from "skeleton/component/card/CardTypeRow";
 import CardTypeCol from "skeleton/component/card/CardTypeCol";
-
+import Category from "skeleton/component/card/Category";
 import Typography from "skeleton/component/text/Typography";
 
 import {Title} from "style/textStyle";
@@ -131,8 +131,9 @@ export default function PageSample({pageObj}){
 
             <div className="list">
                 <CardTypeCol />
-                <CardTypeCol />
             </div>
+
+            <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
 
             <div style={{height:600}}>여백용</div>
         </PageBg>

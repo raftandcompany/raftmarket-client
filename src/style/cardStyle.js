@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { color } from 'style/common/variable';
-import { rem, radiusBox, ellipsis } from 'style/common/mixin';
+import { rem, radiusBox, ellipsis, typoBody1, typoBody2 } from 'style/common/mixin';
 
 export const setSize = size => {
     switch (size) {
@@ -49,10 +49,9 @@ export const card = css`
         }
     }
     .typo-body1 {
+        ${typoBody1};
         ${ellipsis};
         margin-bottom: ${rem(6)};
-        line-height: ${rem(14)};
-        font-size: ${rem(12)};
 
         & + .typo-body1 {
             margin-top: ${rem(4)};
@@ -72,10 +71,9 @@ export const card = css`
         }
     }
     .typo-body2 {
+        ${typoBody2};
         ${ellipsis};
         margin-bottom: ${rem(6)};
-        line-height: ${rem(14)};
-        font-size: ${rem(13)};
         color: ${color.gray3};
         &.status {
             display:flex;
@@ -221,6 +219,23 @@ export const UserImage = styled.span`
     width: ${rem(20)};
     height: ${rem(20)};
     border-radius: 50%;
-    background-color : ${color.gray2};
-    background-image: ${props => props.src};
+    background: ${color.gray2} ${props => `url(${props.src}) no-repeat 50%/100% auto`};
+`;
+
+export const CategoryBox = styled.div`
+    padding: ${rem(180)} ${rem(24)} ${rem(40)};
+    width: 100%;
+    height: ${rem(328)};
+    background: ${props => `url(${props.background}) no-repeat 50%/100% auto`};
+
+    h3 {
+        margin-bottom: ${rem(16)};
+        text-transform: capitalize;
+    }
+    a {
+        display: none;
+    }
+    .typo-body2 {
+        ${typoBody2};
+    }
 `;

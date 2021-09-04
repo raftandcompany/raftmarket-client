@@ -36,6 +36,15 @@ export const ellipsis = css`
 	text-overflow: ellipsis;
 `;
 
+export const typoBody1 = css`
+	line-height: ${rem(14)};
+	font-size: ${rem(12)};
+`;
+export const typoBody2 = css`
+	line-height: ${rem(14)};
+	font-size: ${rem(13)};
+`;
+
 /* height: ${props => rem(props.height)};
 line-height: ${props => rem(props.height)};
 border-radius: ${props => rem(props.radius)}; */
