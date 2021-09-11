@@ -1,7 +1,7 @@
 import React from "react"
 import {PageBg} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-import {Title} from "../../style/textStyle";
+import {Title} from "../../../style/textStyle";
 
 export default function PageIntro({pageObj}){
     return (

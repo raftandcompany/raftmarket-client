@@ -4,7 +4,7 @@ import { CardRow, CardAction, CardImage, CardContent }  from "style/cardStyle";
 import { SvgPrice, SvgTime, SvgBasket, SvgStar, SvgStarFill }  from "asset/SvgImg";
 
 
-function CardTypeRow({ size = 'full', ...props }) {
+function CardTypeRow({ size = 'full', data, ...props }) {
     return (
         <CardRow size={size}>
             <CardAction>
@@ -14,19 +14,19 @@ function CardTypeRow({ size = 'full', ...props }) {
                 <i className="ico-favorite"><SvgStar /><SvgStarFill /></i>
                 <CardContent>
                     <Typography variant="emphasis">
-                        <SvgPrice />0.066
+                        <SvgPrice />{data.price}
                     </Typography>
                     <Typography variant="body2">
-                        Otter #93
+                        {data.title}
                     </Typography>
                     <Typography variant="body1">
-                        Otter #93
+                        {data.subTitle}
                     </Typography>
                     <Typography variant="body1" name="basket">
-                        <SvgBasket />Last sold: 0.99 ETHETHETH ETHETH
+                        <SvgBasket />{data.contractedInfo} 
                     </Typography>
                     <Typography variant="body1" name="time">
-                        <SvgTime />2 days left
+                        <SvgTime />{data.createdDate}
                     </Typography>
                 </CardContent>
             </CardAction>

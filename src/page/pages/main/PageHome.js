@@ -16,6 +16,7 @@ import ItemAsset, {AssetData} from "page/component/item/ItemAsset"
 import {Title} from "style/textStyle"
 import SearchBox from "skeleton/component/search/SearchBox";
 import RoundButton from "skeleton/component/button/RoundButton";
+import CardTypeRow from "../../../skeleton/component/card/CardTypeRow";
 
 
 export default function PageHome({pageObj}){
@@ -94,8 +95,11 @@ export default function PageHome({pageObj}){
     const CollectionItemList = ({ set }) =>
         <div>
             <Title>{ set.name }</Title>
-            { set.datas.map(data => <Scroll.Element key={ uuidv4().toString() }><ItemAsset data={data}/></Scroll.Element>) }
+            <div className="list list-collection">
+                { set.datas.map( data => <ItemAsset data={data}/>) }
+            </div>
         </div>
+
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
@@ -113,6 +117,9 @@ export default function PageHome({pageObj}){
                 </div>
             </StyledScrollWrap>
             { assets.map(set => <CollectionItemList  key={ uuidv4().toString() } set={ set }/>) }
+
+
+
 
         </PageBg>
     )

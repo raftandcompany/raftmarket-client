@@ -95,7 +95,7 @@ export const PageId = Object.freeze ({
     Home : 100,
     Login : 9000,
     Regist : 9001,
-    Sample : 11,
+    Sample : 501,
 })
 
 

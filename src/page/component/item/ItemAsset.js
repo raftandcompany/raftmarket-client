@@ -1,17 +1,18 @@
-import {ItemBg} from "../../../style/listStyle";
-import {TextA, Title} from "../../../style/textStyle";
 import React from "react";
-import {v4 as uuidv4} from "uuid";
+import { format } from "date-fns"
+import CardTypeRow from "../../../skeleton/component/card/CardTypeRow";
 
 export class AssetData{
     constructor(data) {
-        this.title = data.collectionName
-        this.subTitle = data.currency + " ( " + data.chain + ")"
-        this.collectionAddress = data.collectionAddress
-        this.assetId = data.assetId
+        this.data = data
+        this.date = new Date(data.created);
+
+        this.title = data.collectionName == null ? "제목좀 넣어줘" : data.collectionName
+        this.subTitle = (data.currency == null ? "코인명 넣어줘" : data.currency ) + " ( " + data.chain + ")"
         this.price = data.price
-        this.date = data.created
-        this.color = "purple"
+        this.contractedInfo = "마지막 거래정보좀 넣어줘";
+        this.createdDate = format(this.date, "MMMM do, yyyy");
+
     }
     /*
     "chain": "RINKEBY",
@@ -29,11 +30,6 @@ export class AssetData{
 
 export default function ItemAsset({data}){
     return (
-        <ItemBg color={data.color}>
-            <Title>{data.title}</Title>
-            <TextA>{data.subTitle}</TextA>
-            <TextA>{data.price}</TextA>
-            <TextA>{data.date}</TextA>
-        </ItemBg>
+        <CardTypeRow size="medium" data={data}/>
     )
 }
