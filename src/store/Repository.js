@@ -10,6 +10,7 @@ class Repository {
         this.createObservable()
         this.TAG = "Repository"
         this.restApi = AppRestApi()
+        this.web3 = null
         this.subscribe()
     }
     createObservable(){

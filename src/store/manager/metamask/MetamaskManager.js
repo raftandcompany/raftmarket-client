@@ -11,6 +11,7 @@ class MetamaskManager {
         this.request = null
         this.exchange = Exchange.default
 
+
     }
 
     createObservable(){

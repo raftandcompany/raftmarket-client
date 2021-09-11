@@ -1,10 +1,10 @@
 import { utils } from 'web3-react'
 import metamask from '@metamask/onboarding'
-import Web3 from 'web3-react'
+import  Web3 from "web3-react"
 
 const ethereum = window.ethereum
-
 const ZeroHex = '0x00'
+
 
 const Metamask = {
 
@@ -45,7 +45,7 @@ const Metamask = {
     },
     // 컨트랙트 연결
     getContract: (address, abi) => {
-        const web3 = new Web3(ethereum)
+        const web3 = window.web3 //new Web3(ethereum)
         const contract = new web3.eth.Contract(abi, address)
         return contract
     },
@@ -67,7 +67,7 @@ const Metamask = {
     },
     // 서명 복구
     recover: async (message, sig) => {
-        const web3 = new Web3(ethereum)
+        const web3 = window.web3 //new Web3(ethereum)
         const rec = await web3.eth.personal.ecRecover(message, sig)
         return rec
     },
