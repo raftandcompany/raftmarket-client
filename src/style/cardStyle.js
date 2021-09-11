@@ -223,8 +223,8 @@ export const UserImage = styled.span`
 `;
 
 export const CategoryBox = styled.div`
+    margin: 0 ${rem(-16)};
     padding: ${rem(180)} ${rem(24)} ${rem(40)};
-    width: 100%;
     height: ${rem(328)};
     background: ${props => `url(${props.background}) no-repeat 50%/100% auto`};
 
