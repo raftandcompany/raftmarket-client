@@ -97,6 +97,7 @@ export default function PageHome({pageObj}){
             <div className="list list-collection">
                 { set.datas.map( data =>
                     <ItemAsset
+                        size="small"
                         key={ uuidv4().toString() }
                         data={data}
                         action = {()=> {
@@ -129,4 +130,3 @@ export default function PageHome({pageObj}){
 
 
 }
-

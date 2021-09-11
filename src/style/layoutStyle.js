@@ -23,7 +23,7 @@ export const Popup = styled.div`
 export const PageBg = styled.div`
   position: ${props => props.isPopup ? "absolute" : "relative" };
   animation: 0.5s ${props => props.ani || Ani.fadeIn};
-  padding: ${rem(16)};
+  padding: ${rem(16)} ${rem(16)} ${rem(80)};
   background: ${props => props.color || Var.color.black};
   left: 0;
   top: 0;
@@ -45,6 +45,9 @@ export const Table = styled.div`
 
 
 export const Tab = styled.div`
+    position:fixed;
+    left:0;
+    bottom:0;
     animation: ls ${Ani.fadeIn};
     padding-bottom:${rem(6)};
     width: 100%;

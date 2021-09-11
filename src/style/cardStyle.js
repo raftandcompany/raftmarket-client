@@ -40,7 +40,7 @@ export const setSize = size => {
 
 export const card = css`
     overflow: hidden;
-    padding: ${rem(24)} 0;
+    padding: 0 0 ${rem(24)};
     .typo-emphasis {
         display: block;
         color: ${color.white};
