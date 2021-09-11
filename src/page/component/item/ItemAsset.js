@@ -43,7 +43,7 @@ export class AssetData{
                 return new OwnerData(owner, index === (count-1))
             })
         }
-        console.log("this.owners", this.owners)
+
         if (data.meta!= null) {
             this.displayName = data.meta.name
             this.description = data.meta.description

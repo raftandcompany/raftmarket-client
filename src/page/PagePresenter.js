@@ -32,8 +32,8 @@ class PagePresenter {
         this.updateHistory(pageObj)
         console.log(this.TAG, "changePage " + pageObj.pageId)
         runInAction( () => {
-            this.event = new PageEvent(PageEventType.ChangePage, pageObj)
             pageObj.isPopup = false
+            this.event = new PageEvent(PageEventType.ChangePage, pageObj)
             this.pageObj = pageObj
         })
     }
@@ -41,8 +41,8 @@ class PagePresenter {
     openPopup(pageObj){
         console.log(this.TAG, "openPopup " + pageObj.pageId)
         runInAction( () => {
-            this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
             pageObj.isPopup = true
+            this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
             this.popups.push(pageObj)
         })
 
@@ -88,12 +88,23 @@ class PagePresenter {
                 return <Page.Home key={pageObj.id} pageObj={pageObj}></Page.Home>
             case PageId.MyAsset :
                 return <Page.MyAsset key={pageObj.id} pageObj={pageObj}></Page.MyAsset>
+
             case PageId.Asset :
                 return <Page.Asset key={pageObj.id} pageObj={pageObj}></Page.Asset>
+
+
+            case PageId.CreateListing :
+                return <Page.CreateListing key={pageObj.id} pageObj={pageObj}></Page.CreateListing>
+            case PageId.CreateOffer :
+                return <Page.CreateOffer key={pageObj.id} pageObj={pageObj}></Page.CreateOffer>
+
+
             case PageId.Login :
                 return <Page.Login key={pageObj.id} pageObj={pageObj}></Page.Login>
             case PageId.Regist :
                 return <Page.Regist key={pageObj.id} pageObj={pageObj}></Page.Regist>
+
+
             case PageId.Test :
                 return <Page.Test key={pageObj.id} pageObj={pageObj}></Page.Test>
             case PageId.Sample :
@@ -118,6 +129,8 @@ export const PageId = Object.freeze ({
     Home : 100,
     MyAsset: 200,
     Asset : 1001,
+    CreateListing: 1002,
+    CreateOffer: 1003,
     Login : 9000,
     Regist : 9001,
     Sample : 501,

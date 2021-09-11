@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ethersproject/providers": "^5.4.5",
     "@metamask/onboarding": "^1.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@use-gesture/react": "^10.0.0-beta.22",
+    "@web3-react/core": "^6.1.9",
     "axios": "^0.21.1",
     "date-fns": "^2.23.0",
     "mobx": "^6.3.2",
@@ -23,7 +25,9 @@
     "styled-components": "^5.3.0",
     "styled-reset": "^4.3.4",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "web3": "^1.5.2",
+    "web3-react": "^5.0.5"
   },
   "scripts": {
     "start": "export PORT=80 && react-scripts start",
@@ -50,6 +54,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
     "@svgr/cli": "^5.5.0"
   }
 }

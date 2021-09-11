@@ -1,6 +1,6 @@
 import React from "react"
 import { MoreButton }  from "style/textButton"
-import { SvgArrowRight } from "asset/SvgImg";
+import {SvgArrowRight, SvgKing} from "asset/SvgImg";
 
 function Button({ children, icon, type, ...rest }) {
     return (

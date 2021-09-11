@@ -9,9 +9,9 @@ import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import {OrderData, ItemListing, ItemOffer} from "page/component/item/ItemOrder"
-import {Title} from "style/textStyle"
 import {AssetData, ItemAssetArt} from "page/component/item/ItemAsset"
-import PageTab from "../../component/tab/PageTab";
+import PageTab from "page/component/tab/PageTab";
+import ListTitle from "skeleton/component/title/ListTitle";
 
 
 
@@ -22,6 +22,7 @@ export default function PageAsset({pageObj}){
     const [offers, setOffers] = useState([])
     let dataProvider = AppDataProvider()
     let disposer = null
+
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -34,7 +35,7 @@ export default function PageAsset({pageObj}){
         let address = AppMetamaskManager().accounts[0]
         console.log(TAG, address)
         let data = pageObj.params["data"].data
-        console.log(TAG, data)
+
         let params = {
             collectionAddress: data.collectionAddress,
             assetId: data.assetId,
@@ -83,12 +84,16 @@ export default function PageAsset({pageObj}){
             ? <div></div>
             : <ItemAssetArt data={data}/>
 
-    const ListingItemList = ({ datas }) =>
+    const ListingItemList = ({ datas, assetData }) =>
         <div>
-            <Title>Listing</Title>
+            <ListTitle title={<span>Listing</span>} icon="Listing" more="Add Listing" type="blue"
+                       action={()=> {
+                           let pageObj = new PageObjcet(PageId.CreateListing, {data: assetData})
+                           AppPagePresenter().openPopup(pageObj)
+                       }} />
             <div className="list">
                 { datas.map( data =>
-                    <ItemListing
+                    <ItemListing key={ uuidv4().toString() }
                         data={data}
                         action = {()=> {
 
@@ -98,12 +103,16 @@ export default function PageAsset({pageObj}){
             </div>
         </div>
 
-    const OfferItemList = ({ datas }) =>
+    const OfferItemList = ({ datas , assetData}) =>
         <div>
-            <Title>Offer</Title>
+            <ListTitle title={<span>Offer</span>} icon="Offer" more="Add Offer" type="red"
+                       action={()=> {
+                           let pageObj = new PageObjcet(PageId.CreateOffer, {data: assetData})
+                           AppPagePresenter().openPopup(pageObj)
+                       }}/>
             <div className="list">
                 { datas.map( data =>
-                    <ItemOffer
+                    <ItemOffer key={ uuidv4().toString() }
                         data={data}
                         action = {()=> {
 
@@ -114,11 +123,13 @@ export default function PageAsset({pageObj}){
         </div>
 
     return (
-        <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
+        <PageBg
+            isPopup={pageObj.isPopup}
+            ani={pageObj.isPopup ? slideInUp : fadeIn}>
             <PageTab pageObj={pageObj}/>
             { <Header  key={ uuidv4().toString() } data={ asset }/> }
-            { <ListingItemList  key={ uuidv4().toString() } datas={ listings }/> }
-            { <OfferItemList  key={ uuidv4().toString() } datas={ offers }/> }
+            { <ListingItemList  key={ uuidv4().toString() } datas={ listings} assetData = {asset}/> }
+            { <OfferItemList  key={ uuidv4().toString() } datas={ offers } assetData = {asset}/> }
         </PageBg>
     )
 }
