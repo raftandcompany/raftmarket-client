@@ -7,6 +7,18 @@ class PagePresenter {
     constructor() {
         this.createObservable()
         this.TAG = "PagePresenter"
+        this.historys = []
+        window.onhashchange = () => {
+            if (window.location.hash === "") {return}
+            let params =  window.location.hash.replace("#", "").split("|")
+            if (params.length != 2){return}
+            let id = params[1]
+            console.log(this.TAG, "onhashchange  " + window.location.hash)
+        }
+    }
+    updateHistory(pageObj) {
+        window.location.hash = pageObj.pageId + "|" + pageObj.id
+        this.historys.push(this.pageObj)
     }
 
     createObservable(){
@@ -17,6 +29,7 @@ class PagePresenter {
     }
 
     changePage(pageObj){
+        this.updateHistory(pageObj)
         console.log(this.TAG, "changePage " + pageObj.pageId)
         runInAction( () => {
             this.event = new PageEvent(PageEventType.ChangePage, pageObj)
@@ -46,6 +59,12 @@ class PagePresenter {
         })
     }
 
+    closeAllPopup(){
+        runInAction( () => {
+            this.popups = []
+        })
+    }
+
     closePopupByPageId(pageId){
         runInAction( () => {
             let found = this.popups.findIndex(element => element.pageId === pageId )
@@ -67,6 +86,10 @@ class PagePresenter {
                 return <Page.Intro key={pageObj.id} pageObj={pageObj}></Page.Intro>
             case PageId.Home :
                 return <Page.Home key={pageObj.id} pageObj={pageObj}></Page.Home>
+            case PageId.MyAsset :
+                return <Page.MyAsset key={pageObj.id} pageObj={pageObj}></Page.MyAsset>
+            case PageId.Asset :
+                return <Page.Asset key={pageObj.id} pageObj={pageObj}></Page.Asset>
             case PageId.Login :
                 return <Page.Login key={pageObj.id} pageObj={pageObj}></Page.Login>
             case PageId.Regist :
@@ -93,6 +116,8 @@ export const PageId = Object.freeze ({
     Test : 1,
     Intro : 0,
     Home : 100,
+    MyAsset: 200,
+    Asset : 1001,
     Login : 9000,
     Regist : 9001,
     Sample : 501,

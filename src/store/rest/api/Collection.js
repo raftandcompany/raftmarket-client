@@ -3,6 +3,18 @@ import * as Rest from  "store/rest/Rest"
 
 const path = Rest.API_PATH + "collections"
 
+export const Category = Object.freeze ({
+    New:"NEW",
+    Art: "ART",
+    Music: "MUSIC",
+    Sports: "SPORTS",
+    VirtualRealrity: "VIRTUAL_REALRITY",
+    TradingCard: "TRADING_CARD",
+    CollectiveItems: "COLLECTIVE_ITEMS",
+    DomainName: "DOMAIN_NAME"
+})
+
+
 export function get(data, cancel){
     return Axios.request({
         method: 'get',
@@ -17,7 +29,7 @@ export function get(data, cancel){
     })
 }
 
-export function getCollectionAddress(collectionAddress, cancel){
+export function getById(collectionAddress, cancel){
     return Axios.request({
         method: 'get',
         url: path + "/" + collectionAddress,

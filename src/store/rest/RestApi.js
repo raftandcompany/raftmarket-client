@@ -4,8 +4,7 @@ import * as Rest from "store/rest/Rest"
 import * as Account from  "store/rest/api/Account"
 import * as Asset from  "store/rest/api/Asset"
 import * as History from  "store/rest/api/History"
-import * as Listing from  "store/rest/api/Listing"
-import * as Offer from  "store/rest/api/Offer"
+import * as Order from "store/rest/api/Order"
 import * as Collection from  "store/rest/api/Collection"
 class RestApi {
     constructor() {
@@ -70,20 +69,22 @@ class RestApi {
                 return Account.post(request.params, cancel)
             case Rest.ApiType.getAsset :
                 return Asset.get(request.params, cancel)
-            case Rest.ApiType.postAsset :
-                return Asset.post(request.params, cancel)
+            case Rest.ApiType.getAssetById :
+                return Asset.getById(request.params, cancel)
+            case Rest.ApiType.getAssetSearch :
+                return Asset.getSearch(request.params, cancel)
             case Rest.ApiType.getHistoryTrading :
                 return History.getTrading(request.params, cancel)
             case Rest.ApiType.getHistoryPrice :
                 return History.getPrice(request.params, cancel)
-            case Rest.ApiType.getListing :
-                return Listing.get(request.params, cancel)
-            case Rest.ApiType.getOffer :
-                return Offer.get(request.params, cancel)
+            case Rest.ApiType.getListings :
+                return Order.getListings(request.params, cancel)
+            case Rest.ApiType.getOffers :
+                return Order.getOffers(request.params, cancel)
             case Rest.ApiType.getCollection :
                 return Collection.get(request.params, cancel)
-            case Rest.ApiType.getCollectionAddress :
-                return Collection.getCollectionAddress(request.params, cancel)
+            case Rest.ApiType.getCollectionById :
+                return Collection.getById(request.params, cancel)
             default : return null
         }
     }

@@ -28,7 +28,7 @@ class DataProvider {
 }
 
 export class DataRequest {
-    constructor(type, params, isOption = false, id = null) {
+    constructor(type, params, id = null,  isOption = false) {
         this.id = id == null ? uuidv4() : id
         this.type = type
         this.params = params
@@ -37,10 +37,11 @@ export class DataRequest {
 }
 
 export class DataResponse {
-    constructor( type, data, id) {
+    constructor( type, data, isOption , id) {
         this.id = id
         this.type = type
         this.data = data
+        this.isOption = isOption
     }
 }
 
