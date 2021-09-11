@@ -86,9 +86,6 @@ export default function PageLogin({pageObj}){
                     metamaskManager = {metamaskManager}/>
 
             </StyledFullButtonWrap>
-
-
-
         </PageBg>
     )
 }

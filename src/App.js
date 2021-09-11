@@ -7,32 +7,36 @@ import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab"
 import {Popup, Body} from "style/layoutStyle"
 import {GlobalStyle} from "style/common/globalStyle"
-import { Web3ReactProvider } from '@web3-react/core'
-import { useWeb3React } from "@web3-react/core"
-import  Web3 from "web3-react"
+import Web3 from "web3"
 
 const TAG = "App"
 const repository = AppRepository()
 const presenter = AppPagePresenter()
 const controller = AppController()
 
-function App (){
-    const getLibrary = (provider) => {
-        let web3 =  new Web3(provider)
-        console.log("App Web3", web3)
-        window.web3 = web3
-        return web3
-    }
 
-    return(
-        <Web3ReactProvider getLibrary={getLibrary}>
-            <AppBody/>
-        </Web3ReactProvider>
-    )
+function App (){
+    return <AppBody/>
 }
 
+
+
 function AppBody (){
-    const { connector, activate, deactivate, active } = useWeb3React()
+
+    React.useEffect(() => {
+        onAppear()
+        onSubscribe()
+        return () => onDisappear ()
+    }, []);
+
+    function onAppear (){
+    }
+
+    function onSubscribe(){
+    }
+
+    function onDisappear (){
+    }
     return(
         <Body className="App">
             <GlobalStyle />
