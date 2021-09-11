@@ -107,7 +107,7 @@ export default function PageSample({pageObj}){
             </StyledScrollWrap>
 
 
-            <ListTitle children1={<span>Top NFTs</span>} icon="King" children2="See All Rankings" type="blue" />
+            <ListTitle title={<span>Top NFTs</span>} icon="King" more="See All Rankings" type="blue" />
             <StyledScrollWrap>
                 <div className="list list-scroll">
                     <CardTypeRow size="medium" />
@@ -117,7 +117,7 @@ export default function PageSample({pageObj}){
                 </div>
             </StyledScrollWrap>
 
-            <ListTitle children1={<span>Newly Minuted</span>} children2="See More" />
+            <ListTitle title={<span>Newly Minuted</span>} more="See More" />
 
             <div className="list list-collection">
                 <CardTypeRow size="small" />

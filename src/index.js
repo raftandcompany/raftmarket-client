@@ -22,9 +22,7 @@ import {GlobalStyle} from "./style/common/globalStyle"
 ReactDOM.render(
   <React.StrictMode>
   <GlobalStyle />
-
     <App />
-    <Page.Sample />
   </React.StrictMode>,
   document.getElementById('root')
 );

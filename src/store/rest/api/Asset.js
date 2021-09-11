@@ -2,30 +2,45 @@ import Axios from 'axios'
 import * as Rest from  "store/rest/Rest"
 
 const path = Rest.API_PATH + "assets"
+
+export const SearchType = Object.freeze ({
+    Owner : "OWNER",
+    MultipleCondition : "MULTIPLE_CONDITION",
+    MainItem: "MAIN_ITEM"
+})
+
 export function get(assetId, cancel){
     return Axios.request({
         method: 'get',
-        url: path + "/" + assetId,
+        url: path + "/" + assetId ,
+        cancelToken:cancel.token
+    })
+}
+
+export function getById(data, cancel){
+    return Axios.request({
+        method: 'get',
+        url: path + "/" + data.assetId + Rest.toQueryString(data,{chain: "", collectionAddress: ""}) ,
         cancelToken:cancel.token
     })
 }
 
 
-export function post(data, cancel){
+export function getSearch(data, cancel){
     return Axios.request({
         method: 'post',
         url: path + "/search" + Rest.toQueryString(data,{page: 0, size: 10}) ,
         data: Rest.toData(data,
             {
-                assetSearchType: "OWNER",
-                nftCategory: "NEW",
-                currency: "USD",
+                assetSearchType: SearchType.MultipleCondition, //OWNER, MULTIPLE_CONDITION, MAIN_ITEM
+                collectionCategory: "", //
+                currency: "RINKEBY_ETHER",
                 minPrice: 0,
                 maxPrice: 9999,
-                status: "BUY_NOW",
-                chain: "RINKEBY",
-                collectionAddress: "collectionAddress1",
-                address: "address1",
+                status: "", //BUY_NOW, ON_AUCTION, NEW_RELEASE, RECEIEVED_OFFERS
+                chain: "RINKEBY", //RINKEBY, ETHEREUM, POLYGON, KLAYTN
+                collectionAddress: "",
+                address: "",
                 mainCategoryId: 1
             }),
         cancelToken:cancel.token

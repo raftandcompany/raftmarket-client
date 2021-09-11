@@ -14,15 +14,14 @@ export default function BottomTab({currentPageId}){
                 action = {()=>{action( new PageObjcet(PageId.Home, {title: "Home"}))}}
             />
             <NaviButton
-                title = "My Buys"
-                isSelectd = {currentPageId === PageId.Test}
-                action = {()=>{action( new PageObjcet(PageId.Test, {title: "My Buys"}))}}
+                title = "My"
+                isSelectd = {currentPageId === PageId.MyAsset}
+                action = {()=>{action( new PageObjcet(PageId.MyAsset, {title: "My"}))}}
             />
-
             <NaviButton
-                title = "My Store"
-                isSelectd = {currentPageId === PageId.Store}
-                action = {()=>{ action( new PageObjcet(PageId.Test, {title: "My Store"}, true) )}}
+                title = "Sample"
+                isSelectd = {currentPageId === PageId.Sample}
+                action = {()=>{ action( new PageObjcet(PageId.Sample, {title: "Sample"}))}}
             />
         </Tab>
     )

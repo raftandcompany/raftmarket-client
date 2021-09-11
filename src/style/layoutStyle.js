@@ -12,7 +12,7 @@ export const Body = styled.div`
 
 export const Popup = styled.div`
   position: absolute;
-  z-index: 999;
+  z-index:999;
   left: 0;
   top: 0;
   width: 100%;
@@ -21,7 +21,7 @@ export const Popup = styled.div`
 `;
 
 export const PageBg = styled.div`
-  position: ${props => props.isPopup === true ? "absolute" : "relative" };
+  position: ${props => props.isPopup ? "absolute" : "relative" };
   animation: 0.5s ${props => props.ani || Ani.fadeIn};
   padding: ${rem(16)};
   background: ${props => props.color || Var.color.black};

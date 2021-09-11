@@ -1,21 +1,18 @@
 import React ,  {useState}from "react"
 import {autorun,  observable} from "mobx"
-import {observer} from "mobx-react"
 import {v4 as uuidv4} from "uuid"
-import * as Scroll from 'react-scroll'
-
 import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
 
 import * as Rest from "store/rest/Rest"
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
-import AppPagePresenter from "page/PagePresenter"
-import ViewPager from "page/component/viewpager/ViewPagerSample"
+import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import ItemAsset, {AssetData} from "page/component/item/ItemAsset"
 import {Title} from "style/textStyle"
 import SearchBox from "skeleton/component/search/SearchBox";
 import RoundButton from "skeleton/component/button/RoundButton";
+import {Category} from "store/rest/api/Collection"
 
 
 export default function PageHome({pageObj}){
@@ -34,14 +31,17 @@ export default function PageHome({pageObj}){
         console.log(TAG, "onAppear")
         observable(this,dataProvider)
         let address = AppMetamaskManager().accounts[0]
-        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAsset, "main"))
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAsset, "main", TAG))
 
     }
 
     function onSubscribe(){
         disposer = autorun(() => {
             let response = dataProvider.response
+
             if (response != null){
+                console.log(TAG, "response " + response.id)
+                if (response.id !== TAG){return}
                 switch (response.type) {
                     case  Rest.ApiType.getAsset :
                         setAssets(response.data.map( set => {
@@ -51,7 +51,7 @@ export default function PageHome({pageObj}){
                             return obj
                         }))
                         break
-                    case  Rest.ApiType.postAsset :
+                    case  Rest.ApiType.getAssetSearch :
                         setAssets ([{
                                 name: currentCategory,
                                 datas: response.data.map(d => new AssetData(d))
@@ -91,10 +91,21 @@ export default function PageHome({pageObj}){
             type = { (currentCategory === category) ? "purple" : "blue" }
             onClick={ e=> onSearchCategory(category) }/>
 
-    const CollectionItemList = ({ set }) =>
+    const AssetItemList = ({ set }) =>
         <div>
             <Title>{ set.name }</Title>
-            { set.datas.map(data => <Scroll.Element key={ uuidv4().toString() }><ItemAsset data={data}/></Scroll.Element>) }
+            <div className="list list-collection">
+                { set.datas.map( data =>
+                    <ItemAsset
+                        key={ uuidv4().toString() }
+                        data={data}
+                        action = {()=> {
+                            let pageObj = new PageObjcet(PageId.Asset, {data: data})
+                            AppPagePresenter().openPopup(pageObj)
+                        }}
+                    />)
+                }
+            </div>
         </div>
 
     return (
@@ -102,18 +113,17 @@ export default function PageHome({pageObj}){
             <SearchBox new={true} keyword={""} back={onSearchBack}  search={onSearchKeyword} />
             <StyledScrollWrap>
                 <div>
-                    <CategoryItem name={"New"} category={"NEW"}/>
-                    <CategoryItem name={"Art"} category={"ART"}/>
-                    <CategoryItem name={"Music"} category={"MUSIC"}/>
-                    <CategoryItem name={"Sports"} category={"SPORTS"}/>
-                    <CategoryItem name={"Virtual Reality"} category={"VIRTUAL_REALRITY"}/>
-                    <CategoryItem name={"Trading Card"} category={"TRADING_CARD"}/>
-                    <CategoryItem name={"Collective Items"} category={"COLLECTIVE_ITEMS"}/>
-                    <CategoryItem name={"Domain Name"} category={"DOMAIN_NAME"}/>
+                    <CategoryItem name={"New"} category={Category.New}/>
+                    <CategoryItem name={"Art"} category={Category.Art}/>
+                    <CategoryItem name={"Music"} category={Category.Music}/>
+                    <CategoryItem name={"Sports"} category={Category.Sports}/>
+                    <CategoryItem name={"Virtual Reality"} category={Category.VirtualRealrity}/>
+                    <CategoryItem name={"Trading Card"} category={Category.TradingCard}/>
+                    <CategoryItem name={"Collective Items"} category={Category.CollectiveItems}/>
+                    <CategoryItem name={"Domain Name"} category={Category.DomainName}/>
                 </div>
             </StyledScrollWrap>
-            { assets.map(set => <CollectionItemList  key={ uuidv4().toString() } set={ set }/>) }
-
+            { assets.map(set => <AssetItemList  key={ uuidv4().toString() } set={ set }/>) }
         </PageBg>
     )
 

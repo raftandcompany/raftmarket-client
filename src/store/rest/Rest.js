@@ -22,18 +22,25 @@ export const ApiType = Object.freeze ({
     getAccount : "getAccount",
     putAccount : "putAccount",
 
-    postAsset : "postAsset",
+
     getAsset : "getAsset",
+    getAssetById : "getAssetById",
+    getAssetSearch : "gettAssetSearch",
 
     getCollection : "getCollection",
-    getCollectionAddress : "getCollectionAddress",
+    getCollectionById : "getCollectionById",
 
     getHistoryTrading : "getHistoryTrading",
     getHistoryPrice : "getHistoryPrice",
 
-    getListing : "getListing",
-    getOffer : "getOffer"
+    getListings : "getListings",
+    getOffers : "getOffers"
 })
+
+
+
+
+
 
 
 export function toQueryString(data, model, isFirst = true){
