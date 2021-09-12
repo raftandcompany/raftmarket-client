@@ -12,10 +12,10 @@ export const Title = styled.h1`
 `;
 
 export const TitleLarge = styled.h3`
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: ${rem(24)};
+    //overflow: hidden;
+    //text-overflow: ellipsis;
+    //white-space: nowrap;
+    min-height: ${rem(24)};
     font-size: ${rem(18)};
     color: ${color.white};
     font-weight: 600;

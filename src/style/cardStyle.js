@@ -40,7 +40,7 @@ export const setSize = size => {
 
 export const card = css`
     overflow: hidden;
-    padding: ${rem(24)} 0;
+    padding: 0 0 ${rem(24)};
     .typo-emphasis {
         display: block;
         color: ${color.white};
@@ -223,8 +223,8 @@ export const UserImage = styled.span`
 `;
 
 export const CategoryBox = styled.div`
+    margin: 0 ${rem(-16)};
     padding: ${rem(180)} ${rem(24)} ${rem(40)};
-    width: 100%;
     height: ${rem(328)};
     background: ${props => `url(${props.background}) no-repeat 50%/100% auto`};
 

@@ -96,9 +96,9 @@ export class OwnerData{
     */
 }
 
-export default function ItemAsset({data, action}){
+export default function ItemAsset({size, data, action}){
     return (
-        <CardTypeRow size = "medium"
+        <CardTypeRow size = {size}
                      data = {data}
                      action = {action}
                      />
