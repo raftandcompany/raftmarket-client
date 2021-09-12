@@ -7,7 +7,7 @@ import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab"
 import {Popup, Body} from "style/layoutStyle"
 import {GlobalStyle} from "style/common/globalStyle"
-import Web3 from "web3"
+
 
 const TAG = "App"
 const repository = AppRepository()
