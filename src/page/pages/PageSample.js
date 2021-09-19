@@ -14,6 +14,7 @@ import Category from "skeleton/component/card/Category";
 import Typography from "skeleton/component/text/Typography";
 
 import Share from "skeleton/component/unit/Share";
+import Util from "skeleton/component/unit/Util";
 
 
 import {Title} from "style/textStyle";

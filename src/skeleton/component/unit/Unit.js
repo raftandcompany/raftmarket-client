@@ -1,20 +1,24 @@
 import React, {useState} from "react";
 import RoundButton from "skeleton/component/button/RoundButton"
-import {ShareBox, ShareBtn} from "style/shareStyle";
+import { SvgStar, SvgStarFill }  from "asset/SvgImg";
 
-function Share({ name, ...props }) {
-    //const [searchKeyword, setSearchKeyword] = useState(keyword)
+// function Unit({ name, ...props }) {
+//     //const [searchKeyword, setSearchKeyword] = useState(keyword)
+//     return (
+//         <ShareBox>
+
+//             <ShareBtn className={`btn-${name}`}>
+//                 <RoundButton
+//                     icon = { name }
+//                     />
+//             </ShareBtn>
+
+//         </ShareBox>
+//     )
+// }
+
+export const Favorite = (checked) => {
     return (
-        <ShareBox>
-
-            <ShareBtn className={`btn-${name}`}>
-                <RoundButton
-                    icon = { name }
-                    />
-            </ShareBtn>
-
-        </ShareBox>
+        <i className="ico-favorite">{checked ? <SvgStar /> : <SvgStarFill />}</i>
     )
-}
-
-export default Share;
+};
