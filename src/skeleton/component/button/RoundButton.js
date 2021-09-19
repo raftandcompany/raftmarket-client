@@ -1,7 +1,8 @@
 import React from "react"
 import { RoundButton }  from "style/roundButton"
 import * as All from "asset/SvgCategory"
-import { SvgSearch, SvgAlarm, SvgBack, SvgFacebook } from "asset/SvgImg"
+import { SvgSearch, SvgAlarm, SvgBack } from "asset/SvgImg"
+import { SvgFacebook, svgInsta } from "asset/SvgSns"
 
 function Button({ icon, type, ...rest }) {
     return (

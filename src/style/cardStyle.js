@@ -39,8 +39,14 @@ export const setSize = size => {
 }
 
 export const card = css`
+    position: relative;
     overflow: hidden;
     padding: 0 0 ${rem(24)};
+    .btn-favorite {
+        position:absolute;
+        right: ${rem(10)};
+        top: ${rem(8)};
+    }
     .typo-emphasis {
         display: block;
         color: ${color.white};
@@ -107,7 +113,7 @@ export const CardRow = styled.div`
     ${({ size }) => setSize(size)};
     ${props => props.multiple ? `float:left` : null };
 
-    .image {
+    .card-image {
         margin-bottom: ${rem(12)};
     }
     .typo-emphasis {
@@ -131,7 +137,7 @@ export const CardCol = styled.div`
     border-radius: ${rem(12)};
     background-color: ${color.blackCard};
 
-    .image {
+    .card-image {
         float:left;
         margin-top: ${rem(2)};
         margin-right: ${rem(16)};
@@ -156,20 +162,7 @@ export const CardCol = styled.div`
             color: ${color.gray3};
         }
     }
-    .owner {
-        display:flex;
-        align-items:center;
-        clear: both;
-        margin-top: ${rem(22)};
-        height: ${rem(20)};
-        > * {
-            display:flex;
-            align-items:center;
-        }
-        svg {
-            margin: 0 ${rem(16)};
-        }
-    }
+
 `;
 
 export const CardAction = styled.a.attrs(props => ({
@@ -178,18 +171,8 @@ export const CardAction = styled.a.attrs(props => ({
     display: block;
     width: 100%;
     position: relative;
-    .ico-favorite {
-        position:absolute;
-        right: ${rem(12)};
-        top: ${rem(8)};
-    }
-
-    .image {
-        overflow: hidden;
-        position: relative;
+    .card-image {
         padding-top: 75%;
-        border-radius: ${rem(8)};
-
         .list-scroll & {
             padding-top: 80%;
         }
@@ -210,7 +193,6 @@ export const CardImage = styled.img.attrs(props => ({
     left:0;
     top:0;
     object-fit: cover;
-
 `;
 
 export const UserImage = styled.span`

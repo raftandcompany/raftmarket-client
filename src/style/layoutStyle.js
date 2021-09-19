@@ -8,6 +8,57 @@ export const Body = styled.div`
     max-width:1920px;
     width: 100%;
     height: 100%;
+
+    .owner {
+        display:flex;
+        align-items:center;
+        clear: both;
+        margin-top: ${rem(22)};
+        //height: ${rem(20)};
+        > * {
+            display:flex;
+            align-items:center;
+        }
+        svg {
+            margin: 0 ${rem(16)};
+        }
+        .type-owner {
+            //margin-top:${rem(2)};
+            margin-left: ${rem(8)};
+            color: ${Var.color.blueLight};
+            text-transform: capitalize;
+            font-size: ${rem(13)};
+        }
+    }
+
+    .detailbox {
+        padding-top: ${rem(56)};
+        .owner {
+            margin-top: ${rem(10)};
+            margin-bottom: ${rem(16)};
+            .user-img {
+                width: ${rem(24)};
+                height: ${rem(24)};
+            }
+            .text {
+                line-height: ${rem(20)};
+                font-size: ${rem(14)};
+                border-bottom: 1px solid ${Var.color.gray3};
+            }
+        }
+    }
+    .card-image {
+        overflow: hidden;
+        position: relative;
+        padding-top: 100%;
+        border-radius: ${rem(8)};
+        img {
+            position:absolute;
+            left:0;
+            top:0;
+            object-fit: cover;
+        }
+    }
 `;
 
 export const Popup = styled.div`

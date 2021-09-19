@@ -1,20 +1,20 @@
 import React, {useState} from "react";
 import RoundButton from "skeleton/component/button/RoundButton"
-import {ShareBox, ShareBtn} from "style/shareStyle";
+//import {ShareBox, ShareBtn} from "style/shareStyle";
 
 function Share({ name, ...props }) {
     //const [searchKeyword, setSearchKeyword] = useState(keyword)
-    return (
-        <ShareBox>
+    // return (
+    //     <ShareBox>
 
-            <ShareBtn className={`btn-${name}`}>
-                <RoundButton
-                    icon = { name }
-                    />
-            </ShareBtn>
+    //         <ShareBtn className={`btn-${name}`}>
+    //             <RoundButton
+    //                 icon = { name }
+    //                 />
+    //         </ShareBtn>
 
-        </ShareBox>
-    )
+    //     </ShareBox>
+    // )
 }
 
 export default Share;

@@ -1,8 +1,10 @@
 import React from "react";
 import Typography from "skeleton/component/text/Typography";
-import { CardCol, CardAction, CardImage, CardContent, UserImage }  from "style/cardStyle";
+import { Owner} from "skeleton/component/unit/Unit";
+import { CardCol, CardAction, CardContent, UserImage }  from "style/cardStyle";
 import { SvgPrice, SvgTime, SvgBasket, SvgCart, SvgArrowRight2, SvgList, SvgOffer, SvgTransfer }  from "asset/SvgImg";
 import CardUser from "skeleton/component/card/CardUser";
+import CardImage from "skeleton/component/card/CardImage";
 import {v4 as uuidv4} from "uuid";
 
 function CardTypeCol({ size = 'full', data,  ...props }) {
@@ -13,13 +15,13 @@ function CardTypeCol({ size = 'full', data,  ...props }) {
 
     const OwnerListSample = () =>
         <div className="owner">
-            <Typography variant="span">
-                <UserImage src="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" alt="image"/>Artblockmaster
-            </Typography>
+            <Owner 
+                img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                text="Artblockmaster" />
             <SvgArrowRight2 />
-            <Typography variant="span">
-                <UserImage src="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />daniel70
-            </Typography>
+            <Owner 
+                img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                text="daniel70" />
         </div>
 
     return (
@@ -28,11 +30,9 @@ function CardTypeCol({ size = 'full', data,  ...props }) {
                 <Typography variant="body1" name="pre">
                     32 seconds ago
                 </Typography>
-                <div className="image">
-                    <CardImage src={data != null
-                        ? data.art
-                        : "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" } alt="image" />
-                </div>
+                <CardImage src={data != null
+                    ? data.art
+                    : "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"} />
                 <CardContent>
                     <Typography variant="body2" name="status cart">
                         <span><SvgCart /></span>Sale
