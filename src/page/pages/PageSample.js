@@ -9,8 +9,12 @@ import MoreButton from "skeleton/component/button/MoreButton";
 import SearchBox from "skeleton/component/search/SearchBox";
 import CardTypeRow from "skeleton/component/card/CardTypeRow";
 import CardTypeCol from "skeleton/component/card/CardTypeCol";
+import CardUser from "skeleton/component/card/CardUser";
 import Category from "skeleton/component/card/Category";
 import Typography from "skeleton/component/text/Typography";
+
+import Share from "skeleton/component/unit/Share";
+
 
 import {Title} from "style/textStyle";
 import {PageBg, StyledScrollWrap} from "style/layoutStyle";
@@ -135,6 +139,13 @@ export default function PageSample({pageObj}){
 
             <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
 
+            <Share name="facebook"/>
+
+            <div>
+                <div>
+
+                </div>
+            </div>
             <div style={{height:600}}>여백용</div>
         </PageBg>
     )
