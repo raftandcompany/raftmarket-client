@@ -74,11 +74,11 @@ export const Body = styled.div`
     .title-history {
         
        button {
-            padding-left: ${rem(60)};
-            
-           > span {
-               width: 100%;
-           }
+            padding-left: ${rem(22)};
+            > span {
+                width: 100%;
+                text-align:left;
+            }
            .text-sub {
                 font-size: ${rem(14)};
            }

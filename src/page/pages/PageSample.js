@@ -25,7 +25,7 @@ import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
 import { TitleWrap }  from "style/titleWrap";
 
-
+import {SvgArrowRight} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 
@@ -62,7 +62,7 @@ export default function PageSample({pageObj}){
                 <div className="tab-content">
                     <div className="title-history">
                         <StyledFullButtonWrap>
-                            <Button2 children={<span>View History <span className="text-sub">35 sec ago</span><MoreButton /></span>} fullSize={true} />
+                            <Button2 children={<span>View History <span className="text-sub">35 sec ago</span><SvgArrowRight /></span>} fullSize={true} />
                         </StyledFullButtonWrap>
                     </div>
                 </div>
