@@ -10,11 +10,14 @@ import SearchBox from "skeleton/component/search/SearchBox";
 import CardTypeRow from "skeleton/component/card/CardTypeRow";
 import CardTypeCol from "skeleton/component/card/CardTypeCol";
 import CardUser from "skeleton/component/card/CardUser";
+import CardImage from "skeleton/component/card/CardImage";
+
 import Category from "skeleton/component/card/Category";
 import Typography from "skeleton/component/text/Typography";
 
-import Share from "skeleton/component/unit/Share";
+//import Share from "skeleton/component/unit/Share";
 import Util from "skeleton/component/unit/Util";
+import { Owner } from "skeleton/component/unit/Unit";
 
 
 import {Title} from "style/textStyle";
@@ -25,6 +28,7 @@ import { TitleWrap }  from "style/titleWrap";
 
 
 import Dialog from "skeleton/component/dialog/Dialog";
+import { Favorite } from "../../skeleton/component/unit/Unit";
 
 
 export default function PageSample({pageObj}){
@@ -140,12 +144,36 @@ export default function PageSample({pageObj}){
 
             <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
 
-            <Share name="facebook"/>
+            {/* <Share name="facebook"/> */}
 
-            <div>
-                <div>
+            <div style={{position:"relative"}}>
+                <Util result={true} favorite={true} share={true} more={true} link={true} />
+                <div className="detailbox">
+                    <Title>Pink Cat #123</Title>
+                    <div className="owner">
+                        <Owner 
+                            img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                            text="Artblockmaster" 
+                            type="owner" />
+                    </div>
+                    <CardImage src="https://shared-comic.pstatic.net/thumb/webtoon/748105/thumbnail/thumbnail_IMAG06_fa3bf10d-1b8f-40cd-a8eb-01caf9bbc3e4.jpg" />
 
+
+                    
                 </div>
+                <div className="tab">
+                    <NaviButton
+                        title = "Home"
+                        isSelectd = {currentPageId === PageId.Home}
+                        action = {()=>{action( new PageObjcet(PageId.Home, {title: "Home"}))}}
+                    />
+                    <NaviButton
+                        title = "My"
+                        isSelectd = {currentPageId === PageId.MyAsset}
+                        action = {()=>{action( new PageObjcet(PageId.MyAsset, {title: "My"}))}}
+                    />
+                </div>
+                
             </div>
             <div style={{height:600}}>여백용</div>
         </PageBg>
