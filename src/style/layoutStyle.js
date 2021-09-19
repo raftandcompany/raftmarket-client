@@ -11,7 +11,7 @@ export const Body = styled.div`
 `;
 
 export const Popup = styled.div`
-  position: absolute;
+  position: fixed;
   z-index:999;
   left: 0;
   top: 0;
