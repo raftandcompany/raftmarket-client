@@ -5,9 +5,9 @@ import MoreButton from "skeleton/component/button/MoreButton"
 import { SvgKing, SvgList, SvgOffer } from "asset/SvgImg";
 import { color } from 'style/common/variable';
 
-function ListTitle({ title, icon, more, type , action}) {
+function ListTitle({ title, icon, more, type, action, name }) {
     return (
-        <TitleWrap>
+        <TitleWrap className={name? name : null}>
             <TitleLarge>
                 {title}
                 {

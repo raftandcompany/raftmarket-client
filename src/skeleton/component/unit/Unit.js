@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Button from "skeleton/component/button/RoundButton";
 import Typography from "skeleton/component/text/Typography";
 import { UserImage }  from "style/cardStyle";
+import { TabButton }  from "style/textButton"
 
 import { SvgStar, SvgStarFill, SvgMore, SvgLink, SvgSearch }  from "asset/SvgImg";
 import { SvgShare } from "asset/SvgSns"
@@ -59,5 +60,13 @@ export const Owner = ({img, text, type}) => {
             <UserImage src={img} alt="image" className="user-img" /><span className="text">{text}</span>
             {type? <span className="type-owner">owner</span> : null}
         </Typography>
+    )
+}
+
+export function Tab({title, isSelectd, action}) {
+    return (
+        <TabButton onClick={action} className={isSelectd? "active":null}>
+            <span>{title}</span>
+        </TabButton>
     )
 }

@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import * as Ani from 'style/ani'
 import * as Var from 'style/common/variable'
-import {rem} from 'style/common/mixin'
+import { rem, radiusBox } from 'style/common/mixin'
 
 export const Body = styled.div`
     margin:0 auto;
@@ -58,6 +58,31 @@ export const Body = styled.div`
             top:0;
             object-fit: cover;
         }
+    }
+    .text-sub {
+        color: ${Var.color.blueLight};
+    }
+    .tab {
+        width: 100%;
+        height: ${rem(56)};
+        display: flex;
+        justify-content: center;
+    }
+    .tab-content {
+
+    }
+    .title-history {
+        
+       button {
+            padding-left: ${rem(60)};
+            
+           > span {
+               width: 100%;
+           }
+           .text-sub {
+                font-size: ${rem(14)};
+           }
+       }
     }
 `;
 
