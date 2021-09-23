@@ -16,7 +16,7 @@ import Typography from "skeleton/component/text/Typography";
 
 //import Share from "skeleton/component/unit/Share";
 import Util from "skeleton/component/unit/Util";
-import { Owner, Tab } from "skeleton/component/unit/Unit";
+import { Owner, Tab, Accordion } from "skeleton/component/unit/Unit";
 
 
 import {Title} from "style/textStyle";
@@ -25,10 +25,38 @@ import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
 import { TitleWrap }  from "style/titleWrap";
 
-import {SvgArrowRight} from "asset/SvgImg";
+import {SvgArrowRight, SvgArrowUp, SvgArrowDown, SvgList, SvgOffer} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 
+const data1 = [
+    {
+        type: 'row',
+        name: 'Listing',
+        count: 2,
+        eth: 1.5,
+        dollar: '$1100',
+        text: 'Artblockmaster',
+        img: 'https://shared-comic.pstatic.net/thumb/webtoon/748105/thumbnail/thumbnail_IMAG06_fa3bf10d-1b8f-40cd-a8eb-01caf9bbc3e4.jpg',
+        expire: 0
+    },
+    {
+        type: 'row',
+        name: 'Offers',
+        eth: 100,
+        dollar: '$1100',
+        text: 'ggg',
+        img: 'https://shared-comic.pstatic.net/thumb/webtoon/748105/thumbnail/thumbnail_IMAG06_fa3bf10d-1b8f-40cd-a8eb-01caf9bbc3e4.jpg',
+        expire: 4
+    }
+]
+const data2 = [
+    {
+        label: 'Body',
+        item: 'Blue Cat Skin',
+        rarity: 'Bad (100%)'
+    }
+]
 
 export default function PageSample({pageObj}){
     return (
@@ -65,6 +93,10 @@ export default function PageSample({pageObj}){
                             <Button2 children={<span>View History <span className="text-sub">35 sec ago</span><SvgArrowRight /></span>} fullSize={true} />
                         </StyledFullButtonWrap>
                     </div>
+
+                    
+                    <Accordion data={data1} />
+                   
                 </div>
             </div>
 

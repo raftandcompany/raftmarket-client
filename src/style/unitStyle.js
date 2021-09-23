@@ -43,3 +43,15 @@ export const ShareBtn = styled.div`
         `
     }}; */
 `;
+
+export const AccordionStyle = styled.div`
+    border: 1px solid #2F313E;
+
+    .accordion:after {
+        content: '+';
+        font-size: 13px;
+        color: #777;
+        float: right;
+        margin-left: 5px;
+    }
+`;
