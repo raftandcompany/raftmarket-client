@@ -32,7 +32,7 @@ import { Favorite } from "../../skeleton/component/unit/Unit";
 const data1 = [
     {
         type: 'row',
-        name: 'Listing',
+        name: 'listing',
         count: 2,
         eth: 1.5,
         dollar: '$1100',
@@ -42,7 +42,7 @@ const data1 = [
     },
     {
         type: 'row',
-        name: 'Offers',
+        name: 'offers',
         eth: 100,
         dollar: '$1100',
         text: 'ggg',

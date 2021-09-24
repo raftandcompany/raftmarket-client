@@ -1,13 +1,73 @@
 import styled, { keyframes } from 'styled-components'
 import * as Ani from 'style/ani'
 import * as Var from 'style/common/variable'
-import { rem, radiusBox } from 'style/common/mixin'
+import { rem, radiusBox, ellipsis, typoBody1, typoBody2 } from 'style/common/mixin';
 
 export const Body = styled.div`
     margin:0 auto;
     max-width:1920px;
     width: 100%;
     height: 100%;
+
+    .typo-emphasis {
+        display: block;
+        color: ${Var.color.white};
+        svg {
+            vertical-align: ${rem(-1)};
+        }
+    }
+    .typo-body1 {
+        ${typoBody1};
+        ${ellipsis};
+        margin-bottom: ${rem(6)};
+
+        & + .typo-body1 {
+            margin-top: ${rem(4)};
+        }
+        &.pre {
+            color: ${Var.color.gray3};
+        }
+        &.basket {
+            color: ${Var.color.orange};
+        }
+        &.time {
+            color: ${Var.color.pink};
+        }
+        svg {
+            margin-right: ${rem(5)};
+            vertical-align: ${rem(-1)};
+        }
+    }
+    .typo-body2 {
+        ${typoBody2};
+        ${ellipsis};
+        margin-bottom: ${rem(6)};
+        color: ${Var.color.gray3};
+        &.status {
+            display:flex;
+            align-items:center;
+            line-height: ${rem(28)};
+            font-size: ${rem(16)};
+            span {
+                margin-right: ${rem(8)};
+                svg {
+                    vertical-align: ${rem(-3)};
+                }
+            }
+        }
+        &.cart {
+            color: ${Var.color.purpleLight};
+        }
+        &.list {
+            color: ${Var.color.blueLight};
+        }
+        &.offer {
+            color: ${Var.color.orange};
+        }
+        &.transfer {
+            color: ${Var.color.pink};
+        }
+    }
 
     .owner {
         display:flex;
@@ -83,6 +143,48 @@ export const Body = styled.div`
                 font-size: ${rem(14)};
            }
        }
+    }
+    .accordion {
+        &-item {
+            border-bottom: 1px solid #2F313E;
+
+            .price {
+                ${radiusBox};
+                background:${Var.color.black};
+            }
+        
+        }
+        &-button {
+            ${radiusBox};
+            display:block;
+            width:100%;
+            text-align:left;
+            strong {
+                float:left;
+                font-size:${rem(18)};
+
+            }
+            svg {
+                float:right;   
+            }
+            &.show {
+                svg {
+                    transform:rotate(180deg);
+                }
+            }
+        }
+        &-cont {
+            ${radiusBox};
+            display:none;
+            padding-top:${rem(12)};
+            padding-bottom:${rem(12)};
+            border-radius:${rem(16)};
+            height:auto;
+            background:${Var.color.blackCard};
+            &.show {
+                display:block;
+            }
+        }
     }
 `;
 

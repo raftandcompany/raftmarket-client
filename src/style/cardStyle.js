@@ -47,65 +47,7 @@ export const card = css`
         right: ${rem(10)};
         top: ${rem(8)};
     }
-    .typo-emphasis {
-        display: block;
-        color: ${color.white};
-        svg {
-            vertical-align: ${rem(-1)};
-        }
-    }
-    .typo-body1 {
-        ${typoBody1};
-        ${ellipsis};
-        margin-bottom: ${rem(6)};
-
-        & + .typo-body1 {
-            margin-top: ${rem(4)};
-        }
-        &.pre {
-            color: ${color.gray3};
-        }
-        &.basket {
-            color: ${color.orange};
-        }
-        &.time {
-            color: ${color.pink};
-        }
-        svg {
-            margin-right: ${rem(5)};
-            vertical-align: ${rem(-1)};
-        }
-    }
-    .typo-body2 {
-        ${typoBody2};
-        ${ellipsis};
-        margin-bottom: ${rem(6)};
-        color: ${color.gray3};
-        &.status {
-            display:flex;
-            align-items:center;
-            line-height: ${rem(28)};
-            font-size: ${rem(16)};
-            span {
-                margin-right: ${rem(8)};
-                svg {
-                    vertical-align: ${rem(-3)};
-                }
-            }
-        }
-        &.cart {
-            color: ${color.purpleLight};
-        }
-        &.list {
-            color: ${color.blueLight};
-        }
-        &.offer {
-            color: ${color.orange};
-        }
-        &.transfer {
-            color: ${color.pink};
-        }
-    }
+    
 `;
 
 export const CardRow = styled.div`

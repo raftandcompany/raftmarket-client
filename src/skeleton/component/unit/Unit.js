@@ -7,7 +7,7 @@ import { AccordionStyle }  from "style/cardStyle";
 
 import { TabButton }  from "style/textButton"
 
-import { SvgStar, SvgStarFill, SvgMore, SvgLink, SvgSearch }  from "asset/SvgImg";
+import { SvgStar, SvgStarFill, SvgMore, SvgLink, SvgSearch, SvgPrice, SvgArrowDown, SvgTime }  from "asset/SvgImg";
 import { SvgShare } from "asset/SvgSns"
 
 // function Unit({ name, ...props }) {
@@ -75,55 +75,75 @@ export function Tab({title, isSelectd, action}) {
 }
 
 const AccordionItem = ({
-    show,
-    ariaExpanded,
     item,
-    index,
-    onClick,
-  }) => (
-    <div className="faq__question" key={item.name}>
-        <button
-        aria-expanded={ariaExpanded}
-        className={`btn-accordion ${item.name}`}
-        onClick={onClick}
-        >
-            <Typography variant="span" name={`status ${item.name}`}>
-                <span></span>{item.type}
-            </Typography>
-        </button>
-        <div className={`faq__desc ${show}`}>
-            {item.answer}
+    //onClick,
+  }) => {
+    const [isActive, setActive] = useState(false);
+    const show = isActive? "show" : "";
+
+    return (
+        <div className="accordion-item" key={item.name}>
+            <button
+            className={`accordion-button ${item.name} ${show}`}
+            onClick={() => {
+                setActive(!isActive);
+            }}
+            >
+                <Typography variant="emphasis" name={`status ${item.name}`}>
+                    {item.name}<span className="text-sub">{item.count}</span>
+                </Typography>
+                <SvgArrowDown />
+            </button>
+            {
+                item.type === 'row' ? 
+                <div className={`accordion-cont ${show}`}>
+                    <div className="price">
+                        <Typography variant="emphasis">
+                            <SvgPrice />{item.eth}<span className="text-sub">{item.dollar}</span>
+                        </Typography>
+                    </div>
+                    <div className="owner">
+                        <Owner 
+                            img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                            text="Artblockmaster" />
+                    </div>
+                    {
+                        item.expire === 0 
+                        ? 'Doesn’t expire' 
+                        : <Typography variant="body1" name="time"><SvgTime />{item.expire}</Typography>
+                    }
+                </div> :
+                <div className={`accordion-cont ${show}`}>
+                        <div className="price">
+                        <Typography variant="emphasis">
+                            <SvgPrice />{item.eth}<span className="text-sub">{item.dollar}</span>
+                        </Typography>
+                    </div>
+                    <div className="owner">
+                        <Owner 
+                            img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                            text="Artblockmaster" 
+                            type="owner" />
+                    </div>
+                </div>
+            }
         </div>
-    </div>
-);
-
-// {
-//     type: "Listings",
-//     count: 2,
-//     eth: 1.5,
-//     dollar: '$1100',
-//     name: 'Artblockmaster',
-//     img: 'https://shared-comic.pstatic.net/thumb/webtoon/748105/thumbnail/thumbnail_IMAG06_fa3bf10d-1b8f-40cd-a8eb-01caf9bbc3e4.jpg',
-//     expire: 'Doesn’t expire'
-// }
-
+    );
+};
 
 export const Accordion = ({ data }) => {
-    const [activeIndex, setActiveIndex] = useState(1);
+    //const [isActive, setActive] = useState(false);
   
-    const rendereddata = data.map((item, index) => {
-        const show = index === activeIndex ? "show" : "";
-        const ariaExpanded = index === activeIndex ? "true" : "false";
+    const rendereddata = data.map((item) => {
+        // const show = isActive? "show" : "";
+        // const ariaExpanded = isActive? "true" : "false";
 
         return (
             <AccordionItem
-                show={show}
-                ariaExpanded={ariaExpanded}
+                // show={show}
+                // ariaExpanded={ariaExpanded}
                 item={item}
-                index={index}
-                onClick={() => {
-                    setActiveIndex(index);
-                }}
+
             />
         );
         
