@@ -25,13 +25,13 @@ export const Body = styled.div`
             margin-top: ${rem(4)};
         }
         &.pre {
-            color: ${Var.color.gray3};
+            color: ${Var.color.gray3} !important;
         }
         &.basket {
-            color: ${Var.color.orange};
+            color: ${Var.color.orange} !important;
         }
         &.time {
-            color: ${Var.color.pink};
+            color: ${Var.color.pink} !important;
         }
         svg {
             margin-right: ${rem(5)};
@@ -146,13 +146,8 @@ export const Body = styled.div`
     }
     .accordion {
         &-item {
+            padding-top:${rem(4)};
             border-bottom: 1px solid #2F313E;
-
-            .price {
-                ${radiusBox};
-                background:${Var.color.black};
-            }
-        
         }
         &-button {
             ${radiusBox};
@@ -162,10 +157,14 @@ export const Body = styled.div`
             strong {
                 float:left;
                 font-size:${rem(18)};
-
+                text-transform:capitalize;
+                span {
+                    margin-left:${rem(12)};
+                }
             }
             svg {
                 float:right;   
+                margin-top:${rem(20)};
             }
             &.show {
                 svg {
@@ -174,13 +173,60 @@ export const Body = styled.div`
             }
         }
         &-cont {
-            ${radiusBox};
             display:none;
-            padding-top:${rem(12)};
-            padding-bottom:${rem(12)};
-            border-radius:${rem(16)};
-            height:auto;
-            background:${Var.color.blackCard};
+            > div {
+                ${radiusBox};
+                overflow:hidden;
+                margin-bottom:${rem(24)};
+                padding-top:${rem(12)};
+                padding-bottom:${rem(12)};
+                border-radius:${rem(16)};
+                height:auto;
+                font-size:${rem(13)};
+                background:${Var.color.blackCard};
+                &.market {
+                    position:relative;
+                    .owner {
+                        margin-top:0;
+                    }
+                    button {
+                        position:absolute;
+                        text-transform:uppercase;
+                        width:${rem(90)};
+                        right:${rem(16)};
+                        bottom:${rem(20)};
+                    }
+                }
+                &.about {
+                    float:left;
+                    border:1px solid ${Var.color.purpleLight};
+                    width:calc(50% - ${rem(6)});
+                    &:nth-child(even) {
+                        margin-left:${rem(12)};
+                    }
+                    .label {
+                        color:${Var.color.purpleLight};
+                    }
+                    .item {
+                        font-size:${rem(14)};
+                        color:${Var.color.white};
+                    }
+                    .rarity {
+                        font-size:${rem(14)};
+                    }
+                }
+            }
+            .price {
+                ${radiusBox};
+                background:${Var.color.black};
+                .text-sub {
+                    margin-left:${rem(12)};
+                    font-size:${rem(14)};
+                }
+            }
+            .typo-body1 {
+                color:${Var.color.gray2};
+            }
             &.show {
                 display:block;
             }

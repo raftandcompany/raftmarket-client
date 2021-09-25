@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Button from "skeleton/component/button/RoundButton";
+import Button from "skeleton/component/button/EllipseButton";
 import Typography from "skeleton/component/text/Typography";
 import { UserImage }  from "style/cardStyle";
 import { AccordionStyle }  from "style/cardStyle";
@@ -80,6 +80,37 @@ const AccordionItem = ({
   }) => {
     const [isActive, setActive] = useState(false);
     const show = isActive? "show" : "";
+    const renderedData1 = item.items.map((i) => {
+        return (
+            <div className="market">
+                <div className="price">
+                    <Typography variant="emphasis">
+                        <SvgPrice />{i.eth}<span className="text-sub">{i.dollar}</span>
+                    </Typography>
+                </div>
+                <div className="owner">
+                    <Owner 
+                        img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                        text="Artblockmaster" />
+                </div>
+                {
+                    i.expire === 0 
+                    ? <Typography variant="body1">'Doesn’t expire'</Typography>
+                    : <Typography variant="body1" name="time"><SvgTime />{i.expire}</Typography>
+                }
+                <Button children="buy" type="purple" height={40} fontSize={16} />
+            </div>
+        );
+    });
+    const renderedData2 = item.items.map((i) => {
+        return (
+            <div className="about">
+                <Typography variant="body1" name="label">{i.label}</Typography>
+                <Typography variant="body1" name="item">{i.item}</Typography>
+                <Typography variant="body1" name="rarity">{i.rarity}</Typography>
+            </div>
+        );
+    });
 
     return (
         <div className="accordion-item" key={item.name}>
@@ -90,68 +121,30 @@ const AccordionItem = ({
             }}
             >
                 <Typography variant="emphasis" name={`status ${item.name}`}>
-                    {item.name}<span className="text-sub">{item.count}</span>
+                    {item.name}<span className="text-sub">{item.items.length}</span>
                 </Typography>
                 <SvgArrowDown />
             </button>
+            <div className={`accordion-cont ${show}`}>
             {
-                item.type === 'row' ? 
-                <div className={`accordion-cont ${show}`}>
-                    <div className="price">
-                        <Typography variant="emphasis">
-                            <SvgPrice />{item.eth}<span className="text-sub">{item.dollar}</span>
-                        </Typography>
-                    </div>
-                    <div className="owner">
-                        <Owner 
-                            img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
-                            text="Artblockmaster" />
-                    </div>
-                    {
-                        item.expire === 0 
-                        ? 'Doesn’t expire' 
-                        : <Typography variant="body1" name="time"><SvgTime />{item.expire}</Typography>
-                    }
-                </div> :
-                <div className={`accordion-cont ${show}`}>
-                        <div className="price">
-                        <Typography variant="emphasis">
-                            <SvgPrice />{item.eth}<span className="text-sub">{item.dollar}</span>
-                        </Typography>
-                    </div>
-                    <div className="owner">
-                        <Owner 
-                            img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
-                            text="Artblockmaster" 
-                            type="owner" />
-                    </div>
-                </div>
+                item.type === 'row' ? renderedData1 : renderedData2
             }
+            </div>
         </div>
     );
 };
 
-export const Accordion = ({ data }) => {
-    //const [isActive, setActive] = useState(false);
-  
-    const rendereddata = data.map((item) => {
-        // const show = isActive? "show" : "";
-        // const ariaExpanded = isActive? "true" : "false";
-
+export const Accordion = ({ data }) => {  
+    const renderedData = data.map((item) => {
         return (
             <AccordionItem
-                // show={show}
-                // ariaExpanded={ariaExpanded}
                 item={item}
-
             />
         );
-        
     });
-  
     return (
         <div className="accordion">
-            {rendereddata}
+            {renderedData}
         </div>
     );
 };
