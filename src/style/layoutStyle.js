@@ -274,15 +274,35 @@ export const Body = styled.div`
             }
         }
     }
-    .close-button {
-        position:absolute;
-        top:0;
-        right:0;
-        padding:${rem(24)};
-        width:${rem(65)};
-        height:${rem(65)};
-        cursor:pointer;
+    
+    .popup {
+        padding:0;
+        &-inner {
+            position:fixed;
+            left:0;
+            bottom:0;
+            width:100%;
+            border-top-left-radius:${rem(8)};
+            border-top-right-radius:${rem(8)};
+            background-color:${Var.color.blackCard};
+        }
+        &-header {
+            height:${rem(65)};
+        }
+        &-content {
+    
+        }
+        &-close {
+            position:absolute;
+            top:0;
+            right:0;
+            padding:${rem(24)};
+            width:${rem(65)};
+            height:${rem(65)};
+            cursor:pointer;
+        }
     }
+    
 `;
 
 export const Popup = styled.div`

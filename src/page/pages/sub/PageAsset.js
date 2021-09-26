@@ -124,13 +124,16 @@ export default function PageAsset({pageObj}){
 
     return (
         <PageBg
+            className="popup"
             isPopup={pageObj.isPopup}
             ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <div style={{position:"relative"}}>
+            <div className="popup-inner">
                 <PageTab pageObj={pageObj}/>
-                { <Header  key={ uuidv4().toString() } data={ asset }/> }
-                { <ListingItemList  key={ uuidv4().toString() } datas={ listings} assetData = {asset}/> }
-                { <OfferItemList  key={ uuidv4().toString() } datas={ offers } assetData = {asset}/> }
+                <div className="popup-content">
+                    { <Header  key={ uuidv4().toString() } data={ asset }/> }
+                    { <ListingItemList  key={ uuidv4().toString() } datas={ listings} assetData = {asset}/> }
+                    { <OfferItemList  key={ uuidv4().toString() } datas={ offers } assetData = {asset}/> }
+                </div>
             </div>
         </PageBg>
     )
