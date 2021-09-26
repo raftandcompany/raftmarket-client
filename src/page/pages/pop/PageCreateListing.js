@@ -13,8 +13,8 @@ import {StyledInputWrap} from "style/formStyle";
 import Button2 from "skeleton/component/button/BorderRadiusButton";
 import {StyledFullButtonWrap} from "style/roundButton";
 import PageTab from "page/component/tab/PageTab";
-import * as Metamask from "../../../store/manager/metamask/Metamask";
-
+import * as Metamask from "store/manager/metamask/Metamask";
+import * as Exchange from "store/manager/exchange/exchange";
 
 export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"
@@ -22,6 +22,7 @@ export default function PageCreateListing({pageObj}){
     const [inputQuantity, setQuantity] = useState("")
     let dataProvider = AppDataProvider()
     let disposer = null
+    let exchange = Exchange.default
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -50,13 +51,20 @@ export default function PageCreateListing({pageObj}){
     function submit(e){
         e.preventDefault()
         // Add this in node_modules/react-dom/index.js
+        //const metamaskManager = AppMetamaskManager()
+        //metamaskManager.requestQ(Metamask.Request.registListing)
+        registListing()
 
+    }
 
-        const metamaskManager = AppMetamaskManager()
-        metamaskManager.requestQ(Metamask.Request.registListing)
-
-
-
+    function registListing(){
+        try {
+            let registryAddress = this.exchange.getRegistryAddress(Exchange.defaultExchangeAddress)
+            let proxyAddress = this.exchange.getProxyAddress(registryAddress)
+            console.error(this.TAG, registryAddress)
+        } catch (error) {
+            console.error(this.TAG, error)
+        }
     }
 
     return (

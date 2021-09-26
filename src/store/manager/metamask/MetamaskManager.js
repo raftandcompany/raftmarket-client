@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import MetaMaskOnboarding from "@metamask/onboarding"
 import * as Metamask from './Metamask'
-import * as Exchange  from "store/manager/exchange/exchange";
+import * as Exchange  from "store/manager/exchange/exchange"
 
 
 class MetamaskManager {
@@ -9,9 +9,6 @@ class MetamaskManager {
         this.createObservable()
         this.TAG = "MetamaskManager"
         this.request = null
-        this.exchange = Exchange.default
-
-
     }
 
     createObservable(){
@@ -51,9 +48,6 @@ class MetamaskManager {
                 break
             case Metamask.Request.checkAccountStatus :
                 this.checkAccountStatus()
-                break
-            case Metamask.Request.registListing :
-                this.registListing()
                 break
             default : break
         }
@@ -160,15 +154,6 @@ class MetamaskManager {
         }
     }
 
-    registListing(){
-        try {
-            let registryAddress = this.exchange.getRegistryAddress(Exchange.defaultExchangeAddress)
-           // let proxyAddress = this.exchange.getProxyAddress(registryAddress)
-            console.error(this.TAG, registryAddress)
-        } catch (error) {
-            console.error(this.TAG, error)
-        }
-    }
 
 
 }

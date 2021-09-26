@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from 'uuid';
 
-
 class DataProvider {
     constructor() {
         this.request = null
@@ -24,7 +23,6 @@ class DataProvider {
     responseError(dataError){
         this.error = dataError
     }
-
 }
 
 export class DataRequest {

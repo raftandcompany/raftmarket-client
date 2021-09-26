@@ -8,18 +8,14 @@ import BottomTab from "page/component/tab/BottomTab"
 import {Popup, Body} from "style/layoutStyle"
 import {GlobalStyle} from "style/common/globalStyle"
 
-
 const TAG = "App"
 const repository = AppRepository()
 const presenter = AppPagePresenter()
 const controller = AppController()
 
-
 function App (){
     return <AppBody/>
 }
-
-
 
 function AppBody (){
 
@@ -31,10 +27,8 @@ function AppBody (){
 
     function onAppear (){
     }
-
     function onSubscribe(){
     }
-
     function onDisappear (){
     }
     return(
@@ -60,6 +54,4 @@ const PopupDisplayer = observer(({ presenter }) =>
 const PageNavi = observer(({ presenter }) =>
     <BottomTab currentPageId = {presenter.pageObj.pageId} />
 )
-
-
 export default App
