@@ -142,12 +142,47 @@ export const Body = styled.div`
            .text-sub {
                 font-size: ${rem(14)};
            }
+           svg {
+               float:right;
+               margin-top:${rem(19)};
+           }
        }
+    }
+    .price {
+        svg {
+            margin-right:${rem(12)};
+        }
+        .text-sub {
+            margin-left:${rem(12)};
+            font-size:${rem(14)};
+        }
+    }
+    .current-price {
+        position:relative;
+        margin-left:${rem(-16)};
+        padding:${rem(16)};
+        width:calc(100% + ${rem(32)});
+        height:${rem(104)};
+        border-top:1px solid ${Var.color.blackLight};
+        border-top-left-radius:${rem(8)};
+        border-top-right-radius:${rem(8)};
+        background-color:${Var.color.blackCard};
+        .typo-body1 {
+            margin-bottom:${rem(15)};
+            color:${Var.color.gray3};
+        }
+        button {
+            position:absolute;
+            top:${rem(16)};
+            right:${rem(20)};
+        }
     }
     .accordion {
         &-item {
             padding-top:${rem(4)};
-            border-bottom: 1px solid #2F313E;
+            &:not(:first-child) {
+                border-top: 1px solid #2F313E;
+            }
         }
         &-button {
             ${radiusBox};
@@ -160,6 +195,7 @@ export const Body = styled.div`
                 text-transform:capitalize;
                 span {
                     margin-left:${rem(12)};
+                    font-size:${rem(16)};
                 }
             }
             svg {
@@ -171,12 +207,17 @@ export const Body = styled.div`
                     transform:rotate(180deg);
                 }
             }
+            &.offers + button {
+                margin-top:${rem(4)};
+                margin-bottom:${rem(24)};
+            }
         }
         &-cont {
             display:none;
+            overflow:hidden;
+
             > div {
                 ${radiusBox};
-                overflow:hidden;
                 margin-bottom:${rem(24)};
                 padding-top:${rem(12)};
                 padding-bottom:${rem(12)};
@@ -208,29 +249,39 @@ export const Body = styled.div`
                         color:${Var.color.purpleLight};
                     }
                     .item {
+                        padding:${rem(6)} 0 ${rem(20)};
                         font-size:${rem(14)};
                         color:${Var.color.white};
                     }
                     .rarity {
                         font-size:${rem(14)};
                     }
+                    .typo-span {
+                        display:block;
+                        line-height:1.45;
+                    }
                 }
             }
             .price {
                 ${radiusBox};
                 background:${Var.color.black};
-                .text-sub {
-                    margin-left:${rem(12)};
-                    font-size:${rem(14)};
-                }
             }
-            .typo-body1 {
+            .typo-span {
                 color:${Var.color.gray2};
             }
             &.show {
                 display:block;
             }
         }
+    }
+    .close-button {
+        position:absolute;
+        top:0;
+        right:0;
+        padding:${rem(24)};
+        width:${rem(65)};
+        height:${rem(65)};
+        cursor:pointer;
     }
 `;
 
