@@ -59,11 +59,11 @@ export default function PageCreateListing({pageObj}){
 
     function registListing(){
         try {
-            let registryAddress = this.exchange.getRegistryAddress(Exchange.defaultExchangeAddress)
-            let proxyAddress = this.exchange.getProxyAddress(registryAddress)
-            console.error(this.TAG, registryAddress)
+            let registryAddress = exchange.getRegistryAddress(Exchange.defaultExchangeAddress)
+            let proxyAddress = exchange.getProxyAddress(registryAddress)
+            console.error(TAG, registryAddress)
         } catch (error) {
-            console.error(this.TAG, error)
+            console.error(TAG, error)
         }
     }
 
