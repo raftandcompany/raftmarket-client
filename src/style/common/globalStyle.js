@@ -23,6 +23,9 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     background: none;
   }
+  a, button {
+    cursor: pointer;
+  }
   h1, h2, h3, h4, h5, h6{
   }
   ol, ul, li {

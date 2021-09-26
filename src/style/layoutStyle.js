@@ -162,6 +162,7 @@ export const Body = styled.div`
         margin-left:${rem(-16)};
         padding:${rem(16)};
         width:calc(100% + ${rem(32)});
+        height:${rem(104)};
         border-top:1px solid ${Var.color.blackLight};
         border-top-left-radius:${rem(8)};
         border-top-right-radius:${rem(8)};
