@@ -105,8 +105,9 @@ export default function ItemAsset({size, data, action}){
     )
 }
 
-export function ItemAssetArt({data}){
+export function ItemAssetArt({data, action}){
     return (
-        <CardTypeCol data = {data}/>
+        <CardTypeCol data = {data}
+                     action = {action}/>
     )
 }
