@@ -255,8 +255,6 @@ export default function PageSample({pageObj}){
             <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
 
             {/* <Share name="facebook"/> */}
-
-            
             <div style={{height:600}}>여백용</div>
         </PageBg>
     )

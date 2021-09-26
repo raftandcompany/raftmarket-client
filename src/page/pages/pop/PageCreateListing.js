@@ -3,29 +3,31 @@ import {autorun, observable, runInAction} from "mobx"
 import {v4 as uuidv4} from "uuid"
 import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-
-
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
-import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import InputLabel from "skeleton/component/input/InputLabel";
 import InputText from "skeleton/component/input/InputText";
 import {StyledInputWrap} from "style/formStyle";
 import Button2 from "skeleton/component/button/BorderRadiusButton";
-import {StyledFullButtonWrap} from "style/roundButton";
+import RoundButton, {StyledFullButtonWrap} from "style/roundButton";
 import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
+import AppPagePresenter from "../../PagePresenter";
 
 export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"
-    const [inputPrice, setPrice] = useState("")
-    const [inputQuantity, setQuantity] = useState("")
+    const [inputs, setInputs] = useState({
+        price: "",
+        expireDate: ""
+    });
 
+    const [isHold, setHold] = useState(false)
+    const [assetData, setAssetData] = useState(null)
+    const [focusName, setFocusName] = useState(null)
     let dataProvider = AppDataProvider()
     let disposer = null
     let exchange = Exchange.default
-    let assetData = null
-    let isHold = false
+
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -36,8 +38,9 @@ export default function PageCreateListing({pageObj}){
         console.log(TAG, "onAppear")
         observable(this,dataProvider)
         console.log(TAG,pageObj)
-        let address = AppMetamaskManager().accounts[0]
-        assetData = pageObj.params["data"].data
+        let asset = pageObj.params["data"].data
+        console.log(TAG,asset)
+        setAssetData(asset)
     }
 
     function onSubscribe(){
@@ -49,55 +52,99 @@ export default function PageCreateListing({pageObj}){
         if (disposer != null) {
             disposer()
         }
+        clearRegistChecker()
+        clearApprovedChecker()
     }
 
     function submit(e){
         e.preventDefault()
         checkRegistAddress()
+    }
 
+    function registListing(proxyAddress){
+        console.log(TAG + "registListing", proxyAddress)
+
+        const priceValue =  parseInt(inputs.price);
+        if (isNaN(priceValue)) {
+            alert("wrong price")
+            return
+        }
+        const expireValue =  parseInt(inputs.expireDate)
+        if (isNaN(expireValue)) {
+            alert("wrong expire date")
+            return
+        }
+        const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
+        console.log(TAG + "expirationTime", expirationTime)
+        exchange.listing({
+            exchangeAddress :Metamask.ExchangeKey.defaultAddress,
+            feeRecipient: Metamask.ExchangeKey.companyAddress,
+            feeRatio:250,
+            collectionAddress:assetData.collectionAddress,
+            tokenId:assetData.assetId,
+            protocol:Metamask.ExchangeKey.protocol,
+            currencyAddress:Metamask.ExchangeKey.currencyAddress,
+            price:priceValue,
+            expirationTime:expirationTime
+        })
+    }
+
+    let autoRegistChecker = null
+    function createRegistChecker(){
+        clearRegistChecker()
+        autoRegistChecker = setTimeout(() => {
+            checkRegistAddress()
+        }, 2000)
+    }
+    function clearRegistChecker(){
+        if (autoRegistChecker != null){
+            clearInterval(autoRegistChecker)
+        }
     }
     function checkRegistAddress(){
         console.log(TAG + " checkRegistAddress", "init")
         try {
-            let registryAddress = exchange.getRegistryAddress({
+            let registryAddressResult = exchange.getRegistryAddress({
                 exchangeAddress : Metamask.ExchangeKey.defaultAddress
             })
-
-            registryAddress.then(
-                (address)=>{
-                    console.log(TAG + " checkRegistAddress registryAddress", address)
-                    let proxyAddress = exchange.getProxyAddress({
-                        registryAddress: address
+            registryAddressResult.then(
+                (registryAddress)=>{
+                    console.log(TAG + " checkRegistAddress registryAddress", registryAddress)
+                    let proxyAddressResult = exchange.getProxyAddress({
+                        registryAddress: registryAddress
                     })
-                    proxyAddress.then(
-                        (address)=>{
-                            console.log(TAG + " checkRegistAddress", address)
-                            if (address === Metamask.ExchangeKey.unregistAdress) {
+                    proxyAddressResult.then(
+                        ( proxyAddress)=>{
+                            console.log(TAG + " checkRegistAddress", proxyAddress)
+                            if (proxyAddress === Metamask.ExchangeKey.unregistAdress) {
                                 if(isHold){
                                     console.log(TAG + " checkRegistAddress", "retry check")
+                                    createRegistChecker()
                                 } else {
                                     console.log(TAG + " checkRegistAddress", "registAdress")
-                                    registAdress(address)
+                                    registAdress(registryAddress)
                                 }
                             } else {
-                                isHold = false
-                                console.log(TAG + "checkRegistAddress", "success")
-                                checkApprovedNft(address)
+                                clearRegistChecker()
+                                checkApprovedNft(proxyAddress)
                             }
                         },
                         (error)=>{
-                            isHold = false
+                            setHold(false)
+                            clearRegistChecker()
                             console.error(TAG + " checkRegistAddress", error)
                         })
                 },
                 (error)=>{
-                    isHold = false
+                    setHold(false)
+                    clearRegistChecker()
                     console.error(TAG + " checkRegistAddress", error)
                 })
 
 
         } catch (error) {
-            isHold = false
+            setHold(false)
+            clearRegistChecker()
             console.error(TAG + " checkRegistAddress", error)
         }
     }
@@ -109,25 +156,40 @@ export default function PageCreateListing({pageObj}){
                 (token)=>{
                     console.log(TAG + " registAdress", token)
                     if (token == null){
+                        setHold(false)
                         console.log(TAG + " registAdress", "denied")
+                        AppPagePresenter().closePopup(pageObj)
                     } else {
-                        isHold = true
+                        setHold(true)
                         console.log(TAG + " registAdress", "success")
-                        checkRegistAddress()
+                        createRegistChecker()
+
                     }
                 },
                 (error)=>{
-                    isHold = false
+                    setHold(false)
                     console.error(TAG + " registAdress", error)
                 })
         } catch (error) {
-            isHold = false
+            setHold(false)
             console.error(TAG + " registAdress", error)
         }
     }
 
+    let autoApprovedChecker = null
+    function createApprovedChecker(proxyAddress){
+        clearApprovedChecker()
+        autoApprovedChecker = setTimeout(() => {
+            checkApprovedNft(proxyAddress)
+        }, 2000)
+    }
+    function clearApprovedChecker(){
+        if (autoApprovedChecker != null){
+            clearInterval(autoApprovedChecker)
+        }
+    }
     function checkApprovedNft(proxyAddress){
-        console.log(TAG + "checkApprovedNfts", "init")
+        console.log(TAG + "checkApprovedNfts", assetData)
         try {
             let aprovedNft = exchange.isApprovedNft({
                 nftAddress : assetData.collectionAddress,
@@ -138,26 +200,28 @@ export default function PageCreateListing({pageObj}){
                 (isApproved)=>{
                     console.log(TAG + " checkApprovedNfts", isApproved)
                     if (isApproved == true){
-                        isHold = false
+                        setHold(false)
                         console.log(TAG + "checkApprovedNfts", "success")
+                        clearApprovedChecker()
                         registListing(proxyAddress)
                     } else{
                         if(isHold){
-                            console.log(TAG + "checkApprovedNfts", "retry check")
+                           createApprovedChecker(proxyAddress)
                         } else {
                            console.log(TAG + " checkApprovedNfts", "registApprovedNft")
                            registApprovedNft(proxyAddress)
                         }
-
                     }
                 },
                 (error)=>{
-                    isHold = false
+                    setHold(false)
+                    clearApprovedChecker()
                     console.error(TAG + " checkApprovedNfts", error)
                 })
 
         } catch (error) {
-            isHold = false
+            setHold(false)
+            clearApprovedChecker()
             console.error(TAG + " checkApprovedNfts", error)
 
         }
@@ -174,31 +238,63 @@ export default function PageCreateListing({pageObj}){
                 (token)=>{
                     console.log(TAG + " registApprovedNft", token)
                     if (token == null){
+                        setHold(false)
                         console.log(TAG + " registApprovedNft", "denied")
+                        AppPagePresenter().closePopup(pageObj)
                     } else {
-                        isHold = true
+                        setHold(true)
                         console.log(TAG + " registApprovedNft", "success")
-                        checkApprovedNft(proxyAddress)
+                        createApprovedChecker(proxyAddress)
                     }
-
                 },
                 (error)=>{
-                    isHold = false
+                    setHold(false)
                     console.error(TAG + " registApprovedNft", error)
                 })
 
         } catch (error) {
-            isHold = false
+            setHold(false)
             console.error(TAG + " registApprovedNft", error)
         }
     }
 
-    function registListing(proxyAddress){
-        console.log(TAG + "registListing", proxyAddress)
 
+    const onChange = e => {
+        const { value, name } = e.target
+        setFocusName(name)
+        setInputs({
+            ...inputs, // 기존의 input 객체를 복사한 뒤
+            [name]: value // name 키를 가진 값을 value 로 설정
+        })
     }
 
+    const onReset = () => {
+        setInputs({
+            price: "",
+            expireDate: ""
+        })
+    }
 
+    const InputField = ({name, placeHolder, value, isFocus, maxLength= "3" }) =>
+        isFocus ?
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       autoFocus
+                       maxLength ={maxLength}
+
+            />
+        :
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       maxLength = {maxLength}
+
+            />
 
     return (
         <PageBg
@@ -207,24 +303,29 @@ export default function PageCreateListing({pageObj}){
             <PageTab pageObj={pageObj}/>
             <StyledInputWrap key={ uuidv4().toString() }>
                 <InputLabel children="Price" />
-                <InputText placeHolder="Sale Price"
-                           defaultValue={ inputPrice }
-                           height={48} fontSize={14}
-                           onChange={e=>setPrice(e.target.value)}
+                <InputField
+                    name="price"
+                    placeHolder="Sale Price"
+                    value={inputs.price}
+                    isFocus={focusName === "price"}
+
                 />
             </StyledInputWrap>
             <StyledInputWrap key={ uuidv4().toString() }>
-                <InputLabel children="Quantity" />
-                <InputText placeHolder="Sale Quantity"
-                           defaultValue={ inputQuantity }
-                           height={48} fontSize={14}
-                           onChange={e=>setQuantity(e.target.value)}
+                <InputLabel children="Expire Date" />
+                <InputField
+                    name="expireDate"
+                    placeHolder="rom"
+                    value={inputs.expireDate}
+                    isFocus={focusName === "expireDate"}
+
                 />
+
             </StyledInputWrap>
 
             <StyledFullButtonWrap>
-                <Button2 children="Create Offer" type="purple"
-                         unactive={inputPrice === "" || inputQuantity  === ""}
+                <Button2 children="Create Listing" type="purple"
+                         unactive={inputs.price === "" || inputs.expireDate  === ""}
                          fullSize={true}
                          onClick={e => submit(e)}
                 />

@@ -32,7 +32,7 @@ export function getSearch(data, cancel){
         url: path + "/search" + Rest.toQueryString(data,{page: 0, size: 10}) ,
         data: Rest.toData(data,
             {
-                assetSearchType: SearchType.MultipleCondition, //OWNER, MULTIPLE_CONDITION, MAIN_ITEM
+                searchType: SearchType.MultipleCondition, //OWNER, MULTIPLE_CONDITION, MAIN_ITEM
                 collectionCategory: "", //
                 currency: "RINKEBY_ETHER",
                 minPrice: 0,

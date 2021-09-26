@@ -333,6 +333,8 @@ export const Tab = styled.div`
     background-color:${Var.color.blackCard};
 `;
 
+
+
 export const Button = styled.button`
     flex: 1;
     min-width: 80px;

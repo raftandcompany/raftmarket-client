@@ -48,7 +48,6 @@ export const StyledInputWrap = styled.div`
             background-color: ${color.blueDark};
         }
     }
-
 `;
 
 export const StyledInput = styled.input.attrs(props => ({

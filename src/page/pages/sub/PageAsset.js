@@ -126,10 +126,12 @@ export default function PageAsset({pageObj}){
         <PageBg
             isPopup={pageObj.isPopup}
             ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <PageTab pageObj={pageObj}/>
-            { <Header  key={ uuidv4().toString() } data={ asset }/> }
-            { <ListingItemList  key={ uuidv4().toString() } datas={ listings} assetData = {asset}/> }
-            { <OfferItemList  key={ uuidv4().toString() } datas={ offers } assetData = {asset}/> }
+            <div style={{position:"relative"}}>
+                <PageTab pageObj={pageObj}/>
+                { <Header  key={ uuidv4().toString() } data={ asset }/> }
+                { <ListingItemList  key={ uuidv4().toString() } datas={ listings} assetData = {asset}/> }
+                { <OfferItemList  key={ uuidv4().toString() } datas={ offers } assetData = {asset}/> }
+            </div>
         </PageBg>
     )
 }
