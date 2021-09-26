@@ -3,7 +3,6 @@ import { color } from 'style/common/variable';
 import { rem } from 'style/common/mixin';
 
 
-
 export const UtilBox = styled.div`
     position: absolute;
     left:0;

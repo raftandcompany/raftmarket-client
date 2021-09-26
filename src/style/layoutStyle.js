@@ -142,6 +142,10 @@ export const Body = styled.div`
            .text-sub {
                 font-size: ${rem(14)};
            }
+           svg {
+               float:right;
+               margin-top:${rem(19)};
+           }
        }
     }
     .price {
@@ -202,6 +206,10 @@ export const Body = styled.div`
                     transform:rotate(180deg);
                 }
             }
+            &.offers + button {
+                margin-top:${rem(4)};
+                margin-bottom:${rem(24)};
+            }
         }
         &-cont {
             display:none;
@@ -247,6 +255,10 @@ export const Body = styled.div`
                     .rarity {
                         font-size:${rem(14)};
                     }
+                    .typo-span {
+                        display:block;
+                        line-height:1.45;
+                    }
                 }
             }
             .price {
@@ -254,8 +266,6 @@ export const Body = styled.div`
                 background:${Var.color.black};
             }
             .typo-span {
-                display:block;
-                line-height:1.45;
                 color:${Var.color.gray2};
             }
             &.show {

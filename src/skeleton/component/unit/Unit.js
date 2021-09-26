@@ -80,7 +80,7 @@ const AccordionItem = ({
     //onClick,
   }) => {
     const [isActive, setActive] = useState(false);
-    const show = isActive? "show" : "";
+    const show = isActive? " show" : "";
     const renderedData1 = item.items.map((i) => {
         return (
             <div className="market">
@@ -116,7 +116,7 @@ const AccordionItem = ({
     return (
         <div className="accordion-item" key={item.name}>
             <button
-            className={`accordion-button ${item.name} ${show}`}
+            className={`accordion-button ${item.name}${show}`}
             onClick={() => {
                 setActive(!isActive);
             }}
