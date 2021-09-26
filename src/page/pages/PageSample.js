@@ -25,7 +25,7 @@ import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
 import { TitleWrap }  from "style/titleWrap";
 
-import {SvgArrowRight, SvgArrowUp, SvgArrowDown, SvgList, SvgOffer} from "asset/SvgImg";
+import {SvgArrowRight, SvgPrice} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 
@@ -131,6 +131,15 @@ export default function PageSample({pageObj}){
                 </div>
                 <div className="tab-content">
                     <Accordion data={data2} />
+                </div>
+                <div className="current-price">
+                    <Typography variant="body1">Current Price</Typography>
+                    <div className="price">
+                        <Typography variant="emphasis">
+                            <SvgPrice />1.5<span className="text-sub">($ 1907,02)</span>
+                        </Typography>
+                    </div>
+                    <Button1 children="BUY NOW" type="purple" height={52} fontSize={16} />
                 </div>
             </div>
 

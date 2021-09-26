@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import Button from "skeleton/component/button/EllipseButton";
+import EllipseButton from "skeleton/component/button/EllipseButton";
+import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import Typography from "skeleton/component/text/Typography";
 import { UserImage }  from "style/cardStyle";
 import { AccordionStyle }  from "style/cardStyle";
@@ -98,16 +99,16 @@ const AccordionItem = ({
                     ? <Typography variant="body1">'Doesn’t expire'</Typography>
                     : <Typography variant="body1" name="time"><SvgTime />{i.expire}</Typography>
                 }
-                <Button children="buy" type="purple" height={40} fontSize={16} />
+                <EllipseButton children="buy" type="purple" height={40} fontSize={16} />
             </div>
         );
     });
     const renderedData2 = item.items.map((i) => {
         return (
             <div className="about">
-                <Typography variant="body1" name="label">{i.label}</Typography>
-                <Typography variant="body1" name="item">{i.item}</Typography>
-                <Typography variant="body1" name="rarity">{i.rarity}</Typography>
+                <Typography variant="span" name="label">{i.label}</Typography>
+                <Typography variant="span" name="item">{i.item}</Typography>
+                <Typography variant="span" name="rarity">{i.rarity}</Typography>
             </div>
         );
     });
@@ -125,6 +126,11 @@ const AccordionItem = ({
                 </Typography>
                 <SvgArrowDown />
             </button>
+            {
+                item.name === 'offers'
+                ? <BorderRadiusButton children="Make an Offer" type="purple" fullSize={true} />
+                : null
+            }
             <div className={`accordion-cont ${show}`}>
             {
                 item.type === 'row' ? renderedData1 : renderedData2

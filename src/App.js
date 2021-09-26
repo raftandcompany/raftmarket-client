@@ -10,7 +10,8 @@ import {GlobalStyle} from "style/common/globalStyle"
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
-//import PageSample from "page/pages/PageSample"
+import PageSample from "page/pages/PageSample"
+import PageTab from "page/component/tab/PageTab"
 
 const TAG = "App"
 
@@ -18,6 +19,12 @@ const repository = AppRepository()
 const presenter = AppPagePresenter()
 const controller = AppController()
 
+const pageObj = {
+    id :'12',
+    pageId :1,
+    params:{'title':'tt'},
+    isPopup: true
+}
 
 
 function App (){
@@ -30,10 +37,11 @@ function App (){
         <Web3ReactProvider getLibrary={getLibrary}>
             <Body className="App">
                 <GlobalStyle />
-                {/*<PageSample />*/}
+                {/* <PageSample />
+                <PageTab pageObj={pageObj}/> */}
                 <PageDisplayer presenter = {presenter} />
                 <PageNavi presenter = {presenter}/>
-                <PopupDisplayer presenter = {presenter}/> 
+                <PopupDisplayer presenter = {presenter}/>
             </Body>
         </Web3ReactProvider>
     )
