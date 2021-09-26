@@ -8,8 +8,6 @@ import crypto from 'crypto'
 
 const ethereum = window.ethereum
 
-export const defaultExchangeAddress = "0x5206e78b21ce315ce284fb24cf05e0585a93b1d9"
-export const defaultTokenAddress = "0xdf032bc4b9dc2782bb09352007d4c57b75160b15"
 
 const Define = {
     NullAddress: '0x0000000000000000000000000000000000000000',
@@ -33,7 +31,6 @@ const loadContract = (address) => {
 
 const loadRegistry = (address) => {
     const contract = Metamask.getContract(address, registryAbi)
-
     return contract
 }
 
@@ -93,6 +90,7 @@ const Exchange = {
     getRegistryAddress: async ({
         exchangeAddress,
     }) => {
+
         const exchange = loadContract(exchangeAddress)
         return await exchange.registry()
     },
@@ -101,9 +99,9 @@ const Exchange = {
     getProxyAddress: async ({
         registryAddress,
     }) => {
+        console.log(registryAddress)
         const account = await Metamask.getAccount()
         const registry = loadRegistry(registryAddress)
-        
         const proxyAddress = await registry.proxies(account)
         return proxyAddress
     },
@@ -114,7 +112,6 @@ const Exchange = {
         const registry = loadRegistry(registryAddress)
         try {
             const tx = await registry.registerProxy()
-            
             return tx.hash
         } catch (err) {
             console.log(err)

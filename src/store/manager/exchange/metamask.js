@@ -80,11 +80,13 @@ const Metamask = {
     // 컨트랙트 연결
     getContract: (address, abi) => {
         const provider = new ethers.providers.Web3Provider(ethereum)
+        console.log(provider)
         const contract = new ethers.Contract(address, convertAbi(abi), provider).connect(provider.getSigner())
         return contract
     },
     getSigner: () => {
         const provider = new ethers.providers.Web3Provider(ethereum)
+        console.log(provider)
         return provider.getSigner()
     },
     // 서명

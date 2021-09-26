@@ -1,7 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import MetaMaskOnboarding from "@metamask/onboarding"
 import * as Metamask from './Metamask'
-import * as Exchange  from "store/manager/exchange/exchange"
 
 
 class MetamaskManager {

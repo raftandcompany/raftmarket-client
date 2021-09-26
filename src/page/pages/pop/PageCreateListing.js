@@ -20,9 +20,12 @@ export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"
     const [inputPrice, setPrice] = useState("")
     const [inputQuantity, setQuantity] = useState("")
+
     let dataProvider = AppDataProvider()
     let disposer = null
     let exchange = Exchange.default
+    let assetData = null
+    let isHold = false
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -34,7 +37,7 @@ export default function PageCreateListing({pageObj}){
         observable(this,dataProvider)
         console.log(TAG,pageObj)
         let address = AppMetamaskManager().accounts[0]
-        let data = pageObj.params["data"].data
+        assetData = pageObj.params["data"].data
     }
 
     function onSubscribe(){
@@ -50,22 +53,152 @@ export default function PageCreateListing({pageObj}){
 
     function submit(e){
         e.preventDefault()
-        // Add this in node_modules/react-dom/index.js
-        //const metamaskManager = AppMetamaskManager()
-        //metamaskManager.requestQ(Metamask.Request.registListing)
-        registListing()
+        checkRegistAddress()
 
     }
-
-    function registListing(){
+    function checkRegistAddress(){
+        console.log(TAG + " checkRegistAddress", "init")
         try {
-            let registryAddress = exchange.getRegistryAddress(Exchange.defaultExchangeAddress)
-            let proxyAddress = exchange.getProxyAddress(registryAddress)
-            console.error(TAG, registryAddress)
+            let registryAddress = exchange.getRegistryAddress({
+                exchangeAddress : Metamask.ExchangeKey.defaultAddress
+            })
+
+            registryAddress.then(
+                (address)=>{
+                    console.log(TAG + " checkRegistAddress registryAddress", address)
+                    let proxyAddress = exchange.getProxyAddress({
+                        registryAddress: address
+                    })
+                    proxyAddress.then(
+                        (address)=>{
+                            console.log(TAG + " checkRegistAddress", address)
+                            if (address === Metamask.ExchangeKey.unregistAdress) {
+                                if(isHold){
+                                    console.log(TAG + " checkRegistAddress", "retry check")
+                                } else {
+                                    console.log(TAG + " checkRegistAddress", "registAdress")
+                                    registAdress(address)
+                                }
+                            } else {
+                                isHold = false
+                                console.log(TAG + "checkRegistAddress", "success")
+                                checkApprovedNft(address)
+                            }
+                        },
+                        (error)=>{
+                            isHold = false
+                            console.error(TAG + " checkRegistAddress", error)
+                        })
+                },
+                (error)=>{
+                    isHold = false
+                    console.error(TAG + " checkRegistAddress", error)
+                })
+
+
         } catch (error) {
-            console.error(TAG, error)
+            isHold = false
+            console.error(TAG + " checkRegistAddress", error)
         }
     }
+    function registAdress(registryAddress){
+        console.log(TAG + " registAdress init", registryAddress)
+        try {
+            let hash = exchange.registerProxy({registryAddress:registryAddress})
+            hash.then(
+                (token)=>{
+                    console.log(TAG + " registAdress", token)
+                    if (token == null){
+                        console.log(TAG + " registAdress", "denied")
+                    } else {
+                        isHold = true
+                        console.log(TAG + " registAdress", "success")
+                        checkRegistAddress()
+                    }
+                },
+                (error)=>{
+                    isHold = false
+                    console.error(TAG + " registAdress", error)
+                })
+        } catch (error) {
+            isHold = false
+            console.error(TAG + " registAdress", error)
+        }
+    }
+
+    function checkApprovedNft(proxyAddress){
+        console.log(TAG + "checkApprovedNfts", "init")
+        try {
+            let aprovedNft = exchange.isApprovedNft({
+                nftAddress : assetData.collectionAddress,
+                proxyAddress : proxyAddress
+            })
+            console.log(TAG, aprovedNft)
+            aprovedNft .then(
+                (isApproved)=>{
+                    console.log(TAG + " checkApprovedNfts", isApproved)
+                    if (isApproved == true){
+                        isHold = false
+                        console.log(TAG + "checkApprovedNfts", "success")
+                        registListing(proxyAddress)
+                    } else{
+                        if(isHold){
+                            console.log(TAG + "checkApprovedNfts", "retry check")
+                        } else {
+                           console.log(TAG + " checkApprovedNfts", "registApprovedNft")
+                           registApprovedNft(proxyAddress)
+                        }
+
+                    }
+                },
+                (error)=>{
+                    isHold = false
+                    console.error(TAG + " checkApprovedNfts", error)
+                })
+
+        } catch (error) {
+            isHold = false
+            console.error(TAG + " checkApprovedNfts", error)
+
+        }
+    }
+
+    function registApprovedNft(proxyAddress){
+        console.log(TAG + "registApprovedNft", "init")
+        try {
+            let hash = exchange.approvalNft({
+                nftAddress : assetData.collectionAddress,
+                proxyAddress : proxyAddress
+            })
+            hash.then(
+                (token)=>{
+                    console.log(TAG + " registApprovedNft", token)
+                    if (token == null){
+                        console.log(TAG + " registApprovedNft", "denied")
+                    } else {
+                        isHold = true
+                        console.log(TAG + " registApprovedNft", "success")
+                        checkApprovedNft(proxyAddress)
+                    }
+
+                },
+                (error)=>{
+                    isHold = false
+                    console.error(TAG + " registApprovedNft", error)
+                })
+
+        } catch (error) {
+            isHold = false
+            console.error(TAG + " registApprovedNft", error)
+        }
+    }
+
+    function registListing(proxyAddress){
+        console.log(TAG + "registListing", proxyAddress)
+
+    }
+
+
 
     return (
         <PageBg
@@ -90,14 +223,12 @@ export default function PageCreateListing({pageObj}){
             </StyledInputWrap>
 
             <StyledFullButtonWrap>
-                <Button2 children="Create Listing" type="purple"
+                <Button2 children="Create Offer" type="purple"
                          unactive={inputPrice === "" || inputQuantity  === ""}
                          fullSize={true}
                          onClick={e => submit(e)}
                 />
             </StyledFullButtonWrap>
-
-
         </PageBg>
     )
 }

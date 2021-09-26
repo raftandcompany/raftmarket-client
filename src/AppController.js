@@ -11,7 +11,6 @@ class AppController {
     constructor() {
         this.createObservable()
         this.TAG = "AppController"
-        this.accountIsInitate = false
         this.joinRetryCount = 0
         this.initApp()
         this.subscribe()
@@ -72,22 +71,41 @@ class AppController {
                 }
             }
 
-            if (this.metamaskManager.accounts != null && !this.accountIsInitate) {
-                this.accountIsInitate = true
+            if (this.metamaskManager.accounts != null) {
+                let prevUser = this.dataProvider.user
                 let address =  this.metamaskManager.accounts[0]
-                this.dataProvider.requestQ(new DataRequest(Rest.ApiType.getAccount, {address:address}))
+                if (prevUser != null) {
+                    console.log(this.TAG + " prevUser", prevUser.adress)
+                    console.log(this.TAG + " currentUser", address)
+                    if (prevUser.adress === address){ return }
+                }
+                console.log(this.TAG + " getAccount Api")
+                runInAction(() => {
+                    this.dataProvider.requestQ(new DataRequest(Rest.ApiType.getAccount, {address: address}))
+                })
             }
 
             let response = this.dataProvider.response
             if (response != null){
                 switch (response.type){
                     case  Rest.ApiType.getAccount :
+                        console.log(this.TAG + " getAccount")
+                        let prevUser = this.dataProvider.user
                         let user = new User().setData(response.data)
+                        if (prevUser != null) {
+                            console.log(this.TAG + " prevUser", prevUser.adress)
+                            console.log(this.TAG + " currentUser", user.adress)
+                            if (prevUser.adress === user.adress){
+                                let currentPage =  AppPagePresenter().pageObj
+                                if ( currentPage.pageId !== PageId.Intro ) {
+                                    console.log(this.TAG + " sameUser", prevUser.adress)
+                                    return
+                                }
+                            }
+                        }
                         this.dataProvider.user = user
-
-                        let currentPage =  AppPagePresenter().pageObj
-                        if ( currentPage.pageId !== PageId.Intro ) return
-
+                        AppPagePresenter().closeAllPopup()
+                        console.log(this.TAG + " dataProvider.user changed")
                         if (user.isJoin()) {
                             let page = new PageObjcet(PageId.Home, {title: "InitHome"})
                             AppPagePresenter().changePage(page)
