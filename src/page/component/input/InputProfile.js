@@ -8,41 +8,86 @@ import {v4 as uuidv4} from "uuid";
 
 export default function InputProfile({nickName, emailAddress, action}){
     const TAG = "InputProfile"
-    const [inputNickName, setNickName] = useState(nickName)
-    const [inputEmailAddress, setEmailAddress] = useState(emailAddress)
+    const [inputs, setInputs] = useState({
+        nickName: "",
+        emailAddress: ""
+    })
+    const [focusName, setFocusName] = useState(null)
+
     function submit(e){
         e.preventDefault()
-        if (inputNickName === "") {
+        if (inputs.nickName === "") {
             alert("input nick name")
             return
         }
         action({
-            nickName: inputNickName,
-            emailAddress:inputEmailAddress
+            nickName: inputs.nickName,
+            emailAddress:inputs.emailAddress
         })
     }
+
+    const onChange = e => {
+        const { value, name } = e.target
+        setFocusName(name)
+        setInputs({
+            ...inputs, // 기존의 input 객체를 복사한 뒤
+            [name]: value // name 키를 가진 값을 value 로 설정
+        })
+    }
+
+    const onReset = () => {
+        setInputs({
+            price: "",
+            expireDate: ""
+        })
+    }
+
+    const InputField = ({name, placeHolder, value, isFocus, maxLength= "20" }) =>
+        isFocus ?
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       autoFocus
+                       maxLength ={maxLength}
+
+            />
+            :
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       maxLength = {maxLength}
+
+            />
     return (
         <div>
             <StyledInputWrap key={ uuidv4().toString() }>
                 <InputLabel children="mail" />
-                <InputText placeHolder="ex) marketplace@gmail.com"
-                           defaultValue={ inputEmailAddress }
-                           height={48} fontSize={14}
-                           onChange={e=>setNickName(e.target.value)}
+                <InputField
+                    name={"emailAddress"}
+                    placeHolder="ex) marketplace@gmail.com"
+                    value={inputs.emailAddress}
+                    isFocus={focusName === "emailAddress"}
                 />
             </StyledInputWrap >
 
             <StyledInputWrap key={ uuidv4().toString() }>
                 <InputLabel children="Nickname" />
-                <InputText placeHolder="ex) marketplace"  defaultValue={ inputNickName }
-                           height={48} fontSize={14}
-                           onChange={e=>setEmailAddress(e.target.value)}
+                <InputField
+                    name={"nickName"}
+                    placeHolder="ex) marketplace"
+                    value={inputs.nickName}
+                    isFocus={focusName === "nickName"}
                 />
+
             </StyledInputWrap>
 
             <StyledFullButtonWrap>
                 <BorderRadiusButton children="Sign Up" type="purple"
-                         unactive={inputNickName === "" || inputEmailAddress === ""}
+                         unactive={inputs.nickName === "" || inputs.emailAddress === ""}
                          fullSize={true}
                          onClick={e => submit(e)}
                 />

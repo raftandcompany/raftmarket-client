@@ -9,11 +9,11 @@ import AppPagePresenter from "page/PagePresenter"
 
 import * as Rest from "store/rest/Rest"
 import InputProfile from "page/component/input/InputProfile"
-import PageTab from "page/component/tab/PageTab";
 import {Title} from "style/textStyle";
 
 export default function PageRegist({pageObj}){
     const TAG = "PageRegist"
+
     let dataProvider = AppDataProvider()
     let disposer = null
     React.useEffect(() => {
@@ -58,8 +58,8 @@ export default function PageRegist({pageObj}){
                 emailAddress:data.emailAddress
             }
         ))
-
     }
+
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>

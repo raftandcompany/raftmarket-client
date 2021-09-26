@@ -19,11 +19,11 @@ export default function PageCreateListing({pageObj}){
     const [inputs, setInputs] = useState({
         price: "",
         expireDate: ""
-    });
-
+    })
+    const [focusName, setFocusName] = useState(null)
     const [isHold, setHold] = useState(false)
     const [assetData, setAssetData] = useState(null)
-    const [focusName, setFocusName] = useState(null)
+
     let dataProvider = AppDataProvider()
     let disposer = null
     let exchange = Exchange.default
