@@ -34,3 +34,24 @@ export const MoreButton = styled.a`
         vertical-align:top;
     }
 `;
+
+export const TabButton = styled.button`
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: ${rem(4)} solid ${color.blackCard};
+    span {
+        font-weight: 600;
+        color:${color.blackLight};
+        font-size: ${rem(16)};
+        transition: color 0.2s;
+    }
+    &.active {
+        border-color: ${color.white};
+        span {
+            color:${color.white};
+        }
+    }
+`;

@@ -2,6 +2,7 @@ import React from "react"
 import { RoundButton }  from "style/roundButton"
 import * as All from "asset/SvgCategory"
 import { SvgSearch, SvgAlarm, SvgBack } from "asset/SvgImg"
+import { SvgFacebook, svgInsta } from "asset/SvgSns"
 
 function Button({ icon, type, ...rest }) {
     return (
@@ -19,6 +20,7 @@ function Button({ icon, type, ...rest }) {
                     'search' : <SvgSearch />,
                     'alarm' : <SvgAlarm />,
                     'back' : <SvgBack />,
+                    'facebook' : <SvgFacebook />,
                 }[icon]
             }
             <span>{icon}</span>
