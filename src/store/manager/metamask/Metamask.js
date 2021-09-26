@@ -3,15 +3,13 @@ export const Request = Object.freeze ({
     autoConnect : "autoConnect",
     connect : "connect",
     getAccount : "getAccount",
-    checkAccountStatus : "checkAccountStatus",
-    registListing : "registListing"
+    checkAccountStatus : "checkAccountStatus"
 })
 
 export const Event = Object.freeze ({
     installed : "installed",
     connected : "connected",
-    avaibleAccountStatus : "checkAccountStatus",
-    registListingCompleted : "registListingCompleted"
+    avaibleAccountStatus : "checkAccountStatus"
 })
 
 export const Status = Object.freeze ({

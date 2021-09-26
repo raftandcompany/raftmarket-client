@@ -10,40 +10,37 @@ import {GlobalStyle} from "style/common/globalStyle"
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
-import PageSample from "page/pages/PageSample"
-import PageTab from "page/component/tab/PageTab"
 
 const TAG = "App"
-
 const repository = AppRepository()
 const presenter = AppPagePresenter()
 const controller = AppController()
 
-const pageObj = {
-    id :'12',
-    pageId :1,
-    params:{'title':'tt'},
-    isPopup: true
+function App (){
+    return <AppBody/>
 }
 
+function AppBody (){
 
-function App (){
-    const getLibrary = (provider) => {
-        console.log("[getLibrary] provider", provider);
-        return new Web3Provider(provider);
-    };
+    React.useEffect(() => {
+        onAppear()
+        onSubscribe()
+        return () => onDisappear ()
+    }, []);
 
+    function onAppear (){
+    }
+    function onSubscribe(){
+    }
+    function onDisappear (){
+    }
     return(
-        <Web3ReactProvider getLibrary={getLibrary}>
-            <Body className="App">
-                <GlobalStyle />
-                {/* <PageSample />
-                <PageTab pageObj={pageObj}/> */}
-                <PageDisplayer presenter = {presenter} />
-                <PageNavi presenter = {presenter}/>
-                <PopupDisplayer presenter = {presenter}/>
-            </Body>
-        </Web3ReactProvider>
+        <Body className="App">
+            <GlobalStyle />
+            <PageDisplayer presenter = {presenter} />
+            <PageNavi presenter = {presenter}/>
+            <PopupDisplayer presenter = {presenter}/>
+        </Body>
     )
 }
 
@@ -60,6 +57,4 @@ const PopupDisplayer = observer(({ presenter }) =>
 const PageNavi = observer(({ presenter }) =>
     <BottomTab currentPageId = {presenter.pageObj.pageId} />
 )
-
-
 export default App

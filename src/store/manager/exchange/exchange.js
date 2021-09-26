@@ -3,10 +3,13 @@ import registryAbi from './registry_abi.json'
 import NftAbi from './erc721_abi.json'
 import TokenAbi from './erc20_abi.json'
 import Metamask from './metamask'
-import Web3 from 'web3-react'
+import {ethers} from 'ethers'
 import crypto from 'crypto'
 
 const ethereum = window.ethereum
+
+export const defaultExchangeAddress = "0x5206e78b21ce315ce284fb24cf05e0585a93b1d9"
+export const defaultTokenAddress = "0xdf032bc4b9dc2782bb09352007d4c57b75160b15"
 
 const Define = {
     NullAddress: '0x0000000000000000000000000000000000000000',
@@ -45,7 +48,7 @@ const loadTokenContract = (address) => {
 }
 
 const bigIntToHex = (value) => {
-    return Web3.utils.numberToHex(value).replace('0x', '').padStart(64, '0')
+    return ethers.BigNumber.from(value)._hex.replace('0x', '')
 }
 
 const genSalt = () => {
@@ -84,8 +87,6 @@ const extractUints = (order) => {
         order.salt,
     ]
 }
-export const defaultExchangeAddress = "0x5206e78b21ce315ce284fb24cf05e0585a93b1d9"
-export const defaultTokenAddress = "0xdf032bc4b9dc2782bb09352007d4c57b75160b15"
 
 const Exchange = {
     // Registry Contract 주소 확인
@@ -93,7 +94,7 @@ const Exchange = {
         exchangeAddress,
     }) => {
         const exchange = loadContract(exchangeAddress)
-        return await exchange.methods.registry().call()
+        return await exchange.registry()
     },
     // Registry Contract 를 통해 Proxy 주소 확인
     // Proxy 등록이 안되어있으면 0x0000000000000000000000000000000000000000 리턴
@@ -102,68 +103,86 @@ const Exchange = {
     }) => {
         const account = await Metamask.getAccount()
         const registry = loadRegistry(registryAddress)
-        const proxyAddress = await registry.methods.proxies(account).call()
+        
+        const proxyAddress = await registry.proxies(account)
         return proxyAddress
     },
     // Register Contract 를 통해 Proxy 주소 등록
     registerProxy: async({
         registryAddress,
     }) => {
-        const account = await Metamask.getAccount()
-
         const registry = loadRegistry(registryAddress)
-        return await registry.methods.registerProxy().send({
-            from: account,
-        })
+        try {
+            const tx = await registry.registerProxy()
+            
+            return tx.hash
+        } catch (err) {
+            console.log(err)
+            return null
+        }
+        
+        // return await registry.registerProxy().send({
+        //     from: account,
+        // })
     },
     // NFT 토큰 Approval 여부 확인
     isApprovedNft: async({
-        nftAddress, //Asset collectionAdress
-        proxyAddress,
-    }) => {
-        const account = await Metamask.getAccount()
-        const contract = loadNftContract(nftAddress)
-
-        return await contract.methods.isApprovedForAll(account, proxyAddress.toLowerCase()).call()
-    },
-    // NFT 토큰 Approval 액션
-    approvalNft: async({
         nftAddress,
         proxyAddress,
     }) => {
         const account = await Metamask.getAccount()
         const contract = loadNftContract(nftAddress)
 
-        return await contract.methods.setApprovalForAll(proxyAddress, true).send({
-            from: account,
-        })
+        return await contract.isApprovedForAll(account, proxyAddress.toLowerCase())
+    },
+    // NFT 토큰 Approval 액션
+    approvalNft: async({
+        nftAddress,
+        proxyAddress,
+    }) => {
+        const contract = loadNftContract(nftAddress)
+
+        try {
+            const tx = await contract.setApprovalForAll(proxyAddress, true)
+            return tx.hash
+        } catch (err) {
+            console.log(err)
+            return null
+        }
+        
+        // return await contract.setApprovalForAll(proxyAddress, true).send({
+        //     from: account,
+        // })
     },
     // 코인 Proxy 주소 확인
     getTokenProxyAddress: async({exchangeAddress}) => {
         const exchange = loadContract(exchangeAddress)
-        return await exchange.methods.tokenTransferProxy().call()
+        return await exchange.tokenTransferProxy()
     },
-    // 코인 Approval 여부 확인 0이면
+    // 코인 Approval 여부 확인
     allowance: async({
-        tokenAddress , //
-        tokenProxyAddress,
-    }) => {
-        const account = await Metamask.getAccount()
-        const contract = loadTokenContract(tokenAddress)
-
-        return await contract.methods.allowance(account, tokenProxyAddress).call()
-    },
-    // 코인 Approval 액션
-    approvalToken: async({
         tokenAddress,
         tokenProxyAddress,
     }) => {
         const account = await Metamask.getAccount()
         const contract = loadTokenContract(tokenAddress)
 
-        return await contract.methods.approve(tokenProxyAddress, '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff').send({
-            from: account,
-        })
+        const result = await contract.allowance(account, tokenProxyAddress)
+        return result._hex
+    },
+    // 코인 Approval 액션
+    approvalToken: async({
+        tokenAddress,
+        tokenProxyAddress,
+    }) => {
+        const contract = loadTokenContract(tokenAddress)
+        try {
+            const tx = await contract.approve(tokenProxyAddress, '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+            return tx.hash
+        } catch (err) {
+            console.log(err)
+            return null
+        }
     },
     // 판매 등록
     listing: async ({
@@ -192,7 +211,7 @@ const Exchange = {
             saleKind: 0,
             target: collectionAddress,
             howToCall: 0,
-            callData: "0x" + Define.CallFunction[protocol] + "000000000000000000000000" + account.replace('0x', '') + "0000000000000000000000000000000000000000000000000000000000000000" + bigIntToHex(tokenId),
+            callData: "0x" + Define.CallFunction[protocol] + "000000000000000000000000" + account.replace('0x', '') + "0000000000000000000000000000000000000000000000000000000000000000" + bigIntToHex(tokenId).replace('0x', ''),
             replacementPattern: Define.ReplacementPattern.Sell,
             staticTarget: Define.NullAddress,
             staticExtradata: Define.NullBytes,
@@ -209,7 +228,7 @@ const Exchange = {
 
         const contract = loadContract(exchangeAddress)
 
-        const hash = await contract.methods.hashOrder_(addrs, uints,
+        const hash = await contract.hashOrder_(addrs, uints,
             order.feeMethod, 
             order.side, 
             order.saleKind, 
@@ -217,14 +236,12 @@ const Exchange = {
             order.callData, 
             order.replacementPattern, 
             order.staticExtradata,
-        ).call()
-        console.log('Hash: ', hash)
+        )
         
         const sig = await Metamask.sign(account, hash)
-        console.log('Sig:  ', sig)
         
         const vrs = Metamask.sigToVRS(sig)
-        const validResult = await contract.methods.validateOrder_(addrs, uints, 
+        const validResult = await contract.validateOrder_(addrs, uints, 
             order.feeMethod, 
             order.side, 
             order.saleKind, 
@@ -233,9 +250,7 @@ const Exchange = {
             order.replacementPattern, 
             order.staticExtradata,
             vrs.v, vrs.r, vrs.s)
-        .call()
-
-        console.log('ValidVRS: ', validResult)
+        
         order.v = vrs.v
         order.r = vrs.r
         order.s = vrs.s
@@ -333,7 +348,7 @@ const Exchange = {
         ]
     
         try {
-            const result = await contract.methods.atomicMatch_(
+            const tx = await contract.atomicMatch_(
                 addrs, uints, uints8,
                 buyOrder.callData, 
                 sellOrder.callData, 
@@ -343,14 +358,13 @@ const Exchange = {
                 sellOrder.staticExtradata,
                 [sellOrder.v,sellOrder.v],
                 [sellOrder.r,sellOrder.s,sellOrder.r,sellOrder.s,Define.NullByte32],
-            ).send({
-                from: account,
-                value: sellOrder.basePrice,
-            })
-            
-            console.log(result)
+                {value: sellOrder.basePrice}
+            )
+
+            return tx.hash
         } catch (err) {
-            alert(err)
+            console.log(err)
+            return null
         }
     },
     // 제안 등록
@@ -397,7 +411,7 @@ const Exchange = {
 
         const contract = loadContract(exchangeAddress)
 
-        const hash = await contract.methods.hashOrder_(addrs, uints,
+        const hash = await contract.hashOrder_(addrs, uints,
             order.feeMethod, 
             order.side, 
             order.saleKind, 
@@ -405,14 +419,12 @@ const Exchange = {
             order.callData, 
             order.replacementPattern, 
             order.staticExtradata,
-        ).call()
-        console.log('Hash: ', hash)
+        )
         
         const sig = await Metamask.sign(account, hash)
-        console.log('Sig:  ', sig)
         
         const vrs = Metamask.sigToVRS(sig)
-        const validResult = await contract.methods.validateOrder_(addrs, uints, 
+        const validResult = await contract.validateOrder_(addrs, uints, 
             order.feeMethod, 
             order.side, 
             order.saleKind, 
@@ -421,9 +433,7 @@ const Exchange = {
             order.replacementPattern, 
             order.staticExtradata,
             vrs.v, vrs.r, vrs.s)
-        .call()
-
-        console.log('ValidVRS: ', validResult)
+        
         order.v = vrs.v
         order.r = vrs.r
         order.s = vrs.s
@@ -521,7 +531,7 @@ const Exchange = {
         ]
     
         try {
-            const result = await contract.methods.atomicMatch_(
+            const tx = await contract.atomicMatch_(
                 addrs, uints, uints8,
                 buyOrder.callData, 
                 sellOrder.callData, 
@@ -531,13 +541,12 @@ const Exchange = {
                 sellOrder.staticExtradata,
                 [buyOrder.v,buyOrder.v],
                 [buyOrder.r,buyOrder.s,buyOrder.r,buyOrder.s,Define.NullByte32],
-            ).send({
-                from: account,
-            })
+            )
             
-            console.log(result)
+            return tx.hash
         } catch (err) {
-            alert(err)
+            console.log(err)
+            return null
         }
     }
 }

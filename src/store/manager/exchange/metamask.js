@@ -1,13 +1,42 @@
-import { utils } from 'web3-react'
 import metamask from '@metamask/onboarding'
-import Web3 from 'web3-react'
+import {ethers} from 'ethers'
 
 const ethereum = window.ethereum
 
 const ZeroHex = '0x00'
 
-const Metamask = {
+function convertAbi(originAbi) {
+    const abi = []
+    originAbi.map((method,i)=>{
+        if (method.name !== undefined) {
+            let item = method.type + ' ' + method.name
 
+            const inputs = []
+            method.inputs.map((input, i)=>{
+                inputs.push(input.type)
+            })
+
+            item += '('+inputs.join(',')+')'
+
+            if (method.stateMutability === 'view' || method.stateMutability === 'pure') {
+                item += ' ' + method.stateMutability
+            }
+
+            if (method.outputs !== undefined) {
+                const outputs = []
+                method.outputs.map((output, i) => {
+                    outputs.push(output.type)
+                })
+                item += ' returns (' + outputs.join(',') + ')'
+            }
+
+            abi.push(item)
+        }
+    })
+    return abi
+}
+
+const Metamask = {
     // 메타마스크 설치 여부 확인
     isInstalled: () => {
         return metamask.isMetaMaskInstalled()
@@ -41,13 +70,22 @@ const Metamask = {
             method: 'eth_getBalance',
             params: [account, 'latest'],
         })
-        return utils.fromWei(balance, 'ether')
+        
+        // const a = ethers.BigNumber.from(balance)
+        // console.log(a.toString())
+        // return ethers.utils.parseEther(balance).toString()
+        
+        return ethers.utils.formatEther(balance)
     },
     // 컨트랙트 연결
     getContract: (address, abi) => {
-        const web3 = new Web3(ethereum)
-        const contract = new web3.eth.Contract(abi, address)
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const contract = new ethers.Contract(address, convertAbi(abi), provider).connect(provider.getSigner())
         return contract
+    },
+    getSigner: () => {
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        return provider.getSigner()
     },
     // 서명
     sign: async (address, message) => {
@@ -66,11 +104,11 @@ const Metamask = {
         }
     },
     // 서명 복구
-    recover: async (message, sig) => {
-        const web3 = new Web3(ethereum)
-        const rec = await web3.eth.personal.ecRecover(message, sig)
-        return rec
-    },
+    // recover: async (message, sig) => {
+    //     const web3 = new Web3(ethereum)
+    //     const rec = await web3.eth.personal.ecRecover(message, sig)
+    //     return rec
+    // },
     // 컨트랙트 배포
     deployContract: async (from, data) => {
         return await sendTransaction(from, '0x', data)
