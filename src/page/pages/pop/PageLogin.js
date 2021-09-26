@@ -7,6 +7,7 @@ import {observer} from "mobx-react";
 import {Title, TitleLarge} from "style/textStyle";
 import {StyledFullButtonWrap} from "style/roundButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
+import InputText from "../../../skeleton/component/input/InputText";
 
 
 export default function PageLogin({pageObj}){

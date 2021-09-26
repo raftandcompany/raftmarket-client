@@ -29,7 +29,7 @@ export default function PageMyAsset({pageObj}){
         observable(this,dataProvider)
         let address = AppMetamaskManager().accounts[0]
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetSearch, {
-            assetSearchType: SearchType.Owner,
+            searchType: SearchType.Owner,
             address: address
         }, TAG))
 

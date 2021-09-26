@@ -7,7 +7,7 @@ import CardUser from "skeleton/component/card/CardUser";
 import CardImage from "skeleton/component/card/CardImage";
 import {v4 as uuidv4} from "uuid";
 
-function CardTypeCol({ size = 'full', data,  ...props }) {
+function CardTypeCol({ size = 'full', data, action, ...props }) {
     const OwnerList = ({ owners }) =>
         <div className="owner">
             { owners.map( owner => <CardUser key={uuidv4().toString()} data = {owner}/> ) }
@@ -25,11 +25,14 @@ function CardTypeCol({ size = 'full', data,  ...props }) {
         </div>
 
     return (
-        <CardCol size={size}>
+        <CardCol size={size}
+                 onClick={ e=> {
+                     if (action == null) {return}
+                     action()
+                 }}
+        >
             <CardAction>
-                <Typography variant="body1" name="pre">
-                    32 seconds ago
-                </Typography>
+
                 <CardImage src={data != null
                     ? data.art
                     : "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"} />

@@ -3,7 +3,6 @@ import {autorun,  observable} from "mobx"
 import {v4 as uuidv4} from "uuid"
 import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-
 import * as Rest from "store/rest/Rest"
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
@@ -12,8 +11,6 @@ import {OrderData, ItemListing, ItemOffer} from "page/component/item/ItemOrder"
 import {AssetData, ItemAssetArt} from "page/component/item/ItemAsset"
 import PageTab from "page/component/tab/PageTab";
 import ListTitle from "skeleton/component/title/ListTitle";
-
-
 
 export default function PageAsset({pageObj}){
     const TAG = "PageAsset"
