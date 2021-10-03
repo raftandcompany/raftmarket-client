@@ -277,6 +277,7 @@ export const Body = styled.div`
     
     .popup {
         padding:0;
+        background:rgba(25,26,31,0.6);
         &-inner {
             position:fixed;
             left:0;
@@ -287,19 +288,50 @@ export const Body = styled.div`
             background-color:${Var.color.blackCard};
         }
         &-header {
-            height:${rem(65)};
+            height:${rem(70)};
+            border-bottom:1px solid ${Var.color.blackLight};
+            h1 {
+                padding-bottom:0;
+                padding-left:${rem(16)};
+                line-height:${rem(70)};
+            }
         }
         &-content {
-    
+            padding:${rem(16)};
         }
         &-close {
             position:absolute;
             top:0;
             right:0;
-            padding:${rem(24)};
+            padding:${rem(26)} ${rem(24)};
             width:${rem(65)};
             height:${rem(65)};
             cursor:pointer;
+        }
+    }
+    .loading {
+        display:table;
+        position: fixed;
+        z-index:999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align:center;
+        background:#000;
+        &-inner {
+            display:table-cell;
+            vertical-align:middle;
+            img {
+                margin:auto;
+                width:${rem(180)};
+                height:${rem(180)};
+            }
+            p {
+                margin-top:${rem(30)};
+                color:#fff;
+                font-size:${rem(18)};
+            }
         }
     }
     
