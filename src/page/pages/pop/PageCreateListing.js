@@ -3,16 +3,21 @@ import {autorun, observable, runInAction} from "mobx"
 import {v4 as uuidv4} from "uuid"
 import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
+import {StyledInputWrap} from "style/formStyle";
+import {StyledFullButtonWrap} from "style/roundButton";
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import InputLabel from "skeleton/component/input/InputLabel";
 import InputText from "skeleton/component/input/InputText";
-import {StyledInputWrap} from "style/formStyle";
-import Button2 from "skeleton/component/button/BorderRadiusButton";
-import RoundButton, {StyledFullButtonWrap} from "style/roundButton";
+import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
 import AppPagePresenter from "../../PagePresenter";
+import * as Rest from "../../../store/rest/Rest";
+import {AssetData} from "../../component/item/ItemAsset";
+import {OrderData} from "../../component/item/ItemOrder";
+
+
 
 export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"
@@ -21,9 +26,9 @@ export default function PageCreateListing({pageObj}){
         expireDate: ""
     })
     const [focusName, setFocusName] = useState(null)
-    const [isHold, setHold] = useState(false)
     const [assetData, setAssetData] = useState(null)
 
+    let isHold = false
     let dataProvider = AppDataProvider()
     let disposer = null
     let exchange = Exchange.default
@@ -43,11 +48,6 @@ export default function PageCreateListing({pageObj}){
         setAssetData(asset)
     }
 
-    function onSubscribe(){
-        disposer = autorun(() => {
-
-        })
-    }
     function onDisappear (){
         if (disposer != null) {
             disposer()
@@ -58,12 +58,6 @@ export default function PageCreateListing({pageObj}){
 
     function submit(e){
         e.preventDefault()
-        checkRegistAddress()
-    }
-
-    function registListing(proxyAddress){
-        console.log(TAG + "registListing", proxyAddress)
-
         const priceValue =  parseInt(inputs.price);
         if (isNaN(priceValue)) {
             alert("wrong price")
@@ -74,20 +68,80 @@ export default function PageCreateListing({pageObj}){
             alert("wrong expire date")
             return
         }
-        const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
-        console.log(TAG + "expirationTime", expirationTime)
-        exchange.listing({
-            exchangeAddress :Metamask.ExchangeKey.defaultAddress,
-            feeRecipient: Metamask.ExchangeKey.companyAddress,
-            feeRatio:250,
-            collectionAddress:assetData.collectionAddress,
-            tokenId:assetData.assetId,
-            protocol:Metamask.ExchangeKey.protocol,
-            currencyAddress:Metamask.ExchangeKey.currencyAddress,
-            price:priceValue,
-            expirationTime:expirationTime
+        checkRegistAddress()
+    }
+
+    function onSubscribe(){
+        disposer = autorun(() => {
+            let response = dataProvider.response
+            if (response != null){
+                if (response.id !== TAG){return}
+                switch (response.type) {
+                    case  Rest.ApiType.postListing :
+                        console.log(TAG + " postListing", response.data)
+                        break
+                }
+            }
         })
     }
+
+    function registOrder(order){
+        console.log(TAG + " registOrder", order)
+        console.log(TAG + " registOrder", assetData)
+        let params = {
+            id: "100",
+            collectionAddress: assetData.collectionAddress,
+            assetId: assetData.assetId,
+            status: "OPENED",
+            exchange: "exchange1",
+            maker: order.maker,
+            makerRelayerFee: order.makerRelayerFee,
+            takerRelayerFee: order.takerRelayerFee,
+            feeRecipient: order.feeRecipient,
+            callData: order.callData,
+            basePrice: order.basePrice,
+            listingTime: order.listingTime,
+            expirationTime: order.expirationTime,
+            salt: order.salt,
+            signature: "signature1"
+        }
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.postListing, params, TAG,false))
+    }
+
+    function registListing(proxyAddress){
+        console.log(TAG + " registListing", proxyAddress)
+        const priceValue =  parseInt(inputs.price);
+        const expireValue =  parseInt(inputs.expireDate)
+        const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
+        console.log(TAG + " expirationTime", expirationTime)
+        try {
+            let sign = exchange.listing({
+                exchangeAddress :Metamask.ExchangeKey.defaultAddress,
+                feeRecipient: Metamask.ExchangeKey.companyAddress,
+                feeRatio:250,
+                collectionAddress:assetData.collectionAddress,
+                tokenId:assetData.assetId,
+                protocol:Metamask.ExchangeKey.protocol,
+                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                price:priceValue,
+                expirationTime:expirationTime
+            })
+
+            sign.then(
+                (order)=>{
+                    console.log(TAG + " registListing", order)
+                    registOrder(order)
+                },
+                (error)=>{
+                    console.error(TAG + " registListings", error)
+                })
+        } catch (error) {
+            console.error(TAG + " registListing", error)
+        }
+
+    }
+
+
 
     let autoRegistChecker = null
     function createRegistChecker(){
@@ -130,20 +184,20 @@ export default function PageCreateListing({pageObj}){
                             }
                         },
                         (error)=>{
-                            setHold(false)
+                            isHold = false
                             clearRegistChecker()
                             console.error(TAG + " checkRegistAddress", error)
                         })
                 },
                 (error)=>{
-                    setHold(false)
+                    isHold = false
                     clearRegistChecker()
                     console.error(TAG + " checkRegistAddress", error)
                 })
 
 
         } catch (error) {
-            setHold(false)
+            isHold = false
             clearRegistChecker()
             console.error(TAG + " checkRegistAddress", error)
         }
@@ -156,22 +210,22 @@ export default function PageCreateListing({pageObj}){
                 (token)=>{
                     console.log(TAG + " registAdress", token)
                     if (token == null){
-                        setHold(false)
+                        isHold = false
                         console.log(TAG + " registAdress", "denied")
                         AppPagePresenter().closePopup(pageObj)
                     } else {
-                        setHold(true)
+                        isHold = true
                         console.log(TAG + " registAdress", "success")
                         createRegistChecker()
 
                     }
                 },
                 (error)=>{
-                    setHold(false)
+                    isHold = false
                     console.error(TAG + " registAdress", error)
                 })
         } catch (error) {
-            setHold(false)
+            isHold = false
             console.error(TAG + " registAdress", error)
         }
     }
@@ -200,7 +254,7 @@ export default function PageCreateListing({pageObj}){
                 (isApproved)=>{
                     console.log(TAG + " checkApprovedNfts", isApproved)
                     if (isApproved == true){
-                        setHold(false)
+                        isHold = false
                         console.log(TAG + "checkApprovedNfts", "success")
                         clearApprovedChecker()
                         registListing(proxyAddress)
@@ -214,13 +268,13 @@ export default function PageCreateListing({pageObj}){
                     }
                 },
                 (error)=>{
-                    setHold(false)
+                    isHold = false
                     clearApprovedChecker()
                     console.error(TAG + " checkApprovedNfts", error)
                 })
 
         } catch (error) {
-            setHold(false)
+            isHold = false
             clearApprovedChecker()
             console.error(TAG + " checkApprovedNfts", error)
 
@@ -238,22 +292,22 @@ export default function PageCreateListing({pageObj}){
                 (token)=>{
                     console.log(TAG + " registApprovedNft", token)
                     if (token == null){
-                        setHold(false)
+                        isHold = false
                         console.log(TAG + " registApprovedNft", "denied")
                         AppPagePresenter().closePopup(pageObj)
                     } else {
-                        setHold(true)
+                        isHold = true
                         console.log(TAG + " registApprovedNft", "success")
                         createApprovedChecker(proxyAddress)
                     }
                 },
                 (error)=>{
-                    setHold(false)
+                    isHold = false
                     console.error(TAG + " registApprovedNft", error)
                 })
 
         } catch (error) {
-            setHold(false)
+            isHold = false
             console.error(TAG + " registApprovedNft", error)
         }
     }
@@ -324,12 +378,13 @@ export default function PageCreateListing({pageObj}){
             </StyledInputWrap>
 
             <StyledFullButtonWrap>
-                <Button2 children="Create Listing" type="purple"
+                <BorderRadiusButton children="Create Listing" type="purple"
                          unactive={inputs.price === "" || inputs.expireDate  === ""}
                          fullSize={true}
                          onClick={e => submit(e)}
                 />
             </StyledFullButtonWrap>
+
         </PageBg>
     )
 }

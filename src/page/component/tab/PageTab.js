@@ -3,7 +3,7 @@ import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import {Title} from "style/textStyle";
 import {Button} from "style/buttonStyle";
 import { SvgClose } from "asset/SvgImg";
-import Util from "../../../skeleton/component/unit/Util";
+
 
 const TAG = "PageTab"
 export default function PageTab({pageObj}){

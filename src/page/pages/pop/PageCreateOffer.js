@@ -1,27 +1,36 @@
 import React ,  {useState}from "react"
-import {autorun,  observable} from "mobx"
+import {autorun, observable, runInAction} from "mobx"
 import {v4 as uuidv4} from "uuid"
 import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
-
-
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
-import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
-import InputLabel from "../../../skeleton/component/input/InputLabel";
-import InputText from "../../../skeleton/component/input/InputText";
-import {StyledInputWrap} from "../../../style/formStyle";
-import Button2 from "../../../skeleton/component/button/BorderRadiusButton";
-import {StyledFullButtonWrap} from "../../../style/roundButton";
-import PageTab from "../../component/tab/PageTab";
+import InputLabel from "skeleton/component/input/InputLabel";
+import InputText from "skeleton/component/input/InputText";
+import {StyledInputWrap} from "style/formStyle";
+import {StyledFullButtonWrap} from "style/roundButton";
+import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
+import PageTab from "page/component/tab/PageTab";
+import * as Metamask from "store/manager/metamask/Metamask";
+import * as Exchange from "store/manager/exchange/exchange";
+import AppPagePresenter from "../../PagePresenter";
+import Modal from "page/component/modal/Modal";
+import * as Rest from "../../../store/rest/Rest";
 
 
 export default function PageCreateOffer({pageObj}){
     const TAG = "PageCreateOffer"
-    const [inputPrice, setPrice] = useState("")
-    const [inputQuantity, setQuantity] = useState("")
+    const [inputs, setInputs] = useState({
+        price: "",
+        expireDate: ""
+    })
+    const [focusName, setFocusName] = useState(null)
+    const [assetData, setAssetData] = useState(null)
 
+    let isHold = false
     let dataProvider = AppDataProvider()
     let disposer = null
+    let exchange = Exchange.default
+
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -31,25 +40,236 @@ export default function PageCreateOffer({pageObj}){
     function onAppear (){
         console.log(TAG, "onAppear")
         observable(this,dataProvider)
-        let address = AppMetamaskManager().accounts[0]
-        let data = pageObj.params["data"].data
+        console.log(TAG,pageObj)
+        let asset = pageObj.params["data"].data
+        console.log(TAG,asset)
+        setAssetData(asset)
     }
 
-    function onSubscribe(){
-        disposer = autorun(() => {
 
-        })
-    }
     function onDisappear (){
         if (disposer != null) {
             disposer()
         }
+        clearTokenProxyChecker()
+        //clearApprovedChecker()
     }
 
     function submit(e){
         e.preventDefault()
-
+        const priceValue =  parseInt(inputs.price);
+        if (isNaN(priceValue)) {
+            alert("wrong price")
+            return
+        }
+        const expireValue =  parseInt(inputs.expireDate)
+        if (isNaN(expireValue)) {
+            alert("wrong expire date")
+            return
+        }
+        checkTokenProxyAddress()
     }
+
+    function onSubscribe(){
+        disposer = autorun(() => {
+            let response = dataProvider.response
+            if (response != null){
+                if (response.id !== TAG){return}
+                switch (response.type) {
+                    case  Rest.ApiType.postOffer :
+                        console.log(TAG + " postOffer", response.data)
+                        break
+                }
+            }
+        })
+    }
+
+    function registOrder(order){
+        console.log(TAG + " registOrder", order)
+        console.log(TAG + " registOrder", assetData)
+        let params = {
+            id: "100",
+            collectionAddress: assetData.collectionAddress,
+            assetId: assetData.assetId,
+            status: "OPENED",
+            exchange: "exchange1",
+            maker: order.maker,
+            makerRelayerFee: order.makerRelayerFee,
+            takerRelayerFee: order.takerRelayerFee,
+            feeRecipient: order.feeRecipient,
+            callData: order.callData,
+            basePrice: order.basePrice,
+            listingTime: order.listingTime,
+            expirationTime: order.expirationTime,
+            salt: order.salt,
+            signature: "signature1"
+        }
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.postOffer, params, TAG,false))
+    }
+
+    function registOffer(proxyAddress){
+        console.log(TAG + " registOffer", proxyAddress)
+        const priceValue =  parseInt(inputs.price);
+        const expireValue =  parseInt(inputs.expireDate)
+        const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
+        console.log(TAG + " expirationTime", expirationTime)
+        try {
+            let sign = exchange.offering({
+                exchangeAddress :Metamask.ExchangeKey.defaultAddress,
+                feeRecipient: Metamask.ExchangeKey.companyAddress,
+                feeRatio:250,
+                collectionAddress:assetData.collectionAddress,
+                tokenId:assetData.assetId,
+                protocol:Metamask.ExchangeKey.protocol,
+                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                price:priceValue,
+                expirationTime:expirationTime
+            })
+
+            sign.then(
+                (order)=>{
+                    console.log(TAG + " registOffer", order)
+                    registOrder(order)
+                },
+                (error)=>{
+                    console.error(TAG + " registOffer", error)
+                })
+        } catch (error) {
+            console.error(TAG + " registOffer", error)
+        }
+    }
+
+    let autoTokenProxyChecker = null
+    function createTokenProxyChecker(){
+        clearTokenProxyChecker()
+        autoTokenProxyChecker = setTimeout(() => {
+            checkTokenProxyAddress()
+        }, 5000)
+    }
+    function clearTokenProxyChecker(){
+        if (autoTokenProxyChecker != null){
+            clearInterval(autoTokenProxyChecker)
+        }
+    }
+    
+    function checkTokenProxyAddress(){
+        console.log(TAG + " checkTokenProxyAddress", "init")
+        try {
+            let tokenProxyAddressResult = exchange.getTokenProxyAddress({
+                exchangeAddress : Metamask.ExchangeKey.defaultAddress
+            })
+            tokenProxyAddressResult.then(
+                (tokenProxyAddress)=>{
+                    console.log(TAG + " checkTokenProxyAddress tokenProxyAddress", tokenProxyAddress)
+                    let proxyAddressResult = exchange.allowance({
+                        tokenAddress: Metamask.ExchangeKey.defaultTokenAddress,
+                        tokenProxyAddress: tokenProxyAddress
+                    })
+                    proxyAddressResult.then(
+                        ( proxyAddress)=>{
+                            console.log(TAG + " checkTokenProxyAddress", isHold)
+                            if (proxyAddress === Metamask.ExchangeKey.unregistTokenAdress) {
+                                if(isHold){
+                                    console.log(TAG + " checkTokenProxyAddress", "retry check")
+                                    createTokenProxyChecker()
+                                } else {
+                                    console.log(TAG + " checkTokenProxyAddress", "registApprovedToken")
+                                    registApprovedToken(tokenProxyAddress)
+                                }
+                            } else {
+                                clearTokenProxyChecker()
+                                registOffer(proxyAddress)
+                            }
+                        },
+                        (error)=>{
+                            isHold = false
+                            clearTokenProxyChecker()
+                            console.error(TAG + " checkTokenProxyAddress", error)
+                        })
+
+
+                },
+                (error)=>{
+                    isHold = false
+                    clearTokenProxyChecker()
+                    console.error(TAG + " checkTokenProxyAddress", error)
+                })
+
+
+        } catch (error) {
+            isHold = false
+            clearTokenProxyChecker()
+            console.error(TAG + " checkTokenProxyAddress", error)
+        }
+    }
+
+    function registApprovedToken(tokenProxyAddress){
+        console.log(TAG + " registApprovedToken", tokenProxyAddress)
+        try {
+            let hash = exchange.approvalToken({
+                tokenAddress : Metamask.ExchangeKey.defaultTokenAddress,
+                tokenProxyAddress : tokenProxyAddress
+            })
+            hash.then(
+                (token)=>{
+                    console.log(TAG + " registApprovedToken", token)
+                    if (token == null){
+                        isHold = false
+                        console.log(TAG + " registApprovedToken", "denied")
+                        AppPagePresenter().closePopup(pageObj)
+                    } else {
+                        isHold = true
+                        console.log(TAG + " registApprovedToken", "success")
+                        createTokenProxyChecker()
+                    }
+                },
+                (error)=>{
+                    isHold = false
+                    console.error(TAG + " registApprovedToken", error)
+                })
+
+        } catch (error) {
+            isHold = false
+            console.error(TAG + " registApprovedToken", error)
+        }
+    }
+
+    const onChange = e => {
+        const { value, name } = e.target
+        setFocusName(name)
+        setInputs({
+            ...inputs, // 기존의 input 객체를 복사한 뒤
+            [name]: value // name 키를 가진 값을 value 로 설정
+        })
+    }
+
+    const onReset = () => {
+        setInputs({
+            price: "",
+            expireDate: ""
+        })
+    }
+
+    const InputField = ({name, placeHolder, value, isFocus, maxLength= "3" }) =>
+        isFocus ?
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       autoFocus
+                       maxLength ={maxLength}
+
+            />
+            :
+            <InputText placeHolder={placeHolder}
+                       name={name}
+                       height={48} fontSize={14}
+                       onChange={onChange}
+                       value={value}
+                       maxLength = {maxLength}
+
+            />
 
     return (
         <PageBg
@@ -58,24 +278,29 @@ export default function PageCreateOffer({pageObj}){
             <PageTab pageObj={pageObj}/>
             <StyledInputWrap key={ uuidv4().toString() }>
                 <InputLabel children="Price" />
-                <InputText placeHolder="Sale Price"
-                           defaultValue={ inputPrice }
-                           height={48} fontSize={14}
-                           onChange={e=>setPrice(e.target.value)}
+                <InputField
+                    name="price"
+                    placeHolder="Sale Price"
+                    value={inputs.price}
+                    isFocus={focusName === "price"}
+
                 />
             </StyledInputWrap>
             <StyledInputWrap key={ uuidv4().toString() }>
-                <InputLabel children="Quantity" />
-                <InputText placeHolder="Sale Quantity"
-                           defaultValue={ inputQuantity }
-                           height={48} fontSize={14}
-                           onChange={e=>setQuantity(e.target.value)}
+                <InputLabel children="Expire Date" />
+                <InputField
+                    name="expireDate"
+                    placeHolder="rom"
+                    value={inputs.expireDate}
+                    isFocus={focusName === "expireDate"}
+
                 />
+
             </StyledInputWrap>
 
             <StyledFullButtonWrap>
-                <Button2 children="Create Offer" type="purple"
-                         unactive={inputPrice === "" || inputQuantity  === ""}
+                <BorderRadiusButton children="Create Offer" type="purple"
+                         unactive={inputs.price === "" || inputs.expireDate  === ""}
                          fullSize={true}
                          onClick={e => submit(e)}
                 />
