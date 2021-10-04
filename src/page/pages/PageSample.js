@@ -28,6 +28,7 @@ import { TitleWrap }  from "style/titleWrap";
 import {SvgArrowRight, SvgPrice} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
+import SvgLoading from "asset/SvgLoading.svg";
 
 const data1 = [
     {
@@ -92,9 +93,24 @@ const data2 = [
     }
 ]
 
+function Loading() {
+	return (
+		<div className="loading">
+            <div className="loading-inner">
+                <img src={SvgLoading} alt="loading.." />
+                <p>
+                    loading...
+                </p>
+            </div>
+        </div>
+	)
+}
+
 export default function PageSample({pageObj}){
     return (
         <PageBg>
+
+            {Loading()}
 
             {/* nft detail */}
             <div style={{position:"relative"}}>
