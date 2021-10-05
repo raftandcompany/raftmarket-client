@@ -23,15 +23,12 @@ import {Title} from "style/textStyle";
 import {PageBg, StyledScrollWrap} from "style/layoutStyle";
 import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
-import { TitleWrap } from "style/titleWrap";
+import { TitleWrap }  from "style/titleWrap";
 
 import {SvgArrowRight, SvgPrice} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 import SvgLoading from "asset/SvgLoading.svg";
-
-//import {Img1 } from "asset/temp";
-
 
 const data1 = [
     {
@@ -114,13 +111,6 @@ export default function PageSample({pageObj}){
         <PageBg>
 
             {/* {Loading()} */}
-
-            <div className="collection">
-                <Util result={true} favorite={true} share={true} more={true} link={true} />
-                <div className="collectionbox">
-
-                </div>
-            </div>
 
             {/* nft detail */}
             <div style={{position:"relative"}}>

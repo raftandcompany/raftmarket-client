@@ -8,7 +8,7 @@ import {Title, TitleLarge} from "style/textStyle";
 import {StyledFullButtonWrap} from "style/roundButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import InputText from "../../../skeleton/component/input/InputText";
-
+import ImgMetamask from "asset/metamask.png";
 
 export default function PageLogin({pageObj}){
     const TAG = "PageLogin"
@@ -81,6 +81,9 @@ export default function PageLogin({pageObj}){
             <Title>Need Connect Metamask <br />Raft Market</Title>
             <ErrorDisplayer
                 metamaskManager = {metamaskManager}/>
+            <div className="img-login">
+                <img src={ImgMetamask} alt="metamask" />
+            </div>
             <StyledFullButtonWrap>
                 <ConnectButton
                     visible = {isInstalled}

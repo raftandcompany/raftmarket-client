@@ -10,6 +10,7 @@ import {GlobalStyle} from "style/common/globalStyle"
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
+//import PageSample from "page/pages/PageSample"
 
 const TAG = "App"
 const repository = AppRepository()
@@ -37,6 +38,8 @@ function AppBody (){
     return(
         <Body className="App">
             <GlobalStyle />
+            
+            {/* <PageSample /> */}
             <PageDisplayer presenter = {presenter} />
             <PageNavi presenter = {presenter}/>
             <PopupDisplayer presenter = {presenter}/>

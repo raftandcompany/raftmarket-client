@@ -9,6 +9,12 @@ export const Body = styled.div`
     width: 100%;
     height: 100%;
 
+    .img-login {
+        margin:0 auto;
+        padding:${rem(100)} 0 ${rem(80)};
+        width:${rem(131)};
+    }
+
     .typo-emphasis {
         display: block;
         color: ${Var.color.white};
@@ -334,7 +340,27 @@ export const Body = styled.div`
             }
         }
     }
-    
+
+
+    .collection {
+        &box {
+            width:100%;
+            height: ${rem(224)};
+            background:${Var.color.purpleLight};
+            &::after {
+                content:'';
+                display:block;
+                position:absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                background: linear-gradient(180deg, rgba(25, 26, 31, 0.8) 0%, rgba(25, 26, 31, 0.2) 100%);
+                opacity: 0.5;
+            }
+
+        }
+    }
 `;
 
 export const Popup = styled.div`
