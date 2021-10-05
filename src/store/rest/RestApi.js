@@ -81,6 +81,10 @@ class RestApi {
                 return Order.getListings(request.params, cancel)
             case Rest.ApiType.getOffers :
                 return Order.getOffers(request.params, cancel)
+            case Rest.ApiType.postListing :
+                return Order.postListing(request.params, cancel)
+            case Rest.ApiType.postOffer :
+                return Order.postOffer(request.params, cancel)
             case Rest.ApiType.getCollection :
                 return Collection.get(request.params, cancel)
             case Rest.ApiType.getCollectionById :
