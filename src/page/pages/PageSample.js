@@ -30,7 +30,7 @@ import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 import SvgLoading from "asset/SvgLoading.svg";
 
-//import {Img1 } from "asset/temp";
+import * as Images from "asset/temp/index";
 
 
 const data1 = [
@@ -118,7 +118,15 @@ export default function PageSample({pageObj}){
             <div className="collection">
                 <Util result={true} favorite={true} share={true} more={true} link={true} />
                 <div className="collectionbox">
-
+                    <div className="bg-gradiant purple"></div>
+                    <div className="collection-thumb">
+                        <img src={Images.Img6} alt="collection image" />
+                    </div>
+                    <Title>Cool Cats NFT</Title>
+                    <Typography variant="body2" name="description">
+                        An online community of makers, <br />
+                        developers, and traders is pushing the art world <br />into new territory. <a href="">more&gt;</a>
+                    </Typography>
                 </div>
             </div>
 

@@ -341,24 +341,53 @@ export const Body = styled.div`
         }
     }
 
+    .bg-gradiant {
+        height: ${rem(224)};
+        &.purple {
+            background:${Var.color.purpleDark};
+        }
+        &::after {
+            content:'';
+            display:block;
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background: linear-gradient(180deg, rgba(25, 26, 31, 0.8) 0%, rgba(25, 26, 31, 0.2) 100%);
+            opacity: 0.5;
+        }
+    }
 
     .collection {
+        position: relative;
+        margin-top:${rem(-16)};
+        margin-left:${rem(-16)};
+        width:calc(100% + ${rem(32)});
+        text-align:center;
         &box {
             width:100%;
-            height: ${rem(224)};
-            background:${Var.color.purpleLight};
-            &::after {
-                content:'';
-                display:block;
-                position:absolute;
-                left:0;
-                top:0;
-                width:100%;
-                height:100%;
-                background: linear-gradient(180deg, rgba(25, 26, 31, 0.8) 0%, rgba(25, 26, 31, 0.2) 100%);
-                opacity: 0.5;
+            height: ${rem(404)};
+        }
+        
+        &-thumb {
+            overflow:hidden;
+            margin:${rem(-64)} auto ${rem(16)};
+            //padding:${rem(160)} 0;
+            width:${rem(96)};
+            height:${rem(96)};
+            border-radius:50%;
+            img {
+                object-fit:cover;
             }
+        }
+        h1 {
+            text-align:center;
 
+        }
+        p {
+            line-height:${rem(20)};
+            color:#fff;
         }
     }
 `;
