@@ -289,6 +289,8 @@ export const Body = styled.div`
             left:0;
             bottom:0;
             width:100%;
+            max-height: 100%;
+            overflow-y: auto;
             border-top-left-radius:${rem(8)};
             border-top-right-radius:${rem(8)};
             background-color:${Var.color.blackCard};
@@ -458,6 +460,9 @@ export const PageBg = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
+  .popup-content {
+      //padding: ${rem(16)} 0;
+  }
 `;
 
 

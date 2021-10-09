@@ -353,36 +353,37 @@ export default function PageCreateListing({pageObj}){
             isPopup={pageObj.isPopup}
             ani={pageObj.isPopup ? slideInUp : fadeIn}>
             <PageTab pageObj={pageObj}/>
-            <StyledInputWrap key={ uuidv4().toString() }>
-                <InputLabel children="Price" />
-                <InputField
-                    name="price"
-                    placeHolder="Sale Price"
-                    value={inputs.price}
-                    isFocus={focusName === "price"}
+            <div className="popup-content">
+                <StyledInputWrap key={ uuidv4().toString() }>
+                    <InputLabel children="Price" />
+                    <InputField
+                        name="price"
+                        placeHolder="Sale Price"
+                        value={inputs.price}
+                        isFocus={focusName === "price"}
 
-                />
-            </StyledInputWrap>
-            <StyledInputWrap key={ uuidv4().toString() }>
-                <InputLabel children="Expire Date" />
-                <InputField
-                    name="expireDate"
-                    placeHolder="rom"
-                    value={inputs.expireDate}
-                    isFocus={focusName === "expireDate"}
+                    />
+                </StyledInputWrap>
+                <StyledInputWrap key={ uuidv4().toString() }>
+                    <InputLabel children="Expire Date" />
+                    <InputField
+                        name="expireDate"
+                        placeHolder="rom"
+                        value={inputs.expireDate}
+                        isFocus={focusName === "expireDate"}
 
-                />
+                    />
 
-            </StyledInputWrap>
+                </StyledInputWrap>
 
-            <StyledFullButtonWrap>
-                <BorderRadiusButton children="Create Listing" type="purple"
-                         unactive={inputs.price === "" || inputs.expireDate  === ""}
-                         fullSize={true}
-                         onClick={e => submit(e)}
-                />
-            </StyledFullButtonWrap>
-
+                <StyledFullButtonWrap>
+                    <BorderRadiusButton children="Create Listing" type="purple"
+                            unactive={inputs.price === "" || inputs.expireDate  === ""}
+                            fullSize={true}
+                            onClick={e => submit(e)}
+                    />
+                </StyledFullButtonWrap>
+            </div>
         </PageBg>
     )
 }

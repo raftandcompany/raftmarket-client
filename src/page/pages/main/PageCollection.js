@@ -25,9 +25,9 @@ import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
 import { TitleWrap } from "style/titleWrap";
 
-import {SvgArrowRight, SvgPrice, SvgArrowDown2} from "asset/SvgImg";
+import {SvgArrowRight, SvgPrice, SvgArrowDown2, SvgFilter} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
-import { Favorite } from "skeleton/component/unit/Unit";
+import { Filter } from "skeleton/component/unit/Unit";
 import SvgLoading from "asset/SvgLoading.svg";
 
 import * as Images from "asset/temp/index";
@@ -146,20 +146,24 @@ export default function PageCollection({pageObj}){
                     </div>
                 </div>
                 
-
-                <div className="collection-list">
+                <div className="collection-items">
+                    <div className="sort">
+                        <Button1 children={<span>Sort by <SvgArrowDown2 /></span>} height={38} fontSize={14} />
+                        <Button1 children={<span><SvgFilter /> Filter <span className="text-sub">0</span></span>} height={38} fontSize={14} className="filter" />
+                    </div>
                     
                     <ListTitle title={<span>Newly Minuted</span>} more="See All Rankings" type="white" />
-                    <StyledScrollWrap>
-                        <div className="list list-scroll">
-                            <CardTypeRow size="medium" />
-                            <CardTypeRow size="medium" />
-                            <CardTypeRow size="medium" />
-                            <CardTypeRow size="medium" />
-                        </div>
-                    </StyledScrollWrap>
+                    <div className="list list-collection">
+                        <CardTypeRow size="small" />
+                        <CardTypeRow size="small" />
+                        <CardTypeRow size="small" />
+                        <CardTypeRow size="small" />
+                        <CardTypeRow size="small" />
+                    </div>
+                    <StyledFullButtonWrap>
+                        <Button2 children="Load more Recommendation" fullSize={true} border={true} />
+                    </StyledFullButtonWrap>
                 </div>
-                
             </div>
         </PageBg>
     )

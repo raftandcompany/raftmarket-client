@@ -66,7 +66,6 @@ export const Search = () => {
 export const Filter = () => {
     return (
         <div className="filter">
-            <Button1 children="Sort by" height={38} fontSize={14} className="btn-sort" />
         </div>
     )
 }

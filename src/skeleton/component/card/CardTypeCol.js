@@ -30,6 +30,7 @@ function CardTypeCol({ size = 'full', data, action, ...props }) {
                      if (action == null) {return}
                      action()
                  }}
+                 className="card-col"
         >
             <CardAction>
 

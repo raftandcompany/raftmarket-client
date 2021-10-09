@@ -13,6 +13,7 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
                     if (action == null) {return}
                     action()
                 }}
+                className="card-row"
         >
             <CardAction>
                 <CardImage src={data != null
