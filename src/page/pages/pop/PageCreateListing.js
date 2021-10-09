@@ -89,7 +89,7 @@ export default function PageCreateListing({pageObj}){
         console.log(TAG + " registOrder", order)
         console.log(TAG + " registOrder", assetData)
         let params = {
-            id: "100",
+            id: order.id,
             collectionAddress: assetData.collectionAddress,
             assetId: assetData.assetId,
             status: "OPENED",
@@ -103,7 +103,7 @@ export default function PageCreateListing({pageObj}){
             listingTime: order.listingTime,
             expirationTime: order.expirationTime,
             salt: order.salt,
-            signature: "signature1"
+            signature: order.signature
         }
         dataProvider.requestQ(new DataRequest(Rest.ApiType.postListing, params, TAG,false))
     }

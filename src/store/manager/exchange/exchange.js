@@ -234,8 +234,10 @@ const Exchange = {
             order.replacementPattern, 
             order.staticExtradata,
         )
+        order.id = hash
         
         const sig = await Metamask.sign(account, hash)
+        order.signature = sig
         
         const vrs = Metamask.sigToVRS(sig)
         const validResult = await contract.validateOrder_(addrs, uints, 
@@ -417,8 +419,10 @@ const Exchange = {
             order.replacementPattern, 
             order.staticExtradata,
         )
+        order.id = hash
         
         const sig = await Metamask.sign(account, hash)
+        order.signature = sig
         
         const vrs = Metamask.sigToVRS(sig)
         const validResult = await contract.validateOrder_(addrs, uints, 
