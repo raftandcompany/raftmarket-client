@@ -10,19 +10,18 @@ import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
 import {OrderData, ItemListing, ItemOffer} from "page/component/item/ItemOrder"
 import {AssetData, ItemAssetArt} from "page/component/item/ItemAsset"
 import PageTab from "page/component/tab/PageTab";
-import ListTitle from "skeleton/component/title/ListTitle";
 import {Accordion} from "skeleton/component/unit/Unit";
 
 
 export default function PageAsset({pageObj}){
     const TAG = "PageAsset"
+    const [assetParams, setAssetParams] = useState(null)
     const [asset, setAsset] = useState(null)
     const [listings, setListings] = useState([])
     const [offers, setOffers] = useState([])
     const [isMine, setIsMine] = useState([])
     let dataProvider = AppDataProvider()
     let disposer = null
-
 
     React.useEffect(() => {
         onAppear()
@@ -37,20 +36,33 @@ export default function PageAsset({pageObj}){
         console.log(TAG, address)
 
         let data = pageObj.params["data"].data
-        let params = {
+        const currentAssetParams = {
             collectionAddress: data.collectionAddress,
             assetId: data.assetId,
-            address: address
+            address: AppMetamaskManager().accounts[0]
         }
+        setAssetParams(currentAssetParams)
+        let params = currentAssetParams
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetById, data, TAG,true))
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getListings, params, TAG,true))
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, params, TAG,true))
     }
 
+
+
+
     function onSubscribe(){
         disposer = autorun(() => {
             let response = dataProvider.response
             if (response != null){
+                switch (response.type) {
+                    case  Rest.ApiType.postOffer :
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, assetParams, TAG,true))
+                        break
+                    case  Rest.ApiType.postListing :
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getListings, assetParams, TAG,true))
+                        break
+                }
                 if (response.id !== TAG){return}
                 switch (response.type) {
                     case  Rest.ApiType.getAssetById :

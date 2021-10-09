@@ -14,10 +14,6 @@ import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
 import AppPagePresenter from "../../PagePresenter";
 import * as Rest from "../../../store/rest/Rest";
-import {AssetData} from "../../component/item/ItemAsset";
-import {OrderData} from "../../component/item/ItemOrder";
-
-
 
 export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"

@@ -13,7 +13,6 @@ import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
 import AppPagePresenter from "../../PagePresenter";
-import Modal from "page/component/modal/Modal";
 import * as Rest from "../../../store/rest/Rest";
 
 
@@ -106,8 +105,6 @@ export default function PageCreateOffer({pageObj}){
             salt: order.salt,
             signature: order.signature
         }
-        
-
         dataProvider.requestQ(new DataRequest(Rest.ApiType.postOffer, params, TAG,false))
     }
 
