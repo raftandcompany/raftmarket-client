@@ -19,6 +19,11 @@ export default function BottomTab({currentPageId}){
                 action = {()=>{action( new PageObjcet(PageId.MyAsset, {title: "My"}))}}
             />
             <NaviButton
+                title = "Collection"
+                isSelectd = {currentPageId === PageId.Collection}
+                action = {()=>{action( new PageObjcet(PageId.Collection, {title: "Collection"}))}}
+            />
+            <NaviButton
                 title = "Sample"
                 isSelectd = {currentPageId === PageId.Sample}
                 action = {()=>{ action( new PageObjcet(PageId.Sample, {title: "Sample"}))}}

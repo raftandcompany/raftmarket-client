@@ -88,7 +88,8 @@ class PagePresenter {
                 return <Page.Home key={pageObj.id} pageObj={pageObj}></Page.Home>
             case PageId.MyAsset :
                 return <Page.MyAsset key={pageObj.id} pageObj={pageObj}></Page.MyAsset>
-
+            case PageId.Collection :
+                return <Page.Collection key={pageObj.id} pageObj={pageObj}></Page.Collection>
             case PageId.Asset :
                 return <Page.Asset key={pageObj.id} pageObj={pageObj}></Page.Asset>
 
@@ -128,6 +129,7 @@ export const PageId = Object.freeze ({
     Intro : 0,
     Home : 100,
     MyAsset: 200,
+    Collection: 300,
     Asset : 1001,
     CreateListing: 1002,
     CreateOffer: 1003,
