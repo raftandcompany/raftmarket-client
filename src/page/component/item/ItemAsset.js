@@ -11,6 +11,7 @@ export class AssetData{
         this.title = ""
         this.subTitle = ""
         this.price = ""
+        this.dollar = ""
         this.currency = ""
         this.chain = ""
         this.contractedInfo = ""
@@ -33,12 +34,16 @@ export class AssetData{
         this.title = data.collectionName == null ? "제목좀 넣어줘" : data.collectionName
         this.subTitle = (data.currency == null ? "코인명 넣어줘" : data.currency ) + " ( " + data.chain + ")"
         this.price = data.price
+        this.dollar = ( Number(data.price) * 1024 ) + "$"
+        console.log("this.dollar",this.dollar)
+
         this.currency = data.currency
         this.chain = data.chain
         this.contractedInfo = "마지막 거래정보좀 넣어줘";
         this.createdDate = format(this.date, "MMMM do, yyyy");
         if (data.owners!= null) {
             let count = data.owners.length
+
             this.owners = data.owners.map((owner, index) => {
                 return new OwnerData(owner, index === (count-1))
             })
@@ -87,6 +92,7 @@ export class OwnerData{
         this.date = new Date(data.created);
         this.title = data.address
         this.isCurrent = isCurrent
+        this.address = data.address
     }
     /*
       "address": "address1",

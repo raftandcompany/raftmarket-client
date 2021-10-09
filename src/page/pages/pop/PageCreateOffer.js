@@ -78,6 +78,8 @@ export default function PageCreateOffer({pageObj}){
                 switch (response.type) {
                     case  Rest.ApiType.postOffer :
                         console.log(TAG + " postOffer", response.data)
+                        alert("regist offer completed")
+                        AppPagePresenter().closePopup(pageObj)
                         break
                 }
             }
@@ -104,6 +106,8 @@ export default function PageCreateOffer({pageObj}){
             salt: order.salt,
             signature: order.signature
         }
+        
+
         dataProvider.requestQ(new DataRequest(Rest.ApiType.postOffer, params, TAG,false))
     }
 

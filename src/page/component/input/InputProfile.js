@@ -7,7 +7,6 @@ import {StyledFullButtonWrap} from "style/roundButton";
 import {v4 as uuidv4} from "uuid";
 
 export default function InputProfile({nickName, emailAddress, action}){
-    const TAG = "InputProfile"
     const [inputs, setInputs] = useState({
         nickName: "",
         emailAddress: ""

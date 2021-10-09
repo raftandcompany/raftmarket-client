@@ -11,8 +11,7 @@ class PagePresenter {
         window.onhashchange = () => {
             if (window.location.hash === "") {return}
             let params =  window.location.hash.replace("#", "").split("|")
-            if (params.length != 2){return}
-            let id = params[1]
+            if (params.length !== 2){return}
             console.log(this.TAG, "onhashchange  " + window.location.hash)
         }
     }

@@ -79,6 +79,8 @@ export default function PageCreateListing({pageObj}){
                 switch (response.type) {
                     case  Rest.ApiType.postListing :
                         console.log(TAG + " postListing", response.data)
+                        alert("regist listing completed")
+                        AppPagePresenter().closePopup(pageObj)
                         break
                 }
             }
