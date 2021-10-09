@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import EllipseButton from "skeleton/component/button/EllipseButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import Typography from "skeleton/component/text/Typography";
+import Button1 from "skeleton/component/button/EllipseButton"
+
 import { UserImage }  from "style/cardStyle";
 import { AccordionStyle }  from "style/cardStyle";
 
@@ -57,6 +59,15 @@ export const Link = () => {
 export const Search = () => {
     return (
         <button className="btn-link"><SvgSearch /></button>
+    )
+}
+
+
+export const Filter = () => {
+    return (
+        <div className="filter">
+            <Button1 children="Sort by" height={38} fontSize={14} className="btn-sort" />
+        </div>
     )
 }
 

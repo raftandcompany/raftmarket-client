@@ -113,7 +113,7 @@ export default function PageSample({pageObj}){
     return (
         <PageBg>
 
-            {/* {Loading()} */}
+            {Loading()}
 
 
             <div style={{position:"relative"}}>

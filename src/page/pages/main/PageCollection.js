@@ -99,7 +99,7 @@ export default function PageCollection({pageObj}){
     return (
         <PageBg>
 
-<div className="collection">
+            <div className="collection">
                 <Util result={true} favorite={true} share={true} more={false} link={true} />
                 <div className="collection-box">
                     <div className="bg-gradiant purple"></div>
@@ -145,12 +145,10 @@ export default function PageCollection({pageObj}){
                         </StyledFullButtonWrap>
                     </div>
                 </div>
+                
 
                 <div className="collection-list">
-                    <div className="">
-                        <Button1 children="Sort by" height={38} fontSize={14} />
-
-                    </div>
+                    
                     <ListTitle title={<span>Newly Minuted</span>} more="See All Rankings" type="white" />
                     <StyledScrollWrap>
                         <div className="list list-scroll">
