@@ -88,7 +88,7 @@ export default function PageCreateOffer({pageObj}){
         console.log(TAG + " registOrder", order)
         console.log(TAG + " registOrder", assetData)
         let params = {
-            id: "100",
+            id: order.id,
             collectionAddress: assetData.collectionAddress,
             assetId: assetData.assetId,
             status: "OPENED",
@@ -102,7 +102,7 @@ export default function PageCreateOffer({pageObj}){
             listingTime: order.listingTime,
             expirationTime: order.expirationTime,
             salt: order.salt,
-            signature: "signature1"
+            signature: order.signature
         }
         dataProvider.requestQ(new DataRequest(Rest.ApiType.postOffer, params, TAG,false))
     }
