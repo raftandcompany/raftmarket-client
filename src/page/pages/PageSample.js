@@ -25,7 +25,7 @@ import {StyledFullButtonWrap, StyledButtonWrap} from "style/roundButton";
 import {StyledInputWrap} from "style/formStyle";
 import { TitleWrap } from "style/titleWrap";
 
-import {SvgArrowRight, SvgPrice} from "asset/SvgImg";
+import {SvgArrowRight, SvgPrice, SvgArrowDown2} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
 import { Favorite } from "../../skeleton/component/unit/Unit";
 import SvgLoading from "asset/SvgLoading.svg";
@@ -163,6 +163,10 @@ export default function PageSample({pageObj}){
                 </div>
 
                 <div className="collection-list">
+                    <div className="">
+                        <Button1 children="Sort by" height={38} fontSize={14} />
+
+                    </div>
                     <ListTitle title={<span>Newly Minuted</span>} more="See All Rankings" type="white" />
                     <StyledScrollWrap>
                         <div className="list list-scroll">
