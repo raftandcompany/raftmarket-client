@@ -364,7 +364,6 @@ export const Body = styled.div`
         margin-top:${rem(-16)};
         margin-left:${rem(-16)};
         width:calc(100% + ${rem(32)});
-        text-align:center;
         .utilbox {
             .btn-back {
                 float: left;
@@ -373,9 +372,19 @@ export const Body = styled.div`
         }
         &-box {
             width:100%;
-            height: ${rem(404)};
-            a {
-                border-bottom:1px solid #fff;
+            border-bottom:${rem(8)} solid ${Var.color.blackCard};
+            text-align:center;
+            h1 {
+                text-align:center;
+    
+            }
+            p {
+                padding-bottom:${rem(20)};
+                line-height:${rem(20)};
+                color:#fff;
+                a {
+                    border-bottom:1px solid #fff;
+                }
             }
         }
         &-info {
@@ -417,15 +426,15 @@ export const Body = styled.div`
         }
         .title-history {
             margin: 0 ${rem(16)};
+            > div {
+                padding: ${rem(16)} 0 ${rem(34)};
+            }
         }
-        h1 {
-            text-align:center;
 
+        &-list {
+            padding: ${rem(24)} ${rem(16)};
         }
-        p {
-            line-height:${rem(20)};
-            color:#fff;
-        }
+        
     }
 `;
 
