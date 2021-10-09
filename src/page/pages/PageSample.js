@@ -115,6 +115,7 @@ export default function PageSample({pageObj}){
 
             {/* {Loading()} */}
 
+
             <div style={{position:"relative"}}>
                 <Util result={true} favorite={true} share={true} more={true} link={true} />
                 <div className="detailbox">
