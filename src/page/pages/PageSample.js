@@ -116,8 +116,8 @@ export default function PageSample({pageObj}){
             {/* {Loading()} */}
 
             <div className="collection">
-                <Util result={true} favorite={true} share={true} more={true} link={true} />
-                <div className="collectionbox">
+                <Util result={true} favorite={true} share={true} more={false} link={true} />
+                <div className="collection-box">
                     <div className="bg-gradiant purple"></div>
                     <div className="collection-thumb">
                         <img src={Images.Img6} alt="collection image" />
@@ -125,12 +125,60 @@ export default function PageSample({pageObj}){
                     <Title>Cool Cats NFT</Title>
                     <Typography variant="body2" name="description">
                         An online community of makers, <br />
-                        developers, and traders is pushing the art world <br />into new territory. <a href="">more&gt;</a>
+                        developers, and traders is pushing the art world <br />into new territory. <a href="">more</a>&gt;
                     </Typography>
+                    <div className="collection-info">
+                        <ul>
+                            <li>
+                                <Typography variant="emphasis" name="number">
+                                    9.9K
+                                </Typography>
+                                <Typography variant="span" name="">
+                                    Items
+                                </Typography>
+                            </li>
+                            <li>
+                                <Typography variant="emphasis" name="number">
+                                    9.9K
+                                </Typography>
+                                <Typography variant="span" name="">
+                                    Owners
+                                </Typography>
+                            </li>
+                            <li>
+                                <Typography variant="emphasis" name="number">
+                                    <SvgPrice /> 9.9K
+                                </Typography>
+                                <Typography variant="span" name="">
+                                    Avg. price
+                                </Typography>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="title-history">
+                        <StyledFullButtonWrap>
+                            <Button2 children={<span>View History <span className="text-sub">35 sec ago</span><SvgArrowRight /></span>} fullSize={true} />
+                        </StyledFullButtonWrap>
+                    </div>
                 </div>
+
+                <div className="collection-list">
+                    <ListTitle title={<span>Newly Minuted</span>} more="See All Rankings" type="white" />
+                    <StyledScrollWrap>
+                        <div className="list list-scroll">
+                            <CardTypeRow size="medium" />
+                            <CardTypeRow size="medium" />
+                            <CardTypeRow size="medium" />
+                            <CardTypeRow size="medium" />
+                        </div>
+                    </StyledScrollWrap>
+                </div>
+                
             </div>
 
-            {/* nft detail */}
+            {/* nft detail 
+                        */}
+
             <div style={{position:"relative"}}>
                 <Util result={true} favorite={true} share={true} more={true} link={true} />
                 <div className="detailbox">
@@ -288,8 +336,8 @@ export default function PageSample({pageObj}){
 
             <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
 
+
             {/* <Share name="facebook"/> */}
-            <div style={{height:600}}>여백용</div>
         </PageBg>
     )
 }

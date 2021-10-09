@@ -4,6 +4,7 @@ import { rem } from 'style/common/mixin';
 
 
 export const UtilBox = styled.div`
+    z-index:10;
     position: absolute;
     left:0;
     top:0;

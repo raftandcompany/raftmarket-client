@@ -365,11 +365,45 @@ export const Body = styled.div`
         margin-left:${rem(-16)};
         width:calc(100% + ${rem(32)});
         text-align:center;
-        &box {
+        .utilbox {
+            .btn-back {
+                float: left;
+                padding-left: ${rem(14)};
+            }
+        }
+        &-box {
             width:100%;
             height: ${rem(404)};
+            a {
+                border-bottom:1px solid #fff;
+            }
         }
-        
+        &-info {
+            ${radiusBox}
+            margin: 0 ${rem(16)};
+            height:auto;
+            background:${Var.color.blackCard};
+            ul {
+                overflow:hidden;
+                li {
+                    padding:${rem(18)} 0;
+                    &:nth-child(2) {
+                        margin:0 ${rem(7)};
+                    }
+                    float:left;
+                    width:calc((100% - ${rem(14)}) / 3);
+                    strong {
+                        line-height:${rem(28)};
+                    }
+                    span {
+                        display:block;
+                        line-height:${rem(20)};
+                        font-size: ${rem(14)};
+                        color: ${Var.color.gray3};
+                    }
+                }
+            }
+        }
         &-thumb {
             overflow:hidden;
             margin:${rem(-64)} auto ${rem(16)};
@@ -380,6 +414,9 @@ export const Body = styled.div`
             img {
                 object-fit:cover;
             }
+        }
+        .title-history {
+            margin: 0 ${rem(16)};
         }
         h1 {
             text-align:center;
