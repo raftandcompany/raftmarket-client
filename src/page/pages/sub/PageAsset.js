@@ -15,7 +15,6 @@ import {Accordion} from "skeleton/component/unit/Unit";
 
 export default function PageAsset({pageObj}){
     const TAG = "PageAsset"
-    const [assetParams, setAssetParams] = useState(null)
     const [asset, setAsset] = useState(null)
     const [listings, setListings] = useState([])
     const [offers, setOffers] = useState([])
@@ -34,22 +33,23 @@ export default function PageAsset({pageObj}){
         observable(this,dataProvider)
         let address = AppMetamaskManager().accounts[0]
         console.log(TAG, address)
-
         let data = pageObj.params["data"].data
-        const currentAssetParams = {
-            collectionAddress: data.collectionAddress,
-            assetId: data.assetId,
-            address: AppMetamaskManager().accounts[0]
-        }
-        setAssetParams(currentAssetParams)
-        let params = currentAssetParams
+        let params = currentAssetParams()
+        console.log(TAG, params)
+
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetById, data, TAG,true))
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getListings, params, TAG,true))
         dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, params, TAG,true))
     }
 
-
-
+    const currentAssetParams = () => {
+        let data = pageObj.params["data"].data
+        return {
+            collectionAddress: data.collectionAddress,
+            assetId: data.assetId,
+            address: AppMetamaskManager().accounts[0]
+        }
+    }
 
     function onSubscribe(){
         disposer = autorun(() => {
@@ -57,10 +57,10 @@ export default function PageAsset({pageObj}){
             if (response != null){
                 switch (response.type) {
                     case  Rest.ApiType.postOffer :
-                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, assetParams, TAG,true))
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, currentAssetParams(), TAG,true))
                         break
                     case  Rest.ApiType.postListing :
-                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getListings, assetParams, TAG,true))
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getListings, currentAssetParams(), TAG,true))
                         break
                 }
                 if (response.id !== TAG){return}
