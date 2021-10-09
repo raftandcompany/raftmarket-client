@@ -9,12 +9,10 @@ import MoreButton from "skeleton/component/button/MoreButton";
 import SearchBox from "skeleton/component/search/SearchBox";
 import CardTypeRow from "skeleton/component/card/CardTypeRow";
 import CardTypeCol from "skeleton/component/card/CardTypeCol";
-import CardUser from "skeleton/component/card/CardUser";
 import CardImage from "skeleton/component/card/CardImage";
 import Category from "skeleton/component/card/Category";
 import Typography from "skeleton/component/text/Typography";
 
-//import Share from "skeleton/component/unit/Share";
 import Util from "skeleton/component/unit/Util";
 import { Owner, Tab, Accordion } from "skeleton/component/unit/Unit";
 
@@ -27,7 +25,7 @@ import { TitleWrap }  from "style/titleWrap";
 
 import {SvgArrowRight, SvgPrice} from "asset/SvgImg";
 import Dialog from "skeleton/component/dialog/Dialog";
-import { Favorite } from "../../skeleton/component/unit/Unit";
+import { Favorite } from "skeleton/component/unit/Unit";
 
 const data1 = [
     {
@@ -92,7 +90,7 @@ const data2 = [
     }
 ]
 
-export default function PageSample({pageObj}){
+export default function PageCollection({pageObj}){
     return (
         <PageBg>
 

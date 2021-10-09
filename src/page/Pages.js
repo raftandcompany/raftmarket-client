@@ -1,7 +1,7 @@
 export { default as Intro } from "page/pages/main/PageIntro";
 export { default as Home } from "page/pages/main/PageHome";
 export { default as MyAsset } from "page/pages/main/PageMyAsset";
-
+export { default as Collection } from "page/pages/main/PageCollection";
 export { default as Asset } from "page/pages/sub/PageAsset";
 
 

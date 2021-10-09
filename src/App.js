@@ -38,12 +38,11 @@ function AppBody (){
     return(
         <Body className="App">
             <GlobalStyle />
-            <PageSample />
-            {/*  
+
             <PageDisplayer presenter = {presenter} />
             <PageNavi presenter = {presenter}/>
             <PopupDisplayer presenter = {presenter}/>
-            */}
+
         </Body>
     )
 }
