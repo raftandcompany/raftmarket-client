@@ -1,16 +1,22 @@
 import React from "react";
 import { format } from "date-fns"
 import OrderButton from "skeleton/component/button/BorderRadiusButton";
+import Typography from "skeleton/component/text/Typography";
+import {SvgPrice, SvgTime} from "asset/SvgImg";
+import EllipseButton from "skeleton/component/button/EllipseButton";
+import {Owner} from "skeleton/component/unit/Unit";
 
 export class OrderData{
     constructor(data) {
         this.data = data
         this.date = new Date(data.created);
+        this.expiration = new Date(data.expirationTime);
         this.orderType = data.orderType
         this.title = data.orderType + " " + data.currency + " ( " +  data.basePrice + " )"
         this.subTitle = data.currency + " " + data.status
         this.price = data.basePrice
         this.createdDate = format(this.date, "MMMM do, yyyy");
+        this.expireDate = format(this.expiration, "MMMM do, yyyy");
     }
     /*
       "id": 1,
@@ -37,10 +43,22 @@ export class OrderData{
 
 export function ItemListing({data, action}){
     return (
-        <OrderButton children={data.title}
-                     type="purple"
-                     unactive={true}
-                     fullSize={true} />
+        <div className="market">
+            <div className="price">
+                <Typography variant="emphasis">
+                    <SvgPrice />{data.price}<span className="text-sub">{data.price}</span>
+                </Typography>
+            </div>
+            <div className="owner">
+                <Owner
+                    img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"
+                    text="Artblockmaster" />
+            </div>
+            <Typography variant="body1" name="time"><SvgTime />{data.expireDate}</Typography>
+            <EllipseButton children="buy" type="purple" height={40} fontSize={16} />
+        </div>
+
+
     )
 }
 

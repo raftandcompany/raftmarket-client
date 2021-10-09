@@ -13,7 +13,6 @@ import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
 import AppPagePresenter from "../../PagePresenter";
-import Modal from "page/component/modal/Modal";
 import * as Rest from "../../../store/rest/Rest";
 
 
@@ -78,6 +77,8 @@ export default function PageCreateOffer({pageObj}){
                 switch (response.type) {
                     case  Rest.ApiType.postOffer :
                         console.log(TAG + " postOffer", response.data)
+                        alert("regist offer completed")
+                        AppPagePresenter().closePopup(pageObj)
                         break
                 }
             }

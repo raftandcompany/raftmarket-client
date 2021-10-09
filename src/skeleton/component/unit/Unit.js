@@ -12,6 +12,8 @@ import { TabButton }  from "style/textButton"
 
 import { SvgStar, SvgStarFill, SvgMore, SvgLink, SvgSearch, SvgPrice, SvgArrowDown, SvgTime }  from "asset/SvgImg";
 import { SvgShare } from "asset/SvgSns"
+import {format} from "date-fns";
+import {v4 as uuidv4} from "uuid";
 
 // function Unit({ name, ...props }) {
 //     //const [searchKeyword, setSearchKeyword] = useState(keyword)
@@ -87,17 +89,20 @@ export function Tab({title, isSelectd, action}) {
 }
 
 const AccordionItem = ({
-    item,
-    //onClick,
+    item, isMine, action, create
   }) => {
+    console.log("AccordionItem",item)
+
     const [isActive, setActive] = useState(false);
     const show = isActive? " show" : "";
     const renderedData1 = item.items.map((i) => {
         return (
-            <div className="market">
+            <div className="market"  key={ uuidv4().toString() }>
                 <div className="price">
                     <Typography variant="emphasis">
-                        <SvgPrice />{i.eth}<span className="text-sub">{i.dollar}</span>
+                        <SvgPrice />{i.orderType != null ? i.price : i.eth}<span className="text-sub">
+                            {i.dollar}
+                        </span>
                     </Typography>
                 </div>
                 <div className="owner">
@@ -106,11 +111,16 @@ const AccordionItem = ({
                         text="Artblockmaster" />
                 </div>
                 {
-                    i.expire === 0 
+                    i.expire === 0 && i.orderType == null
                     ? <Typography variant="body1">'Doesn’t expire'</Typography>
-                    : <Typography variant="body1" name="time"><SvgTime />{i.expire}</Typography>
+                    : <Typography variant="body1" name="time"><SvgTime />{i.orderType != null ? i.expireDate :i.expire}</Typography>
                 }
-                <EllipseButton children="buy" type="purple" height={40} fontSize={16} />
+                <EllipseButton children="buy" type="purple" height={40} fontSize={16}
+                               onClick={ e=> {
+                                    if (action == null) {return}
+                                    console.log(i)
+                                    action(i)
+                                }}/>
             </div>
         );
     });
@@ -127,19 +137,27 @@ const AccordionItem = ({
     return (
         <div className="accordion-item" key={item.name}>
             <button
-            className={`accordion-button ${item.name}${show}`}
-            onClick={() => {
-                setActive(!isActive);
-            }}
+                className={`accordion-button ${item.name}${show}`}
+                onClick={() => {
+                    setActive(!isActive);
+                }}
             >
-                <Typography variant="emphasis" name={`status ${item.name}`}>
-                    {item.name}<span className="text-sub">{item.items.length}</span>
-                </Typography>
-                <SvgArrowDown />
+
+            <Typography variant="emphasis" name={`status ${item.name}`}>
+                {item.name}<span className="text-sub">{item.items.length}</span>
+            </Typography>
+            <SvgArrowDown />
             </button>
             {
                 item.name === 'offers'
-                ? <BorderRadiusButton children="Make an Offer" type="purple" fullSize={true} />
+                ? <BorderRadiusButton
+                        children={ isMine === true ? "Make a Listing" : "Make an Offer"}
+                        type="purple" fullSize={true}  onClick={() => {
+                        if (create == null) {return}
+                        console.log("create")
+                        create()
+
+                    }}/>
                 : null
             }
             <div className={`accordion-cont ${show}`}>
@@ -151,11 +169,16 @@ const AccordionItem = ({
     );
 };
 
-export const Accordion = ({ data }) => {  
+export const Accordion = ({ data , isMine , action, create}) => {
     const renderedData = data.map((item) => {
+
         return (
             <AccordionItem
+                key={ uuidv4().toString() }
                 item={item}
+                isMine={isMine}
+                action={action}
+                create={create}
             />
         );
     });
