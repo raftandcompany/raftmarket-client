@@ -316,6 +316,7 @@ export const Body = styled.div`
         }
     }
     .loading {
+        animation: 0.5s ${Ani.fadeIn};
         display:table;
         position: fixed;
         z-index:999;
