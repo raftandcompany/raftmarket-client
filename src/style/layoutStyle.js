@@ -318,6 +318,7 @@ export const Body = styled.div`
         }
     }
     .loading {
+        opacity:0.8;
         animation: 0.5s ${Ani.fadeIn};
         display:table;
         position: fixed;
@@ -345,6 +346,7 @@ export const Body = styled.div`
     }
 
     .bg-gradiant {
+        position:relative;
         height: ${rem(224)};
         &.purple {
             background:${Var.color.purpleDark};
@@ -417,6 +419,8 @@ export const Body = styled.div`
             }
         }
         &-thumb {
+            position:relative;
+            z-index:10;
             overflow:hidden;
             margin:${rem(-64)} auto ${rem(16)};
             //padding:${rem(160)} 0;
@@ -433,17 +437,56 @@ export const Body = styled.div`
                 padding: ${rem(16)} 0 ${rem(34)};
             }
         }
-
-        &-list {
-            padding: ${rem(24)} ${rem(16)};
+        &-items {
+            > div:first-child {
+                padding-top: ${rem(24)};
+            }
+            padding: 0 ${rem(16)} ${rem(40)};
+            + .collection-items {
+                > div:first-child {
+                    border-top:1px solid ${Var.color.blackCard};
+                }
+            }
         }
-        
+        .sort {
+            padding-bottom: ${rem(32)};
+        }
+    }
+
+    .sort {
+        .btn-filter {
+            float:right;
+        }
+    }
+    .btn-sort {
+        padding: 0 ${rem(18)};
+        border: 1px solid ${Var.color.gray3};
+        background-color:transparent;
+        svg {
+            margin-left: ${rem(18)};
+        }
+    }
+    .btn-filter {
+        padding: 0 ${rem(22)};
+        border: 1px solid ${Var.color.gray3};
+        background-color:transparent;
+        svg {
+            margin-right:${rem(12)};
+            vertical-align:middle;
+        }
+        span {
+            span {
+                margin-left:${rem(6)};
+                color: ${Var.color.gray3};
+            }
+        }
+
     }
 `;
 
 export const Popup = styled.div`
   position: fixed;
-  z-index:999;
+  z-index:99;
   left: 0;
   top: 0;
   width: 100%;
@@ -537,7 +580,9 @@ export const StyledScrollWrap = styled.div`
     -webkit-overflow-scrolling: touch;
     line-height: 0;
     white-space: nowrap;
-
+    margin-left:${rem(-16)};
+    width:calc(100% + ${rem(32)});
+    padding:0 ${rem(16)};
     ::-webkit-scrollbar {
         display: none;
     }

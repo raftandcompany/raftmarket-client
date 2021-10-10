@@ -4,7 +4,9 @@ import { Favorite } from "skeleton/component/unit/Unit";
 import { CardRow, CardAction, CardContent }  from "style/cardStyle";
 import { SvgPrice, SvgTime, SvgBasket }  from "asset/SvgImg";
 import CardImage from "skeleton/component/card/CardImage";
+import * as Images from "asset/temp/index";
 
+console.log(Images.Img2)
 
 function CardTypeRow({ size = 'full', data, action,  ...props }) {
     return (
@@ -26,25 +28,24 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
                 </div> */}
                 <CardContent>
                     <Typography variant="emphasis">
-                        <SvgPrice />{data != null ? data.price : "0"}
+                        <SvgPrice />{data != null ? data.price : "10.00"}
                     </Typography>
                     <Typography variant="body2">
-                        {data != null ? (data.displayName != null ? data.displayName : data.title) : ""}
+                        {data != null ? (data.displayName != null ? data.displayName : data.title) : "Otter #93"}
                     </Typography>
                     <Typography variant="body1">
-                        {data != null ? data.description : ""}
+                        {data != null ? data.description : "Collection Name"}
                     </Typography>
                     <Typography variant="body1" name="basket">
-                        <SvgBasket />{data != null ? data.contractedInfo : ""}
+                        <SvgBasket />{data != null ? data.contractedInfo : "Last sold: 0.99 ETH"}
                     </Typography>
                     <Typography variant="body1" name="time">
-                        <SvgTime />{data != null ? data.createdDate : ""}
+                        <SvgTime />{data != null ? data.createdDate : "2 days left"}
                     </Typography>
                 </CardContent>
             </CardAction>
             <Favorite status={props.status} />
         </CardRow>
-
     )
 }
 
