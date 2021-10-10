@@ -148,11 +148,12 @@ const AccordionItem = ({
                     setActive(!isActive);
                 }}
             >
-
             <Typography variant="emphasis" name={`status ${item.name}`}>
                 {item.name}<span className="text-sub">{item.items.length}</span>
             </Typography>
-            <SvgArrowDown />
+            {
+                item.items.length > 0 ? <SvgArrowDown /> : null
+            }
             </button>
 
             <div className={`accordion-cont ${show}`}>
