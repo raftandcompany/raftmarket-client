@@ -271,6 +271,7 @@ const Exchange = {
         }
     ) => {
         const account = await Metamask.getAccount()
+        console.log(sellOrder)
         const buyOrder = {
             exchange: exchangeAddress,
             maker: account,

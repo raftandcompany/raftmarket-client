@@ -29,10 +29,10 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
                         <SvgPrice />{data != null ? data.price : "0"}
                     </Typography>
                     <Typography variant="body2">
-                        {data != null ? data.title : "title"}
+                        {data != null ? data.displayName : "title"}
                     </Typography>
                     <Typography variant="body1">
-                        {data != null ? data.subTitle : "subtitle"}
+                        {data != null ? data.description : "subtitle"}
                     </Typography>
                     <Typography variant="body1" name="basket">
                         <SvgBasket />{data != null ? data.contractedInfo : ""}

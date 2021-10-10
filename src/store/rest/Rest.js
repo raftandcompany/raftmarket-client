@@ -25,6 +25,7 @@ export const ApiType = Object.freeze ({
 
     getAsset : "getAsset",
     getAssetById : "getAssetById",
+    putAsset : "putAsset",
     getAssetSearch : "gettAssetSearch",
 
     getCollection : "getCollection",
@@ -73,7 +74,17 @@ export function toData(data, model){
         //console.log(TAG, key+ " : " + model[key])
     }
     return model
+}
 
+export function toFormData(data, model){
+    for (const [key, value] of Object.entries(model)) {
+        //console.log(TAG, "key : " + key + " value : " + value)
+        if (data[key] !== undefined) {
+            model[key] = data[key]
+        }
+        //console.log(TAG, key+ " : " + model[key])
+    }
+    return model
 }
 
 

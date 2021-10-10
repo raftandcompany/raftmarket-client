@@ -25,6 +25,25 @@ export function getById(data, cancel){
     })
 }
 
+export function put(data, cancel){
+    return Axios.request({
+        method: 'put',
+        url: path + "/" + data.assetId + Rest.toQueryString(data,{chain: "", collectionAddress: ""}) ,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        data: Rest.toData(data,
+            {
+                contents: null,
+                name: null,
+                externalLink: null,
+                description: null,
+                //properties JSON Array string
+            }),
+        cancelToken:cancel.token
+    })
+}
+
 
 export function getSearch(data, cancel){
     return Axios.request({

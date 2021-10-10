@@ -17,6 +17,7 @@ export class AssetData{
         this.contractedInfo = ""
         this.createdDate = ""
         this.owners = Array()
+        this.displayImage = ""
         this.displayName = ""
         this.description = ""
         this.displayArt = ""
@@ -50,6 +51,7 @@ export class AssetData{
         }
 
         if (data.meta!= null) {
+            this.displayImage = data.meta.contentsUrl
             this.displayName = data.meta.name
             this.description = data.meta.description
             this.externalLink = data.meta.externalLink

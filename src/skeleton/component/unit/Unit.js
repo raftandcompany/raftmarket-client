@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import EllipseButton from "skeleton/component/button/EllipseButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import Typography from "skeleton/component/text/Typography";
-import Button1 from "skeleton/component/button/EllipseButton"
+import {OrderType} from  "store/rest/api/Order";
 
 import { UserImage }  from "style/cardStyle";
-import { AccordionStyle }  from "style/cardStyle";
+
 
 
 import { TabButton }  from "style/textButton"
@@ -114,12 +114,19 @@ const AccordionItem = ({
                     ? <Typography variant="body1">'Doesn’t expire'</Typography>
                     : <Typography variant="body1" name="time"><SvgTime />{i.orderType != null ? i.expireDate :i.expire}</Typography>
                 }
-                <EllipseButton children="buy" type="purple" height={40} fontSize={16}
-                               onClick={ e=> {
-                                    if (action == null) {return}
-                                    console.log(i)
-                                    action(i)
-                                }}/>
+                {
+                    (i.orderType === OrderType.Offers && isMine) || (i.orderType === OrderType.Listing && !isMine)
+                     ? <EllipseButton
+                           children= { i.orderType === OrderType.Offers ? "aprove" : "buy"}
+                           type= { i.orderType === OrderType.Offers ? "purple" : "blue" }
+                           height={40} fontSize={16}
+                           onClick={ e=> {
+                                if (action == null) {return}
+                                console.log(i)
+                                action(i)
+                            }}/>
+                     : null
+                }
             </div>
         );
     });
@@ -147,9 +154,15 @@ const AccordionItem = ({
             </Typography>
             <SvgArrowDown />
             </button>
+
+            <div className={`accordion-cont ${show}`}>
+            {
+                item.type === 'row' ? renderedData1 : renderedData2
+            }
+            </div>
             {
                 item.name === 'offers'
-                ? <BorderRadiusButton
+                    ? <BorderRadiusButton
                         children={ isMine === true ? "Make a Listing" : "Make an Offer"}
                         type="purple" fullSize={true}  onClick={() => {
                         if (create == null) {return}
@@ -157,13 +170,8 @@ const AccordionItem = ({
                         create()
 
                     }}/>
-                : null
+                    : null
             }
-            <div className={`accordion-cont ${show}`}>
-            {
-                item.type === 'row' ? renderedData1 : renderedData2
-            }
-            </div>
         </div>
     );
 };

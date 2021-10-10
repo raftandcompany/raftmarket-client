@@ -1,3 +1,4 @@
+import React from "react";
 import SvgLoading from "asset/SvgLoading.svg";
 
 export function Loading({ info }) {

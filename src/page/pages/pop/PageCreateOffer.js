@@ -12,8 +12,9 @@ import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
-import AppPagePresenter from "../../PagePresenter";
-import * as Rest from "../../../store/rest/Rest";
+import AppPagePresenter from "page/PagePresenter";
+import * as Rest from "store/rest/Rest";
+import {Loading} from "skeleton/component/unit/Loading";
 
 
 export default function PageCreateOffer({pageObj}){
@@ -276,40 +277,42 @@ export default function PageCreateOffer({pageObj}){
         <PageBg
             isPopup={pageObj.isPopup}
             ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            {/* <div className="popup"> */}
-                <PageTab pageObj={pageObj}/>
-                <div className="popup-content">
-                    <StyledInputWrap key={ uuidv4().toString() }>
-                        <InputLabel children="Price" />
-                        <InputField
-                            name="price"
-                            placeHolder="Sale Price"
-                            value={inputs.price}
-                            isFocus={focusName === "price"}
 
-                        />
-                    </StyledInputWrap>
-                    <StyledInputWrap key={ uuidv4().toString() }>
-                        <InputLabel children="Expire Date" />
-                        <InputField
-                            name="expireDate"
-                            placeHolder="rom"
-                            value={inputs.expireDate}
-                            isFocus={focusName === "expireDate"}
+            <PageTab pageObj={pageObj}/>
+            <div className="popup-content">
+                <StyledInputWrap key={ uuidv4().toString() }>
+                    <InputLabel children="Price" />
+                    <InputField
+                        name="price"
+                        placeHolder="Sale Price"
+                        value={inputs.price}
+                        isFocus={focusName === "price"}
 
-                        />
+                    />
+                </StyledInputWrap>
+                <StyledInputWrap key={ uuidv4().toString() }>
+                    <InputLabel children="Expire Date" />
+                    <InputField
+                        name="expireDate"
+                        placeHolder="rom"
+                        value={inputs.expireDate}
+                        isFocus={focusName === "expireDate"}
 
-                    </StyledInputWrap>
+                    />
 
-                    <StyledFullButtonWrap>
-                        <BorderRadiusButton children="Create Offer" type="purple"
-                                unactive={inputs.price === "" || inputs.expireDate  === ""}
-                                fullSize={true}
-                                onClick={e => submit(e)}
-                        />
-                    </StyledFullButtonWrap>
-                </div>
-            {/* </div> */}
+                </StyledInputWrap>
+
+                <StyledFullButtonWrap>
+                    <BorderRadiusButton children="Create Offer" type="purple"
+                            unactive={inputs.price === "" || inputs.expireDate  === ""}
+                            fullSize={true}
+                            onClick={e => submit(e)}
+                    />
+                </StyledFullButtonWrap>
+            </div>
+            {
+                isHold ? <Loading info={"Coins may be consumed if you stop during the transaction."}/> : null
+            }
         </PageBg>
     )
 }

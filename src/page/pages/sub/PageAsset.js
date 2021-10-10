@@ -1,7 +1,7 @@
 import React ,  {useState}from "react"
 import {autorun, observable, runInAction} from "mobx"
 import {v4 as uuidv4} from "uuid"
-import {PageBg, Popup, StyledScrollWrap} from "style/layoutStyle"
+import {PageBg} from "style/layoutStyle"
 import {fadeIn, slideInUp} from "style/ani"
 import * as Rest from "store/rest/Rest"
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
@@ -11,6 +11,8 @@ import {OrderData, ItemListing, ItemOffer} from "page/component/item/ItemOrder"
 import {AssetData, ItemAssetArt} from "page/component/item/ItemAsset"
 import PageTab from "page/component/tab/PageTab";
 import {Accordion} from "skeleton/component/unit/Unit";
+import * as Exchange from "store/manager/exchange/exchange";
+import * as Metamask from "store/manager/metamask/Metamask";
 
 
 export default function PageAsset({pageObj}){
@@ -21,7 +23,7 @@ export default function PageAsset({pageObj}){
     const [isMine, setIsMine] = useState([])
     let dataProvider = AppDataProvider()
     let disposer = null
-
+    let exchange = Exchange.default
     React.useEffect(() => {
         onAppear()
         onSubscribe()
@@ -56,6 +58,10 @@ export default function PageAsset({pageObj}){
             let response = dataProvider.response
             if (response != null){
                 switch (response.type) {
+                    case  Rest.ApiType.putAsset :
+                        let data = pageObj.params["data"].data
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetById, data, TAG,true))
+                        break
                     case  Rest.ApiType.postOffer :
                         dataProvider.requestQ(new DataRequest(Rest.ApiType.getOffers, currentAssetParams(), TAG,true))
                         break
@@ -103,10 +109,58 @@ export default function PageAsset({pageObj}){
             disposer()
         }
     }
+
+    function buyOrder(order){
+        console.log(TAG+"buyOrder", order)
+        try {
+            let hash = exchange.buy(order.data,{
+                exchangeAddress:Metamask.ExchangeKey.defaultAddress,
+                feeRecipient:Metamask.ExchangeKey.companyAddress,
+                feeRatio:250,
+                collectionAddress:order.data.collectionAddress,
+                tokenId:order.data.assetId,
+                protocol:Metamask.ExchangeKey.protocol,
+                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                price:order.data.basePrice,
+                expirationTime:order.data.expirationTime,
+            })
+            console.log(TAG + " buyOrder success", hash)
+
+        } catch (error) {
+            console.error(TAG + " buyOrder", error)
+        }
+    }
+
+    function acceptOrder(order){
+        console.log(TAG+"buyOrder", order)
+        try {
+            let hash = exchange.acceptOffer(order.data,{
+                exchangeAddress:Metamask.ExchangeKey.defaultAddress,
+                feeRecipient:Metamask.ExchangeKey.companyAddress,
+                feeRatio:250,
+                collectionAddress:order.data.collectionAddress,
+                tokenId:order.data.assetId,
+                protocol:Metamask.ExchangeKey.protocol,
+                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                price:order.data.basePrice,
+                expirationTime:order.data.expirationTime,
+            })
+            console.log(TAG + " buyOrder success", hash)
+
+        } catch (error) {
+            console.error(TAG + " buyOrder", error)
+        }
+    }
+
+
     const Header = ({ data }) =>
         data == null
             ? <div></div>
-            : <ItemAssetArt data={data}/>
+            : <ItemAssetArt data={data} action={()=> {
+                if(!isMine){return}
+                let pageObj = new PageObjcet(PageId.EditAsset, {data: data})
+                AppPagePresenter().openPopup(pageObj)
+            }}/>
 
 
     const AccordionList = ({ assetData, listings, offers, isMine}) => {
@@ -128,9 +182,13 @@ export default function PageAsset({pageObj}){
                 <Accordion
                     data={accordionData}
                     isMine={isMine}
-
                     action={ data =>{
                         console.log(data)
+                        if(isMine){
+                            acceptOrder(data)
+                        } else {
+                            buyOrder(data)
+                        }
                     }}
                     create={ () =>{
                         if (isMine){

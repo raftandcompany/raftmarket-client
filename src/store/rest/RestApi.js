@@ -71,6 +71,8 @@ class RestApi {
                 return Asset.get(request.params, cancel)
             case Rest.ApiType.getAssetById :
                 return Asset.getById(request.params, cancel)
+            case Rest.ApiType.putAsset:
+                return Asset.put(request.params, cancel)
             case Rest.ApiType.getAssetSearch :
                 return Asset.getSearch(request.params, cancel)
             case Rest.ApiType.getHistoryTrading :
