@@ -25,7 +25,7 @@ export default function PageCreateOffer({pageObj}){
     })
     const [focusName, setFocusName] = useState(null)
     const [assetData, setAssetData] = useState(null)
-
+    const [infoLoading, setInfoLoading] = useState(null)
     let isHold = false
     let dataProvider = AppDataProvider()
     let disposer = null
@@ -67,6 +67,7 @@ export default function PageCreateOffer({pageObj}){
             alert("wrong expire date")
             return
         }
+
         checkTokenProxyAddress()
     }
 
@@ -87,6 +88,7 @@ export default function PageCreateOffer({pageObj}){
     }
 
     function registOrder(order){
+        setInfoLoading(null)
         console.log(TAG + " registOrder", order)
         console.log(TAG + " registOrder", assetData)
         let params = {
@@ -110,6 +112,7 @@ export default function PageCreateOffer({pageObj}){
     }
 
     function registOffer(proxyAddress){
+
         console.log(TAG + " registOffer", proxyAddress)
         const priceValue =  parseInt(inputs.price);
         const expireValue =  parseInt(inputs.expireDate)
@@ -144,11 +147,13 @@ export default function PageCreateOffer({pageObj}){
     let autoTokenProxyChecker = null
     function createTokenProxyChecker(){
         clearTokenProxyChecker()
+        setInfoLoading("check token proxy address")
         autoTokenProxyChecker = setTimeout(() => {
             checkTokenProxyAddress()
-        }, 5000)
+        }, 3000)
     }
     function clearTokenProxyChecker(){
+        setInfoLoading(null)
         if (autoTokenProxyChecker != null){
             clearInterval(autoTokenProxyChecker)
         }
@@ -252,7 +257,9 @@ export default function PageCreateOffer({pageObj}){
         })
     }
 
-    const InputField = ({name, placeHolder, value, isFocus, maxLength= "3" }) =>
+
+
+    const InputField = ({name, placeHolder, value, isFocus, maxLength= "10" }) =>
         isFocus ?
             <InputText placeHolder={placeHolder}
                        name={name}
@@ -310,9 +317,7 @@ export default function PageCreateOffer({pageObj}){
                     />
                 </StyledFullButtonWrap>
             </div>
-            {
-                isHold ? <Loading info={"Coins may be consumed if you stop during the transaction."}/> : null
-            }
+            <Loading info={infoLoading == null ? "" : infoLoading} isShow={infoLoading != null} />
         </PageBg>
     )
 }

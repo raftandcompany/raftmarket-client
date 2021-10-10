@@ -12,9 +12,10 @@ import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import PageTab from "page/component/tab/PageTab";
 import * as Metamask from "store/manager/metamask/Metamask";
 import * as Exchange from "store/manager/exchange/exchange";
-import AppPagePresenter from "../../PagePresenter";
-import * as Rest from "../../../store/rest/Rest";
-import {Loading} from "../../../skeleton/component/unit/Loading";
+import AppPagePresenter, {PageId, PageObjcet} from "../../PagePresenter";
+import * as Rest from "store/rest/Rest";
+import {Loading} from "skeleton/component/unit/Loading";
+
 
 export default function PageCreateListing({pageObj}){
     const TAG = "PageCreateListing"
@@ -24,7 +25,7 @@ export default function PageCreateListing({pageObj}){
     })
     const [focusName, setFocusName] = useState(null)
     const [assetData, setAssetData] = useState(null)
-
+    const [infoLoading, setInfoLoading] = useState(null)
     let isHold = false
     let dataProvider = AppDataProvider()
     let disposer = null
@@ -85,6 +86,7 @@ export default function PageCreateListing({pageObj}){
     }
 
     function registOrder(order){
+        setInfoLoading(null)
         console.log(TAG + " registOrder", order)
         console.log(TAG + " registOrder", assetData)
         let params = {
@@ -145,11 +147,13 @@ export default function PageCreateListing({pageObj}){
     let autoRegistChecker = null
     function createRegistChecker(){
         clearRegistChecker()
+        setInfoLoading("waiting regist")
         autoRegistChecker = setTimeout(() => {
             checkRegistAddress()
         }, 2000)
     }
     function clearRegistChecker(){
+        setInfoLoading(null)
         if (autoRegistChecker != null){
             clearInterval(autoRegistChecker)
         }
@@ -232,11 +236,13 @@ export default function PageCreateListing({pageObj}){
     let autoApprovedChecker = null
     function createApprovedChecker(proxyAddress){
         clearApprovedChecker()
+        setInfoLoading("waiting approved")
         autoApprovedChecker = setTimeout(() => {
             checkApprovedNft(proxyAddress)
         }, 2000)
     }
     function clearApprovedChecker(){
+        setInfoLoading(null)
         if (autoApprovedChecker != null){
             clearInterval(autoApprovedChecker)
         }
@@ -349,6 +355,7 @@ export default function PageCreateListing({pageObj}){
 
             />
 
+
     return (
         <PageBg
             isPopup={pageObj.isPopup}
@@ -374,7 +381,6 @@ export default function PageCreateListing({pageObj}){
                         isFocus={focusName === "expireDate"}
 
                     />
-
                 </StyledInputWrap>
 
                 <StyledFullButtonWrap>
@@ -385,9 +391,7 @@ export default function PageCreateListing({pageObj}){
                     />
                 </StyledFullButtonWrap>
             </div>
-            {
-                isHold ? <Loading info={"Coins may be consumed if you stop during the transaction."}/> : null
-            }
+            <Loading info={infoLoading == null ? "" : infoLoading} isShow={infoLoading != null} />
         </PageBg>
     )
 }

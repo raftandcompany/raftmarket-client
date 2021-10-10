@@ -1,8 +1,9 @@
 import React from "react";
 import SvgLoading from "asset/SvgLoading.svg";
 
-export function Loading({ info }) {
+export function Loading({ info, isShow }) {
     return (
+        isShow ?
         <div className="loading">
             <div className="loading-inner">
                 <img src={SvgLoading} alt="loading.." />
@@ -10,6 +11,6 @@ export function Loading({ info }) {
                     {info == null ? "loading..." : info}
                 </p>
             </div>
-        </div>
+        </div> : null
     )
 }
