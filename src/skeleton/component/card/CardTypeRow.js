@@ -17,7 +17,7 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
         >
             <CardAction>
                 <CardImage src={data != null
-                    ? data.art
+                    ? (data.displayImage != null ? data.displayImage : data.art)
                     : "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"} />
                 {/* <div className="image">
                     <CardImage src={data != null
@@ -29,10 +29,10 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
                         <SvgPrice />{data != null ? data.price : "0"}
                     </Typography>
                     <Typography variant="body2">
-                        {data != null ? data.displayName : "title"}
+                        {data != null ? (data.displayName != null ? data.displayName : data.title) : ""}
                     </Typography>
                     <Typography variant="body1">
-                        {data != null ? data.description : "subtitle"}
+                        {data != null ? data.description : ""}
                     </Typography>
                     <Typography variant="body1" name="basket">
                         <SvgBasket />{data != null ? data.contractedInfo : ""}

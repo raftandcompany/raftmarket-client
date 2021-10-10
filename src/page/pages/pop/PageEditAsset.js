@@ -23,8 +23,6 @@ export default function PageEditAsset({pageObj}){
     })
     const [focusName, setFocusName] = useState(null)
     const [assetData, setAssetData] = useState(null)
-
-    let isHold = false
     let dataProvider = AppDataProvider()
     let disposer = null
     let selectedFile = null
@@ -41,9 +39,9 @@ export default function PageEditAsset({pageObj}){
         let asset = pageObj.params["data"].data
         console.log(TAG,asset)
 
-        inputs.description = asset.description
-        inputs.title = asset.displayName
-        inputs.externalLink = asset.externalLink
+        inputs.description = asset.meta.description
+        inputs.title = asset.meta.name
+        inputs.externalLink = asset.meta.externalLink
         setAssetData(asset)
     }
 
@@ -79,7 +77,7 @@ export default function PageEditAsset({pageObj}){
             assetId: assetData.assetId,
             chain: assetData.chain,
             collectionAddress: assetData.collectionAddress,
-            contents:null,
+            contents:selectedFile,
             name: inputs.title,
             externalLink: inputs.externalLink,
             description: inputs.description

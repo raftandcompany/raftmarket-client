@@ -13,6 +13,7 @@ import PageTab from "page/component/tab/PageTab";
 import {Accordion} from "skeleton/component/unit/Unit";
 import * as Exchange from "store/manager/exchange/exchange";
 import * as Metamask from "store/manager/metamask/Metamask";
+import ListTitle from "../../../skeleton/component/title/ListTitle";
 
 
 export default function PageAsset({pageObj}){
@@ -210,7 +211,17 @@ export default function PageAsset({pageObj}){
             ani={pageObj.isPopup ? slideInUp : fadeIn}>
             <div className="popup-inner">
                 <PageTab pageObj={pageObj}/>
+
                 <div className="popup-content">
+                    <ListTitle title={<span>Sale NFT</span>}
+                               more = "more"
+                               type ="blue" action={ () =>{
+                        if (asset.externalLink === "" || asset.externalLink == null ){
+                            alert("Information not available")
+                            return
+                        }
+                        window.open(asset.externalLink)
+                    }}/>
                     { <Header  key={ uuidv4().toString() } data={ asset }/> }
                     { <AccordionList  key={ uuidv4().toString() }
                                       assetData = {asset}

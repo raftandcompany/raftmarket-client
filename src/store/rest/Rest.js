@@ -77,14 +77,16 @@ export function toData(data, model){
 }
 
 export function toFormData(data, model){
+    let formData = new FormData();
     for (const [key, value] of Object.entries(model)) {
-        //console.log(TAG, "key : " + key + " value : " + value)
+        console.log(TAG, "key : " + key + " value : " + value)
         if (data[key] !== undefined) {
-            model[key] = data[key]
+            formData.append(key, data[key]);
+            console.log(TAG + " " + key, data[key])
         }
-        //console.log(TAG, key+ " : " + model[key])
+
     }
-    return model
+    return formData
 }
 
 

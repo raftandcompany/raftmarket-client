@@ -30,17 +30,17 @@ export class AssetData{
     }
     setData(data){
         this.data = data
-        this.art = "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"
+        this.art = "https://d15dy25hbh766o.cloudfront.net/asset/0x000004f5a30d9394316782ac3ee971546bcaa682/1633789026_2.jpg"
         this.date = new Date(data.created);
-        this.title = data.collectionName == null ? "제목좀 넣어줘" : data.collectionName
-        this.subTitle = (data.currency == null ? "코인명 넣어줘" : data.currency ) + " ( " + data.chain + ")"
+        this.title = data.collectionName == null ? "no information" : data.collectionName
+        this.subTitle = (data.currency == null ? "no information" : data.currency ) + " ( " + data.chain + ")"
         this.price = data.price
         this.dollar = ( Number(data.price) * 1024 ) + "$"
         console.log("this.dollar",this.dollar)
 
         this.currency = data.currency
         this.chain = data.chain
-        this.contractedInfo = "마지막 거래정보좀 넣어줘";
+        this.contractedInfo = "No information";
         this.createdDate = format(this.date, "MMMM do, yyyy");
         if (data.owners!= null) {
             let count = data.owners.length
@@ -113,9 +113,11 @@ export default function ItemAsset({size, data, action}){
     )
 }
 
-export function ItemAssetArt({data, action}){
+export function ItemAssetArt({data, action, more}){
     return (
         <CardTypeCol data = {data}
-                     action = {action}/>
+                     action = {action}
+                     more = {more}
+        />
     )
 }

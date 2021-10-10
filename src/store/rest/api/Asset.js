@@ -32,7 +32,7 @@ export function put(data, cancel){
         headers: {
             'Content-Type': 'multipart/form-data'
         },
-        data: Rest.toData(data,
+        data: Rest.toFormData(data,
             {
                 contents: null,
                 name: null,

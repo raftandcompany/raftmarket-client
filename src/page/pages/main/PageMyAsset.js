@@ -8,7 +8,6 @@ import * as Rest from "store/rest/Rest"
 import AppDataProvider , {DataRequest}from "store/provider/DataProvider"
 import AppMetamaskManager from "store/manager/metamask/MetamaskManager"
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
-import ItemArt, {ArtData} from "page/component/item/ItemArt"
 import {ItemAssetArt, AssetData} from "page/component/item/ItemAsset"
 import {Title} from "style/textStyle"
 import {SearchType} from "store/rest/api/Asset"
@@ -40,7 +39,16 @@ export default function PageMyAsset({pageObj}){
             let response = dataProvider.response
 
             if (response != null){
-                console.log(TAG, "response " + response.id)
+                switch (response.type) {
+                    case  Rest.ApiType.putAsset :
+                        let address = AppMetamaskManager().accounts[0]
+                        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetSearch, {
+                            searchType: SearchType.Owner,
+                            address: address
+                        }, TAG))
+                        break
+                }
+
                 if (response.id !== TAG){return}
                 switch (response.type) {
                     case  Rest.ApiType.getAssetSearch :
@@ -69,6 +77,10 @@ export default function PageMyAsset({pageObj}){
                             let pageObj = new PageObjcet(PageId.Asset, {data: data})
                             AppPagePresenter().openPopup(pageObj)
                         }}
+                        more = {()=> {
+                            let pageObj = new PageObjcet(PageId.Asset, {data: data})
+
+                        }}
                     />)
                 }
             </div>
@@ -76,7 +88,7 @@ export default function PageMyAsset({pageObj}){
 
     return (
         <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
-            <ItemArt data={new ArtData()}/>
+            {/*<ItemArt data={new ArtData()}/>*/}
             { <AssetItemList datas={ assets }/> }
         </PageBg>
     )
