@@ -114,11 +114,9 @@ export default function PageSample({pageObj}){
         <PageBg>
 
             {/* {Loading()} */}
-
-
             <div style={{position:"relative"}}>
-                <Util result={true} favorite={true} share={true} more={true} link={true} />
-                <div className="detailbox">
+                <Util result={true} />
+                {/* <div className="detailbox">
                     <Title>Pink Cat #123</Title>
                     <div className="owner">
                         <Owner 
@@ -159,11 +157,54 @@ export default function PageSample({pageObj}){
                         </Typography>
                     </div>
                     <Button1 children="BUY NOW" type="purple" height={52} fontSize={16} />
+                </div> */}
+
+                <Typography variant="h3" name="title-center" children="History" />
+
+                <StyledButtonWrap className="label-button">
+                    <Typography variant="emphasis" name="select-time" children="Price History" />
+                    <Button2 children={<span>Time Scale<SvgArrowDown2 /></span>} height="40" radius="8" grow={1} />
+                </StyledButtonWrap>
+
+                <div className="chart-box" style={{height:"20px"}}>
+                </div>
+                <div className="infobox">
+                    <ul>
+                        <li>
+                            <Typography variant="span" name="text-pink" children="Hightest Price" />
+                            <Typography variant="emphasis" name="number">
+                                1.2 ETH
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="span" name="text-blue" children="Lowest Price" />
+                            <Typography variant="emphasis" name="number">
+                                0.5 ETH
+                            </Typography>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="infobox">
+                    <ul>
+                        <li>
+                            <Typography variant="span" name="" children="Avg. price" />
+                            <Typography variant="emphasis" name="number">
+                            0.7247
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="span" name="" children="Avg. volume" />
+                            <Typography variant="emphasis" name="number">
+                            3,193.7117
+                            </Typography>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
 
-            <Title>Welcome, <br />Sign In</Title>
+            {/* <Title>Welcome, <br />Sign In</Title>
 
             <StyledInputWrap>
                 <InputLabel children="mail" />
@@ -183,7 +224,7 @@ export default function PageSample({pageObj}){
             <StyledInputWrap>
                 <InputLabel children="Nickname" />
                 <InputText placeHolder="disabled inputs" disabled={true} height={48} fontSize={14}  />
-            </StyledInputWrap>
+            </StyledInputWrap> 
 
             <TitleWrap>
                 <MoreButton href="www.naver.com">
@@ -229,7 +270,9 @@ export default function PageSample({pageObj}){
             </div>
 
             <SearchBox new={true} />
+           
             <SearchBox result={true} />
+             
 
             <StyledScrollWrap>
                 <div>
@@ -243,7 +286,7 @@ export default function PageSample({pageObj}){
                     <Button3 icon="Domain Name" type="blue" />
                 </div>
             </StyledScrollWrap>
-
+            */}
 
             <ListTitle title={<span>Top NFTs</span>} icon="King" more="See All Rankings" type="blue" />
             <StyledScrollWrap>

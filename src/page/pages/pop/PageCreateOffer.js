@@ -245,7 +245,7 @@ export default function PageCreateOffer({pageObj}){
         const { value, name } = e.target
         setFocusName(name)
         setInputs({
-            ...inputs, // 기존의 input 객체를 복사한 뒤
+            ...setInputs, // 기존의 input 객체를 복사한 뒤
             [name]: value // name 키를 가진 값을 value 로 설정
         })
     }
@@ -263,7 +263,6 @@ export default function PageCreateOffer({pageObj}){
         isFocus ?
             <InputText placeHolder={placeHolder}
                        name={name}
-                       height={48} fontSize={14}
                        onChange={onChange}
                        value={value}
                        autoFocus
@@ -273,7 +272,6 @@ export default function PageCreateOffer({pageObj}){
             :
             <InputText placeHolder={placeHolder}
                        name={name}
-                       height={48} fontSize={14}
                        onChange={onChange}
                        value={value}
                        maxLength = {maxLength}

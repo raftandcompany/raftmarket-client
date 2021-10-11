@@ -111,7 +111,7 @@ export default function PageCollection({pageObj}){
                         An online community of makers, <br />
                         developers, and traders is pushing the art world <br />into new territory. <a href="">more</a>&gt;
                     </Typography>
-                    <div className="collection-info">
+                    <div className="infobox collection-info">
                         <ul>
                             <li>
                                 <Typography variant="emphasis" name="number">

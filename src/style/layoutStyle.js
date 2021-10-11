@@ -364,6 +364,33 @@ export const Body = styled.div`
         }
     }
 
+    .infobox {
+        ${radiusBox}
+        height:auto;
+        background:#000;
+        ul {
+            overflow:hidden;
+            li {
+                padding:${rem(18)} 0;
+                float:left;
+                width:50%;
+                text-align:center;
+                strong {
+                    line-height:${rem(28)};
+                }
+                span {
+                    display:block;
+                    line-height:${rem(20)};
+                    font-size: ${rem(14)};
+                    color: ${Var.color.gray3};
+                }
+            }
+        }
+        & + .infobox {
+            margin-top:${rem(8)};
+        }
+    }
+
     .collection {
         position: relative;
         margin-top:${rem(-16)};
@@ -393,28 +420,14 @@ export const Body = styled.div`
             }
         }
         &-info {
-            ${radiusBox}
             margin: 0 ${rem(16)};
-            height:auto;
             background:${Var.color.blackCard};
             ul {
-                overflow:hidden;
                 li {
-                    padding:${rem(18)} 0;
                     &:nth-child(2) {
                         margin:0 ${rem(7)};
                     }
-                    float:left;
                     width:calc((100% - ${rem(14)}) / 3);
-                    strong {
-                        line-height:${rem(28)};
-                    }
-                    span {
-                        display:block;
-                        line-height:${rem(20)};
-                        font-size: ${rem(14)};
-                        color: ${Var.color.gray3};
-                    }
                 }
             }
         }
@@ -453,6 +466,13 @@ export const Body = styled.div`
         }
     }
 
+    .text-pink {
+        color: ${Var.color.pink} !important;
+    }
+    .text-blue {
+        color: ${Var.color.blueLight} !important;
+    }
+
     .sort {
         .btn-filter {
             float:right;
@@ -481,6 +501,33 @@ export const Body = styled.div`
             }
         }
 
+    }
+
+    .title-center {
+        height: ${rem(44)};
+        line-height: ${rem(44)};
+        font-size: ${rem(18)};
+        text-align:center;
+    }
+
+    .label-button {
+        .select-time {
+            display: inline-flex;
+            font-weight: 600;
+            align-items: center;
+            cursor: pointer;
+            flex-grow: 3;
+            flex-basis: ${rem(64)};
+            font-size:${rem(20)};
+        }
+        button {
+            text-align:left;
+            font-weight:500;
+            font-size:${rem(14)};
+            svg {
+                margin-left:${rem(12)};
+            }
+        }
     }
 `;
 
