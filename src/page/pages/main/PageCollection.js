@@ -109,7 +109,7 @@ export default function PageCollection({pageObj}){
                     <Title>Cool Cats NFT</Title>
                     <Typography variant="body2" name="description">
                         An online community of makers, <br />
-                        developers, and traders is pushing the art world <br />into new territory. <a href="">more</a>&gt;
+                        developers, and traders is pushing the art world <br />into new territory. <a href="#">more</a>&gt;
                     </Typography>
                     <div className="infobox collection-info">
                         <ul>
