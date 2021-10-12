@@ -111,11 +111,11 @@ function Loading() {
 
 export default function PageSample({pageObj}){
     return (
-        <PageBg>
+        <PageBg className="page-history" >
 
             {/* {Loading()} */}
             <div style={{position:"relative"}}>
-                <Util result={true} />
+                <Util result={false} />
                 {/* <div className="detailbox">
                     <Title>Pink Cat #123</Title>
                     <div className="owner">
@@ -311,10 +311,10 @@ export default function PageSample({pageObj}){
             </div>
 
             <div className="list">
-                <CardTypeCol />
+                {/* <CardTypeCol /> */}
             </div>
 
-            <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" />
+            {/* <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" /> */}
 
 
             {/* <Share name="facebook"/> */}

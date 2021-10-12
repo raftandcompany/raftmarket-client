@@ -532,6 +532,14 @@ export const Body = styled.div`
     .collection h3 + a {
         display:none;
     }
+    .page-history {
+        h3 + a {
+            display:none;
+        }
+        .infobox + .infobox {
+            margin-bottom:${rem(20)};
+        }
+    }
 `;
 
 export const Popup = styled.div`
