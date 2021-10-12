@@ -529,6 +529,9 @@ export const Body = styled.div`
             }
         }
     }
+    .collection h3 + a {
+        display:none;
+    }
 `;
 
 export const Popup = styled.div`
