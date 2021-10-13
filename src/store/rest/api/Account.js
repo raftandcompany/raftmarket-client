@@ -24,9 +24,9 @@ export function put(data, cancel){
         url: path + "/generalSetting",
         data: Rest.toData(data, {
             address : "",
-            userName: "",
-            bio: "",
-            emailAddress:""
+            name: "",
+            comment: "",
+            email:""
         }),
         cancelToken:cancel.token
     })

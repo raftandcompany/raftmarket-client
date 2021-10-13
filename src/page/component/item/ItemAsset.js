@@ -20,7 +20,6 @@ export class AssetData{
         this.displayImage = ""
         this.displayName = ""
         this.description = ""
-        this.displayArt = ""
         this.externalLink = null
         this.properties = []
         if (data != null) {

@@ -53,9 +53,9 @@ export default function PageRegist({pageObj}){
             Rest.ApiType.putAccount,
             {
                 address:address,
-                userName: data.nickName,
-                bio: "",
-                emailAddress:data.emailAddress
+                name: data.nickName,
+                comment: "jjp",
+                email:data.emailAddress
             }
         ))
     }

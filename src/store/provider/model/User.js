@@ -20,9 +20,9 @@ export default class User {
 
     setData(date, address){
         this.adress = date.address
-        this.name = date.userName
+        this.name = date.name
         this.bio = date.bio
-        this.email = date.emailAddress
+        this.email = date.email
         return this
     }
 
