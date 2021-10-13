@@ -100,7 +100,7 @@ export default function PageCollection({pageObj}){
         <PageBg>
 
             <div className="collection">
-                <Util result={true} favorite={true} share={true} more={false} link={true} />
+                <Util result={false} favorite={true} share={true} more={false} link={true} />
                 <div className="collection-box">
                     <div className="bg-gradiant purple"></div>
                     <div className="collection-thumb">

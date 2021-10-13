@@ -39,6 +39,11 @@ class PagePresenter {
 
     openPopup(pageObj){
         console.log(this.TAG, "openPopup " + pageObj.pageId)
+        document.body.style.cssText = `
+            position: fixed; 
+            top: -${window.scrollY}px;
+            overflow-y: scroll;
+            width: 100%;`;
         runInAction( () => {
             pageObj.isPopup = true
             this.event = new PageEvent(PageEventType.OpenPopup, pageObj)
@@ -48,6 +53,7 @@ class PagePresenter {
     }
 
     closePopup(pageObj){
+        document.body.style.cssText = '';
         runInAction( () => {
             let found = this.popups.findIndex(element => element.id === pageObj.id )
             if(found != null){
