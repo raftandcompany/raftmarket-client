@@ -16,7 +16,7 @@ import Typography from "skeleton/component/text/Typography";
 
 //import Share from "skeleton/component/unit/Share";
 import Util from "skeleton/component/unit/Util";
-import { Owner, Tab, Accordion } from "skeleton/component/unit/Unit";
+import { Owner, Tab, Accordion, Accordion2 } from "skeleton/component/unit/Unit";
 
 
 import {Title} from "style/textStyle";
@@ -35,8 +35,9 @@ import * as Images from "asset/temp/index";
 
 const data1 = [
     {
+        status: 'show',
         type: 'row',
-        name: 'listing',
+        name: 'November 7, 2021',
         items: [
             {
                 eth: 1.5,
@@ -56,7 +57,20 @@ const data1 = [
     },
     {
         type: 'row',
-        name: 'offers',
+        name: 'October 30, 2021',
+        items: [
+            {
+                eth: 1.5,
+                dollar: '$1100',
+                text: 'Artblockmaster',
+                img: 'https://shared-comic.pstatic.net/thumb/webtoon/748105/thumbnail/thumbnail_IMAG06_fa3bf10d-1b8f-40cd-a8eb-01caf9bbc3e4.jpg',
+                expire: 0
+            }
+        ]
+    },
+    {
+        type: 'row',
+        name: 'October 19, 2021',
         items: [
             {
                 eth: 1.5,
@@ -288,7 +302,7 @@ export default function PageSample({pageObj}){
             </StyledScrollWrap>
             */}
 
-            <ListTitle title={<span>Top NFTs</span>} icon="King" more="See All Rankings" type="blue" />
+            {/* <ListTitle title={<span>Top NFTs</span>} icon="King" more="See All Rankings" type="blue" />
             <StyledScrollWrap>
                 <div className="list list-scroll">
                     <CardTypeRow size="medium" />
@@ -296,11 +310,11 @@ export default function PageSample({pageObj}){
                     <CardTypeRow size="medium" />
                     <CardTypeRow size="medium" />
                 </div>
-            </StyledScrollWrap>
+            </StyledScrollWrap> */}
 
-            <ListTitle title={<span>Newly Minuted</span>} more="See More" />
+            <ListTitle title={<span>Trading History</span>} />
 
-            <div className="list list-collection">
+            {/* <div className="list list-collection">
                 <CardTypeRow size="small" />
                 <CardTypeRow size="small" />
                 <CardTypeRow size="small" />
@@ -308,11 +322,10 @@ export default function PageSample({pageObj}){
             <div className="list">
                 <CardTypeRow size="large" />
                 <CardTypeRow size="large" />
-            </div>
+            </div> */}
 
-            <div className="list">
-                {/* <CardTypeCol /> */}
-            </div>
+            
+        <Accordion2 data={data1} />           
 
             {/* <Category type="art" bg="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" /> */}
 

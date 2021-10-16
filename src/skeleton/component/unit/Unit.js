@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import EllipseButton from "skeleton/component/button/EllipseButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import Typography from "skeleton/component/text/Typography";
@@ -14,6 +14,11 @@ import { SvgStar, SvgStarFill, SvgMore, SvgLink, SvgSearch, SvgPrice, SvgArrowDo
 import { SvgShare } from "asset/SvgSns"
 import {format} from "date-fns";
 import {v4 as uuidv4} from "uuid";
+
+
+//sample
+import CardTypeCol from "skeleton/component/card/CardTypeCol";
+
 
 // function Unit({ name, ...props }) {
 //     //const [searchKeyword, setSearchKeyword] = useState(keyword)
@@ -182,6 +187,119 @@ export const Accordion = ({ data , isMine , action, create}) => {
 
         return (
             <AccordionItem
+                key={ uuidv4().toString() }
+                item={item}
+                isMine={isMine}
+                action={action}
+                create={create}
+            />
+        );
+    });
+    return (
+        <div className="accordion">
+            {renderedData}
+        </div>
+    );
+};
+  
+
+
+
+
+
+
+const AccordionItem2 = ({
+    item, isMine, action, create
+  }) => {
+    console.log("AccordionItem",item)
+
+    const [isActive, setActive] = useState(false);
+
+    useEffect(() => {
+        if (item.status === 'show') {
+            setActive(true);
+        }
+	}, []);
+
+    const show = isActive? " show" : "";
+    const renderedData1 = item.items.map((i) => {
+        return (
+            <div className="market"  key={ uuidv4().toString() }>
+                <div className="price">
+                    <Typography variant="emphasis">
+                        <SvgPrice />{i.orderType != null ? i.price : i.eth}<span className="text-sub">
+                            {i.dollar}
+                        </span>
+                    </Typography>
+                </div>
+                <div className="owner">
+                    <Owner 
+                        img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
+                        text="Artblockmaster" />
+                </div>
+                {
+                    i.expire === 0 && i.orderType == null
+                    ? <Typography variant="body1">'Doesn’t expire'</Typography>
+                    : <Typography variant="body1" name="time"><SvgTime />{i.orderType != null ? i.expireDate :i.expire}</Typography>
+                }
+                {
+                    (i.orderType === OrderType.Offers && isMine) || (i.orderType === OrderType.Listing && !isMine)
+                     ? <EllipseButton
+                           children= { i.orderType === OrderType.Offers ? "aprove" : "buy"}
+                           type= { i.orderType === OrderType.Offers ? "purple" : "blue" }
+                           height={40} fontSize={16}
+                           onClick={ e=> {
+                                if (action == null) {return}
+                                console.log(i)
+                                action(i)
+                            }}/>
+                     : null
+                }
+            </div>
+        );
+    });
+    const renderedData2 = item.items.map((i) => {
+        return (
+            <div className="about">
+                <Typography variant="span" name="label">{i.label}</Typography>
+                <Typography variant="span" name="item">{i.item}</Typography>
+                <Typography variant="span" name="rarity">{i.rarity}</Typography>
+            </div>
+        );
+    });
+
+    return (
+        <div className="accordion-item" key={item.name}>
+            <button
+                className={`accordion-button ${item.name}${show}`}
+                onClick={() => {
+                    setActive(!isActive);
+                }}
+            >
+            <Typography variant="emphasis" name={`status ${item.name}`}>
+                {item.name}
+            </Typography>
+            {
+                item.items.length > 0 ? <SvgArrowDown /> : null
+            }
+            </button>
+
+            <div className={`accordion-cont ${show}`}>
+                <section className="list">
+                    {<CardTypeCol />}
+                </section>
+            </div>
+            
+        </div>
+    );
+};
+
+
+export const Accordion2 = ({ data , isMine , action, create}) => {
+    const renderedData = data.map((item) => {
+
+        return (
+            <AccordionItem2
                 key={ uuidv4().toString() }
                 item={item}
                 isMine={isMine}
