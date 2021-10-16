@@ -139,9 +139,7 @@ export default function PageCreateListing({pageObj}){
         } catch (error) {
             console.error(TAG + " registListing", error)
         }
-
     }
-
 
 
     let autoRegistChecker = null

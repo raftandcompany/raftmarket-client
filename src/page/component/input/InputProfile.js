@@ -5,6 +5,7 @@ import InputLabel from "skeleton/component/input/InputLabel";
 import InputText from "skeleton/component/input/InputText";
 import {StyledFullButtonWrap} from "style/roundButton";
 import {v4 as uuidv4} from "uuid";
+import Hangul from "hangul-js";
 
 export default function InputProfile({nickName, emailAddress, action}){
     const [inputs, setInputs] = useState({
@@ -25,12 +26,14 @@ export default function InputProfile({nickName, emailAddress, action}){
         })
     }
 
+
+
     const onChange = e => {
         const { value, name } = e.target
         setFocusName(name)
         setInputs({
             ...inputs, // 기존의 input 객체를 복사한 뒤
-            [name]: value // name 키를 가진 값을 value 로 설정
+            [name]: Hangul.assemble(value) // name 키를 가진 값을 value 로 설정
         })
     }
 

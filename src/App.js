@@ -7,10 +7,7 @@ import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab"
 import {Popup, Body} from "style/layoutStyle"
 import {GlobalStyle} from "style/common/globalStyle"
-import { Web3ReactProvider } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
 
-import PageSample from "page/pages/PageSample"
 
 const TAG = "App"
 const repository = AppRepository()
@@ -30,6 +27,7 @@ function AppBody (){
     }, []);
 
     function onAppear (){
+
     }
     function onSubscribe(){
     }
@@ -60,4 +58,6 @@ const PopupDisplayer = observer(({ presenter }) =>
 const PageNavi = observer(({ presenter }) =>
     <BottomTab currentPageId = {presenter.pageObj.pageId} />
 )
+
+
 export default App
