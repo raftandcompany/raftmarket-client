@@ -102,7 +102,7 @@ class MetamaskManager {
             const accounts = await ethereum.request({ method: 'eth_accounts' });
             runInAction(() => {
                 console.log(this.TAG, accounts)
-                if (accounts.length == 0){
+                if (accounts.length === 0){
                     this.accounts = null
                     this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
                     console.log(this.TAG, 'checkAccountStatus error')
@@ -127,7 +127,7 @@ class MetamaskManager {
             const accounts = await ethereum.request({ method: 'eth_accounts' });
             runInAction(() => {
                 console.log(this.TAG, accounts)
-                if (accounts.length == 0){
+                if (accounts.length === 0){
                     this.accounts = null
                     this.error = new Metamask.MetamaskError(Metamask.Error.checkAccountStatus)
                     console.log(this.TAG, 'checkAccountStatus error')

@@ -1,5 +1,5 @@
 export const API_KEY = 'ironright'
-export const API_PATH = "http://dev.api.raftmarket.net/v1/"
+export const API_PATH = "http://dev.api.raftmarkets.net/v1/"
 const TAG = "Rest"
 
 

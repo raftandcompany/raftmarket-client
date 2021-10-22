@@ -15,6 +15,7 @@ import * as Exchange from "store/manager/exchange/exchange";
 import AppPagePresenter, {PageId, PageObjcet} from "../../PagePresenter";
 import * as Rest from "store/rest/Rest";
 import {Loading} from "skeleton/component/unit/Loading";
+import Hangul from "hangul-js";
 
 
 export default function PageCreateListing({pageObj}){
@@ -139,9 +140,7 @@ export default function PageCreateListing({pageObj}){
         } catch (error) {
             console.error(TAG + " registListing", error)
         }
-
     }
-
 
 
     let autoRegistChecker = null
@@ -322,8 +321,8 @@ export default function PageCreateListing({pageObj}){
         const { value, name } = e.target
         setFocusName(name)
         setInputs({
-            ...inputs, // 기존의 input 객체를 복사한 뒤
-            [name]: value // name 키를 가진 값을 value 로 설정
+            ...inputs,
+            [name]: value
         })
     }
 
