@@ -44,7 +44,9 @@ export default function PageHome({pageObj}){
                 if (response.id !== TAG){return}
                 switch (response.type) {
                     case  Rest.ApiType.getAsset :
-                        setAssets(response.data.map( set => {
+                        setAssets(response.data.filter(set =>
+                            set.assets != null
+                        ).map( set => {
                             var obj = new Object()
                             obj.name = set.name
                             obj.datas = set.assets.map(d => new AssetData(d))

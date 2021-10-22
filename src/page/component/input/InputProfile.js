@@ -26,8 +26,6 @@ export default function InputProfile({nickName, emailAddress, action}){
         })
     }
 
-
-
     const onChange = e => {
         const { value, name } = e.target
         setFocusName(name)
