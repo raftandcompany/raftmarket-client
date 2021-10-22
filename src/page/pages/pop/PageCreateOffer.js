@@ -19,10 +19,8 @@ import {Loading} from "skeleton/component/unit/Loading";
 
 export default function PageCreateOffer({pageObj}){
     const TAG = "PageCreateOffer"
-    const [inputs, setInputs] = useState({
-        price: "",
-        expireDate: ""
-    })
+    const [price, setPrice] = useState( "")
+    const [expireDate, setExpireDate] = useState( "")
     const [focusName, setFocusName] = useState(null)
     const [assetData, setAssetData] = useState(null)
     const [infoLoading, setInfoLoading] = useState(null)
@@ -57,12 +55,12 @@ export default function PageCreateOffer({pageObj}){
 
     function submit(e){
         e.preventDefault()
-        const priceValue =  parseInt(inputs.price);
+        const priceValue =  parseInt(price);
         if (isNaN(priceValue)) {
             alert("wrong price")
             return
         }
-        const expireValue =  parseInt(inputs.expireDate)
+        const expireValue =  parseInt(expireDate)
         if (isNaN(expireValue)) {
             alert("wrong expire date")
             return
@@ -114,8 +112,8 @@ export default function PageCreateOffer({pageObj}){
     function registOffer(proxyAddress){
 
         console.log(TAG + " registOffer", proxyAddress)
-        const priceValue =  parseInt(inputs.price);
-        const expireValue =  parseInt(inputs.expireDate)
+        const priceValue =  parseInt(price);
+        const expireValue =  parseInt(expireDate)
         const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
         console.log(TAG + " expirationTime", expirationTime)
         try {
@@ -244,20 +242,13 @@ export default function PageCreateOffer({pageObj}){
     const onChange = e => {
         const { value, name } = e.target
         setFocusName(name)
-        setInputs({
-            ...setInputs, // 기존의 input 객체를 복사한 뒤
-            [name]: value // name 키를 가진 값을 value 로 설정
-        })
+        if(name === "price"){
+            setPrice(value)
+        } else {
+            setExpireDate(value)
+        }
+
     }
-
-    const onReset = () => {
-        setInputs({
-            price: "",
-            expireDate: ""
-        })
-    }
-
-
 
     const InputField = ({name, placeHolder, value, isFocus, maxLength= "10" }) =>
         isFocus ?
@@ -266,7 +257,7 @@ export default function PageCreateOffer({pageObj}){
                        onChange={onChange}
                        value={value}
                        autoFocus
-                       maxLength ={maxLength}
+                       maxLength = {maxLength}
 
             />
             :
@@ -290,7 +281,7 @@ export default function PageCreateOffer({pageObj}){
                     <InputField
                         name="price"
                         placeHolder="Sale Price"
-                        value={inputs.price}
+                        value={price}
                         isFocus={focusName === "price"}
 
                     />
@@ -299,8 +290,8 @@ export default function PageCreateOffer({pageObj}){
                     <InputLabel children="Expire Date" />
                     <InputField
                         name="expireDate"
-                        placeHolder="rom"
-                        value={inputs.expireDate}
+                        placeHolder="Expire Date"
+                        value={expireDate}
                         isFocus={focusName === "expireDate"}
 
                     />
@@ -309,7 +300,7 @@ export default function PageCreateOffer({pageObj}){
 
                 <StyledFullButtonWrap>
                     <BorderRadiusButton children="Create Offer" type="purple"
-                            unactive={inputs.price === "" || inputs.expireDate  === ""}
+                            unactive={price === "" || expireDate  === ""}
                             fullSize={true}
                             onClick={e => submit(e)}
                     />
