@@ -10,13 +10,15 @@ export class OrderData{
     constructor(data) {
         this.data = data
         this.date = new Date(data.created);
-        this.expiration = new Date(data.expirationTime);
+        this.expiration = new Date(data.expirationTime*1000);
         this.orderType = data.orderType
         this.title = data.orderType + " " + data.currency + " ( " +  data.basePrice + " )"
         this.subTitle = data.currency + " " + data.status
         this.price = data.basePrice
         this.createdDate = format(this.date, "MMMM do, yyyy");
         this.expireDate = format(this.expiration, "MMMM do, yyyy");
+        console.log("OrderData", this.expiration)
+        console.log("OrderData", this.expireDate)
     }
     /*
       "id": 1,
