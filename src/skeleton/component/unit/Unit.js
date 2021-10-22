@@ -17,7 +17,7 @@ import {v4 as uuidv4} from "uuid";
 
 
 //sample
-import CardTypeCol from "skeleton/component/card/CardTypeCol";
+import CardTypeColSample from "skeleton/component/card/CardTypeColSample";
 
 
 // function Unit({ name, ...props }) {
@@ -286,7 +286,7 @@ const AccordionItem2 = ({
 
             <div className={`accordion-cont ${show}`}>
                 <section className="list">
-                    {<CardTypeCol />}
+                    {<CardTypeColSample />}
                 </section>
             </div>
             
