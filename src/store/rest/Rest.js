@@ -26,7 +26,7 @@ export const ApiType = Object.freeze ({
     getAsset : "getAsset",
     getAssetById : "getAssetById",
     putAsset : "putAsset",
-    getAssetSearch : "gettAssetSearch",
+    getAssetSearch : "getAssetSearch",
 
     getCollection : "getCollection",
     getCollectionById : "getCollectionById",

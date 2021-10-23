@@ -10,7 +10,7 @@ function CardUser({ size = 'full', data,  ...props }) {
                 img={
                     data != null ? data.profileImg
                         : "https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"}
-                text="Artblockmaster" />
+                text={data != null ? data.title : "Artblockmaster"} />
             {
                 data != null
                     ? data.isCurrent ? <div/> : <SvgArrowRight2/>

@@ -95,7 +95,7 @@ export default function PageCreateListing({pageObj}){
             collectionAddress: assetData.collectionAddress,
             assetId: assetData.assetId,
             status: "OPENED",
-            exchange: "exchange1",
+            exchange: Metamask.ExchangeKey.defaultAddress,
             maker: order.maker,
             makerRelayerFee: order.makerRelayerFee,
             takerRelayerFee: order.takerRelayerFee,
@@ -112,7 +112,7 @@ export default function PageCreateListing({pageObj}){
 
     function registListing(proxyAddress){
         console.log(TAG + " registListing", proxyAddress)
-        const priceValue =  parseInt(inputs.price);
+        const priceValue =  parseInt(inputs.price) * Metamask.ExchangeKey.coinUnit;
         const expireValue =  parseInt(inputs.expireDate)
         const expirationTime = Math.round((Date.now() + (expireValue * 1000 * 3600 * 24)) / 1000)
         console.log(TAG + " expirationTime", expirationTime)

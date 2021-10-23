@@ -83,8 +83,8 @@ export default function PageHome({pageObj}){
         setCurrentCategory(category)
         setAssets([])
 
-        let data = {nftCategory:category}
-        dataProvider.requestQ(new DataRequest(Rest.ApiType.postAsset, data ))
+        let data = {collectionCategory:category}
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetSearch, data ))
     }
 
     const CategoryItem = ({name, category}) =>

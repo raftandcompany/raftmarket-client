@@ -34,7 +34,8 @@ export const ExchangeKey = Object.freeze ({
     unregistTokenAdress : "0x00",
     companyAddress : "0x4663ca453da16eb9be51e120da680cf31e0a757a",
     protocol : 'erc-721',
-    currencyAddress: "0x0000000000000000000000000000000000000000"
+    currencyAddress: "0x0000000000000000000000000000000000000000",
+    coinUnit: 100000000000000
 })
 
 export class MetamaskError {

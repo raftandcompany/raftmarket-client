@@ -3,7 +3,6 @@ import EllipseButton from "skeleton/component/button/EllipseButton";
 import BorderRadiusButton from "skeleton/component/button/BorderRadiusButton";
 import Typography from "skeleton/component/text/Typography";
 import {OrderType} from  "store/rest/api/Order";
-
 import { UserImage }  from "style/cardStyle";
 
 
@@ -18,6 +17,7 @@ import {v4 as uuidv4} from "uuid";
 
 //sample
 import CardTypeColSample from "skeleton/component/card/CardTypeColSample";
+import CardUser from "../card/CardUser";
 
 
 // function Unit({ name, ...props }) {
@@ -99,6 +99,12 @@ const AccordionItem = ({
 
     const [isActive, setActive] = useState(false);
     const show = isActive? " show" : "";
+
+    const OwnerList = ({ owners }) =>
+        <div className="owner">
+            { owners.map( owner => <CardUser key={uuidv4().toString()} data = {owner}/> ) }
+        </div>
+
     const renderedData1 = item.items.map((i) => {
         return (
             <div className="market"  key={ uuidv4().toString() }>
@@ -110,9 +116,13 @@ const AccordionItem = ({
                     </Typography>
                 </div>
                 <div className="owner">
-                    <Owner 
-                        img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540" 
-                        text="Artblockmaster" />
+                    {
+                        i.owners != null
+                            ? <OwnerList owners={i.owners}/>
+                            : <Owner
+                                img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"
+                                text="Artblockmaster"/>
+                    }
                 </div>
                 {
                     i.expire === 0 && i.orderType == null

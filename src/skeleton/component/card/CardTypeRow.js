@@ -26,7 +26,7 @@ function CardTypeRow({ size = 'full', data, action,  ...props }) {
                 </div> */}
                 <CardContent>
                     <Typography variant="emphasis">
-                        <SvgPrice />{data != null ? data.price : "0"}
+                        <SvgPrice />{data != null ? (data.price + " " + data.currency) : "0"}
                     </Typography>
                     <Typography variant="body2">
                         {data != null ? (data.displayName != null ? data.displayName : data.title) : ""}

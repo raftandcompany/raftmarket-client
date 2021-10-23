@@ -13,6 +13,7 @@ import PageTab from "page/component/tab/PageTab";
 import AppPagePresenter from "page/PagePresenter";
 import * as Rest from "store/rest/Rest";
 import FileUploadComponent from "page/component/input/FileUploadComponent";
+import Hangul from "hangul-js";
 
 export default function PageEditAsset({pageObj}){
     const TAG = "PageEditAsset"
@@ -84,15 +85,13 @@ export default function PageEditAsset({pageObj}){
         }
         dataProvider.requestQ(new DataRequest(Rest.ApiType.putAsset, params, TAG, false))
     }
-
-
-
+    
     const onChange = e => {
         const { value, name } = e.target
         setFocusName(name)
         setInputs({
             ...inputs, // 기존의 input 객체를 복사한 뒤
-            [name]: value // name 키를 가진 값을 value 로 설정
+            [name]: Hangul.assemble(value) // name 키를 가진 값을 value 로 설정
         })
     }
 

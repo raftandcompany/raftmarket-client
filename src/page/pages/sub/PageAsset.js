@@ -184,7 +184,6 @@ export default function PageAsset({pageObj}){
                     data={accordionData}
                     isMine={isMine}
                     action={ data =>{
-                        console.log(data)
                         if(isMine){
                             acceptOrder(data)
                         } else {

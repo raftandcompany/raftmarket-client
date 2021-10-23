@@ -5,6 +5,8 @@ import Typography from "skeleton/component/text/Typography";
 import {SvgPrice, SvgTime} from "asset/SvgImg";
 import EllipseButton from "skeleton/component/button/EllipseButton";
 import {Owner} from "skeleton/component/unit/Unit";
+import {OwnerData} from "./ItemAsset";
+import * as Metamask from "../../../store/manager/metamask/Metamask";
 
 export class OrderData{
     constructor(data) {
@@ -14,11 +16,12 @@ export class OrderData{
         this.orderType = data.orderType
         this.title = data.orderType + " " + data.currency + " ( " +  data.basePrice + " )"
         this.subTitle = data.currency + " " + data.status
-        this.price = data.basePrice
+        this.price = Number(data.basePrice) / Metamask.ExchangeKey.coinUnit
         this.createdDate = format(this.date, "MMMM do, yyyy");
         this.expireDate = format(this.expiration, "MMMM do, yyyy");
-        console.log("OrderData", this.expiration)
-        console.log("OrderData", this.expireDate)
+        if (data.account!= null) {
+            this.owners = [ new OwnerData(data.account, true) ]
+        }
     }
     /*
       "id": 1,
