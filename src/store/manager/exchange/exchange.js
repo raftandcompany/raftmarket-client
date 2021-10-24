@@ -21,6 +21,13 @@ const Define = {
         Buy:    "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         Sell:   "0x000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000"
     },
+    ProtocolFee: 0,
+    FeeMethod: 1,
+    SaleKind: 0,
+    HowToCall: 0,
+    Extra: 0,
+    SideBuy: 0,
+    SideSell: 1,
 }
 
 const loadContract = (address) => {
@@ -57,6 +64,44 @@ const genSalt = () => {
             }
         })
     })
+}
+
+// API 로 조회한 Order 를 컨트랙트 호출용 Order 로 변환
+const convertOrder = (apiOrder) => {
+    if (apiOrder.orderType !== 'LISTINGS' && apiOrder.orderType !== 'OFFERS') {
+        return apiOrder
+    }
+
+    const vrs = Metamask.sigToVRS(apiOrder.signature)
+
+    return {
+        exchange: apiOrder.exchange,
+        maker: apiOrder.maker,
+        taker: Define.NullAddress,
+        makerRelayerFee: apiOrder.makerRelayerFee,
+        takerRelayerFee: apiOrder.takerRelayerFee,
+        makerProtocolFee: Define.ProtocolFee,
+        takerProtocolFee: Define.ProtocolFee,
+        feeRecipient: apiOrder.feeRecipient,
+        feeMethod: Define.FeeMethod,
+        side: apiOrder.orderType === 'LISTINGS' ? Define.SideSell : Define.SideBuy,
+        saleKind: Define.SaleKind,
+        target: apiOrder.collectionAddress,
+        howToCall: Define.HowToCall,
+        callData: apiOrder.callData,
+        replacementPattern: Define.ReplacementPattern.Sell,
+        staticTarget: Define.NullAddress,
+        staticExtradata: Define.NullBytes,
+        paymentToken: apiOrder.paymentToken,
+        basePrice: apiOrder.basePrice,
+        extra: Define.Extra,
+        listingTime: apiOrder.listingTime,
+        expirationTime: apiOrder.expirationTime,
+        salt: apiOrder.salt,
+        v: vrs.v,
+        r: vrs.r,
+        s: vrs.s,
+    }
 }
 
 const extractAddrs = (order) => {
@@ -117,10 +162,6 @@ const Exchange = {
             console.log(err)
             return null
         }
-        
-        // return await registry.registerProxy().send({
-        //     from: account,
-        // })
     },
     // NFT 토큰 Approval 여부 확인
     isApprovedNft: async({
@@ -146,10 +187,6 @@ const Exchange = {
             console.log(err)
             return null
         }
-        
-        // return await contract.setApprovalForAll(proxyAddress, true).send({
-        //     from: account,
-        // })
     },
     // 코인 Proxy 주소 확인
     getTokenProxyAddress: async({exchangeAddress}) => {
@@ -200,21 +237,21 @@ const Exchange = {
             taker: Define.NullAddress,
             makerRelayerFee: feeRatio,
             takerRelayerFee: 0,
-            makerProtocolFee: 0,
-            takerProtocolFee: 0,
+            makerProtocolFee: Define.ProtocolFee,
+            takerProtocolFee: Define.ProtocolFee,
             feeRecipient: feeRecipient,
-            feeMethod: 1,
-            side: 1,
-            saleKind: 0,
+            feeMethod: Define.FeeMethod,
+            side: Define.SideSell,
+            saleKind: Define.SaleKind,
             target: collectionAddress,
-            howToCall: 0,
-            callData: "0x" + Define.CallFunction[protocol] + "000000000000000000000000" + account.replace('0x', '') + "0000000000000000000000000000000000000000000000000000000000000000" + bigIntToHex(tokenId).replace('0x', ''),
+            howToCall: Define.HowToCall,
+            callData: "0x" + Define.CallFunction[protocol] + "000000000000000000000000" + account.replace('0x', '') + "0000000000000000000000000000000000000000000000000000000000000000" + bigIntToHex(tokenId),
             replacementPattern: Define.ReplacementPattern.Sell,
             staticTarget: Define.NullAddress,
             staticExtradata: Define.NullBytes,
             paymentToken: currencyAddress,
             basePrice: price,
-            extra: 0,
+            extra: Define.Extra,
             listingTime: Math.floor(new Date().getTime() / 1000),
             expirationTime: expirationTime,
             salt: await genSalt(),
@@ -271,18 +308,18 @@ const Exchange = {
         }
     ) => {
         const account = await Metamask.getAccount()
-        console.log(sellOrder)
+        sellOrder = convertOrder(sellOrder)
         const buyOrder = {
             exchange: exchangeAddress,
             maker: account,
             taker: sellOrder.maker,
             makerRelayerFee: sellOrder.makerRelayerFee,
             takerRelayerFee: sellOrder.takerRelayerFee,
-            makerProtocolFee: sellOrder.makerRelayerFee,
-            takerProtocolFee: sellOrder.takerRelayerFee,
+            makerProtocolFee: Define.ProtocolFee,
+            takerProtocolFee: Define.ProtocolFee,
             feeRecipient: Define.NullAddress,
             feeMethod: sellOrder.feeMethod,
-            side: 0,
+            side: Define.SideBuy,
             saleKind: sellOrder.saleKind,
             target: collectionAddress,
             howToCall: sellOrder.howToCall,
@@ -292,7 +329,7 @@ const Exchange = {
             staticExtradata: Define.NullBytes,
             paymentToken: currencyAddress,
             basePrice: price,
-            extra: 0,
+            extra: Define.Extra,
             listingTime: sellOrder.listingTime,
             expirationTime: expirationTime,
             salt: await genSalt(),
@@ -386,21 +423,21 @@ const Exchange = {
             taker: Define.NullAddress,
             makerRelayerFee: 0,
             takerRelayerFee: feeRatio,
-            makerProtocolFee: 0,
-            takerProtocolFee: 0,
+            makerProtocolFee: Define.ProtocolFee,
+            takerProtocolFee: Define.ProtocolFee,
             feeRecipient: feeRecipient,
-            feeMethod: 1,
-            side: 0,
-            saleKind: 0,
+            feeMethod: Define.FeeMethod,
+            side: Define.SideBuy,
+            saleKind: Define.SaleKind,
             target: collectionAddress,
-            howToCall: 0,
+            howToCall: Define.HowToCall,
             callData: "0x" + Define.CallFunction[protocol] + "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" + account.replace('0x', '') + bigIntToHex(tokenId),
             replacementPattern: Define.ReplacementPattern.Buy,
             staticTarget: Define.NullAddress,
             staticExtradata: Define.NullBytes,
             paymentToken: currencyAddress,
             basePrice: price,
-            extra: 0,
+            extra: Define.Extra,
             listingTime: Math.floor(new Date().getTime() / 1000),
             expirationTime: expirationTime,
             salt: await genSalt(),
@@ -457,17 +494,18 @@ const Exchange = {
         }
     ) => {
         const account = await Metamask.getAccount()
+        buyOrder = convertOrder(buyOrder)
         const sellOrder = {
             exchange: exchangeAddress,
             maker: account,
             taker: buyOrder.maker,
             makerRelayerFee: buyOrder.makerRelayerFee,
             takerRelayerFee: buyOrder.takerRelayerFee,
-            makerProtocolFee: buyOrder.makerProtocolFee,
-            takerProtocolFee: buyOrder.takerProtocolFee,
+            makerProtocolFee: Define.ProtocolFee,
+            takerProtocolFee: Define.ProtocolFee,
             feeRecipient: Define.NullAddress,
             feeMethod: buyOrder.feeMethod,
-            side: 1,
+            side: Define.SideSell,
             saleKind: buyOrder.saleKind,
             target: collectionAddress,
             howToCall: buyOrder.howToCall,
@@ -477,7 +515,7 @@ const Exchange = {
             staticExtradata: Define.NullBytes,
             paymentToken: currencyAddress,
             basePrice: price,
-            extra: 0,
+            extra: Define.Extra,
             listingTime: buyOrder.listingTime,
             expirationTime: expirationTime,
             salt: await genSalt(),
