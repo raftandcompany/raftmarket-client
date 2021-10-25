@@ -36,6 +36,7 @@ export const Body = styled.div`
 }
 
 .collection + .popup {
+    animation: 0.5s ${Ani.fadeIn};
     .popup-inner {
         background-color:#191A1F;
     }
