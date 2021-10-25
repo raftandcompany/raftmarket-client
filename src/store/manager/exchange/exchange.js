@@ -52,7 +52,7 @@ const loadTokenContract = (address) => {
 }
 
 const bigIntToHex = (value) => {
-    return ethers.BigNumber.from(value)._hex.replace('0x', '')
+    return ethers.BigNumber.from(value)._hex.replace('0x', '').padStart(64, '0')
 }
 
 const genSalt = () => {
@@ -144,9 +144,9 @@ const Exchange = {
     getProxyAddress: async ({
         registryAddress,
     }) => {
-        console.log(registryAddress)
         const account = await Metamask.getAccount()
         const registry = loadRegistry(registryAddress)
+
         const proxyAddress = await registry.proxies(account)
         return proxyAddress
     },
@@ -291,6 +291,8 @@ const Exchange = {
         order.r = vrs.r
         order.s = vrs.s
 
+        console.log(order)
+
         return order
     },
     // 구매
@@ -309,6 +311,7 @@ const Exchange = {
     ) => {
         const account = await Metamask.getAccount()
         sellOrder = convertOrder(sellOrder)
+        console.log(sellOrder)
         const buyOrder = {
             exchange: exchangeAddress,
             maker: account,
@@ -395,7 +398,10 @@ const Exchange = {
                 sellOrder.staticExtradata,
                 [sellOrder.v,sellOrder.v],
                 [sellOrder.r,sellOrder.s,sellOrder.r,sellOrder.s,Define.NullByte32],
-                {value: sellOrder.basePrice}
+                {
+                    from: account,
+                    value: sellOrder.basePrice,
+                }
             )
 
             return tx.hash
