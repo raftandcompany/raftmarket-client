@@ -350,7 +350,7 @@ export const Body = styled.div`
         padding:0;
         background:rgba(25,26,31,0.6);
         &-inner {
-            z-index:11;
+            //z-index:11;
             position:fixed;
             left:0;
             bottom:0;
@@ -501,7 +501,7 @@ export const Body = styled.div`
         }
         &-thumb {
             position:relative;
-            z-index:10;
+            //z-index:10;
             overflow:hidden;
             margin:${rem(-64)} auto ${rem(16)};
             //padding:${rem(160)} 0;
