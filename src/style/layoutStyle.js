@@ -26,6 +26,45 @@ export const Body = styled.div`
         margin-left:0.75rem;
     }
 }
+
+.collection {
+    .title-history {
+        button {
+            background-color:#48506C;
+        }
+    }
+}
+
+.collection + .popup {
+    .popup-inner {
+        background-color:#191A1F;
+    }
+}
+.popup-content.detail-content {
+    padding-bottom:0;
+    .detailbox {
+        padding-top:0;
+        
+    }
+    .user-img {
+        margin-right:6px;
+    }
+    .tab {
+        margin:16px 0 24px;
+        button {
+            border-bottom:4px solid transparent;
+            &.active {
+                border-color:#fff;
+            }
+        }
+    }
+    .current-price {
+        button {
+            padding:0 16px;
+            background:#8D6AE5;
+        }
+    }
+}
 ////////
 
 
@@ -566,6 +605,31 @@ export const Body = styled.div`
         }
         .infobox + .infobox {
             margin-bottom:${rem(20)};
+        }
+    }
+
+    .sns-buttons {
+        overflow:hidden;
+        > div {
+            ${radiusBox};
+            margin-bottom:${rem(18)};
+            padding: ${rem(18)} ${rem(16)};
+            width:calc(50% - ${rem(10)});
+            height:auto;
+            text-align:center;
+            background-color:${Var.color.blackLight};
+            .typo-body2 {
+                color:#fff;
+            }
+            &:nth-child(odd) {
+                float:left;
+            }
+            &:nth-child(even) {
+                float:right;
+            }
+            &:hover {
+                background-color:${Var.color.purpleDark};
+            }
         }
     }
 `;

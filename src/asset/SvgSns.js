@@ -38,8 +38,8 @@ export function SvgFacebook(props) {
 export function SvgInsta(props) {
   return (
     <svg
-      width={24}
-      height={24}
+      width={36}
+      height={36}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
@@ -95,8 +95,8 @@ export function SvgInsta(props) {
 export function SvgTwitter(props) {
   return (
     <svg
-      width={24}
-      height={24}
+      width={36}
+      height={36}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
@@ -116,6 +116,12 @@ export function SvgMedium(props) {
             xmlns="http://www.w3.org/2000/svg"
             {...props}
         >
+          <circle
+              cx={18}
+              cy={18}
+              r={18}
+              fill="#000"
+          />
             <path
                 d="M8.84594 12.228C8.87576 11.9264 8.76341 11.6284 8.54342 11.4255L6.30252 8.6627V8.25H13.2605L18.6387 20.3214L23.3669 8.25H30V8.6627L28.084 10.5428C27.9189 10.6716 27.8369 10.8834 27.8711 11.093V24.907C27.8369 25.1166 27.9189 25.3284 28.084 25.4572L29.9552 27.3373V27.75H20.5434V27.3373L22.4818 25.4114C22.6723 25.2165 22.6723 25.1592 22.6723 24.8611V13.6953L17.2829 27.7041H16.5546L10.2801 13.6953V23.0842C10.2278 23.4789 10.3559 23.8764 10.6275 24.1618L13.1485 27.2914V27.7041H6V27.2914L8.52101 24.1618C8.79059 23.8759 8.91122 23.4758 8.84594 23.0842V12.228Z"
                 fill="#fff"

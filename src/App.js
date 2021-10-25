@@ -7,7 +7,7 @@ import AppPagePresenter from "page/PagePresenter"
 import BottomTab from "page/component/tab/BottomTab"
 import {Popup, Body} from "style/layoutStyle"
 import {GlobalStyle} from "style/common/globalStyle"
-//import PageCollection from "page/pages/main/PageCollection"
+import PageCollection from "page/pages/main/PageCollection"
 // import PageSample from "page/pages/PageSample"
 
 
@@ -38,7 +38,7 @@ function AppBody (){
     return(
         <Body className="App">
             <GlobalStyle />
-
+            {/* <PageCollection /> */}
             <PageDisplayer presenter = {presenter} />
             <PageNavi presenter = {presenter}/>
             <PopupDisplayer presenter = {presenter}/>

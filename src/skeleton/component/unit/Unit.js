@@ -18,6 +18,7 @@ import {v4 as uuidv4} from "uuid";
 //sample
 import CardTypeColSample from "skeleton/component/card/CardTypeColSample";
 import CardUser from "../card/CardUser";
+import * as Images from "asset/temp/index";
 
 
 // function Unit({ name, ...props }) {
@@ -86,7 +87,7 @@ export const Owner = ({img, text, type}) => {
 
 export function Tab({title, isSelectd, action}) {
     return (
-        <TabButton onClick={action} className={isSelectd? "active":null}>
+        <TabButton onClick={()=>action} className={isSelectd? "active":null}>
             <span>{title}</span>
         </TabButton>
     )
@@ -100,6 +101,12 @@ const AccordionItem = ({
     const [isActive, setActive] = useState(false);
     const show = isActive? " show" : "";
 
+    useEffect(() => {
+        if (item.status === 'show') {
+            setActive(true);
+        }
+	}, []);
+ 
     const OwnerList = ({ owners }) =>
         <div className="owner">
             { owners.map( owner => <CardUser key={uuidv4().toString()} data = {owner}/> ) }
@@ -120,7 +127,7 @@ const AccordionItem = ({
                         i.owners != null
                             ? <OwnerList owners={i.owners}/>
                             : <Owner
-                                img="https://ssl.pstatic.net/mimgnews/image/109/2021/08/24/0004461747_001_20210824112011683.jpg?type=w540"
+                                img={Images.Img4}
                                 text="Artblockmaster"/>
                     }
                 </div>

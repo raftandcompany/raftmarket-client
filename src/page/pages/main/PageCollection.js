@@ -32,11 +32,12 @@ import SvgLoading from "asset/SvgLoading.svg";
 
 import * as Images from "asset/temp/index";
 import AppPagePresenter, {PageId, PageObjcet} from "page/PagePresenter"
-
+import * as Sns from "asset/SvgSns";
 
 
 const data1 = [
     {
+        status: 'show',
         type: 'row',
         name: 'listing',
         items: [
@@ -104,14 +105,25 @@ export default function PageCollection({pageObj}){
     let visible = 'none';
 
     function openLayer(e) {
-        // e.preventDefault();
         setModalVisible(true);
         
     }
     function closeLayer(e) {
-        e.preventDefault();
         setModalVisible(false);
         
+    }
+
+    const [snsVisible, setSnsVisible] = useState(false);
+    let visible2 = 'none';
+
+    function openSns() {
+        // e.preventDefault();
+        setSnsVisible(true);
+        
+    }
+    function closeSns(e) {
+        //e.preventDefault();
+        setSnsVisible(false);
     }
     useEffect(() => {
         if (modalVisible) {
@@ -132,11 +144,35 @@ export default function PageCollection({pageObj}){
     if (modalVisible) visible = 'block';
     else visible = 'none'; 
 
+
+    if (snsVisible) visible2 = 'block';
+    else visible2 = 'none'; 
+    
+    // useEffect(() => {
+    //     if (snsVisible) {
+    //         document.body.style.cssText = `
+    //         position: fixed; 
+    //         top: -${window.scrollY}px;
+    //         overflow-y: scroll;
+    //         width: 100%;`;
+    //     }
+        
+    //     return () => {
+    //         const scrollY = document.body.style.top
+    //         document.body.style.cssText = `position: ""; top: "";`
+    //         window.scrollTo(0, parseInt(scrollY || '0') * -1)
+    //     }
+    // }, [])
+
+   
+
     return (
         <PageBg>
 
             <div className="collection">
                 <Util result={false} favorite={true} share={true} more={false} link={true} />
+                <div className="sc-ezzafa jMpOWO utilbox"><div className="rightbox"><button className="btn-favorite"><svg width="1.375rem" height="1.375rem" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter0_d)"><path d="M19.925 6.54667L14.2783 6.05667L12.0733 0.865C11.6766 -0.08 10.3233 -0.08 9.92663 0.865L7.72163 6.06833L2.08663 6.54667C1.05996 6.62833 0.639963 7.91167 1.42163 8.58833L5.7033 12.2983L4.41996 17.805C4.18663 18.8083 5.27163 19.6017 6.1583 19.065L11 16.1483L15.8416 19.0767C16.7283 19.6133 17.8133 18.82 17.58 17.8167L16.2966 12.2983L20.5783 8.58833C21.36 7.91167 20.9516 6.62833 19.925 6.54667ZM11 13.9667L6.6133 16.615L7.77996 11.6217L3.90663 8.26167L9.01663 7.81833L11 3.11667L12.995 7.83L18.105 8.27333L14.2316 11.6333L15.3983 16.6267L11 13.9667Z" fill="white"></path></g><defs><filter id="filter0_d" x="0.0168457" y="0.15625" width="21.9697" height="21.0934" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"><feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset dy="1"></feOffset><feGaussianBlur stdDeviation="0.5"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.24 0"></feColorMatrix><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"></feBlend></filter></defs></svg></button><button className="btn-share" ><svg width="20" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2223 15.3434C15.4342 15.3434 14.729 15.6596 14.1897 16.1551L6.79564 11.7801C6.84749 11.5377 6.88897 11.2952 6.88897 11.0422C6.88897 10.7892 6.84749 10.5467 6.79564 10.3042L14.1067 5.97139C14.6667 6.49849 15.403 6.8253 16.2223 6.8253C17.9438 6.8253 19.3334 5.41265 19.3334 3.66265C19.3334 1.91265 17.9438 0.5 16.2223 0.5C14.5008 0.5 13.1112 1.91265 13.1112 3.66265C13.1112 3.91566 13.1527 4.15813 13.2045 4.4006L5.89341 8.73343C5.33341 8.20633 4.59712 7.87952 3.77786 7.87952C2.05638 7.87952 0.666748 9.29217 0.666748 11.0422C0.666748 12.7922 2.05638 14.2048 3.77786 14.2048C4.59712 14.2048 5.33341 13.878 5.89341 13.3509L13.2771 17.7364C13.2253 17.9578 13.1942 18.1898 13.1942 18.4217C13.1942 20.119 14.5527 21.5 16.2223 21.5C17.8919 21.5 19.2505 20.119 19.2505 18.4217C19.2505 16.7244 17.8919 15.3434 16.2223 15.3434Z" fill="white"></path></svg></button><button className="btn-link" onClick={e => openSns(e)}><svg width="1.5rem" height="0.75rem" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.8333 0.166504H13.1666V2.49984H17.8333C19.7583 2.49984 21.3333 4.07484 21.3333 5.99984C21.3333 7.92484 19.7583 9.49984 17.8333 9.49984H13.1666V11.8332H17.8333C21.0533 11.8332 23.6666 9.21984 23.6666 5.99984C23.6666 2.77984 21.0533 0.166504 17.8333 0.166504ZM10.8333 9.49984H6.16659C4.24159 9.49984 2.66659 7.92484 2.66659 5.99984C2.66659 4.07484 4.24159 2.49984 6.16659 2.49984H10.8333V0.166504H6.16659C2.94659 0.166504 0.333252 2.77984 0.333252 5.99984C0.333252 9.21984 2.94659 11.8332 6.16659 11.8332H10.8333V9.49984ZM7.33325 4.83317H16.6666V7.1665H7.33325V4.83317Z" fill="white"></path></svg></button></div></div>
+                
                 <div className="collection-box">
                     <div className="bg-gradiant purple"></div>
                     <div className="collection-thumb">
@@ -217,51 +253,113 @@ export default function PageCollection({pageObj}){
             </div>
        
             <div className="sc-dlnjwi dZRKXH popup" style={{display: modalVisible?'block':'none'}}>
-            <div className="popup-inner">
-                <div className="popup-header">
-                    <h1 className="sc-pNWdM eHKJgs"><span>Sale NFT</span></h1>
-                    <button className="sc-jJMGnK jFCSIy popup-close" onClick={e => closeLayer(e)}>
-                        <svg width="1rem" height="1rem" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.1672 0.844141C14.7235 0.400455 14.0068 0.400455 13.5631 0.844141L8 6.39591L2.43686 0.832765C1.99317 0.389078 1.27645 0.389078 0.832765 0.832765C0.389078 1.27645 0.389078 1.99317 0.832765 2.43686L6.39591 8L0.832765 13.5631C0.389078 14.0068 0.389078 14.7235 0.832765 15.1672C1.27645 15.6109 1.99317 15.6109 2.43686 15.1672L8 9.6041L13.5631 15.1672C14.0068 15.6109 14.7235 15.6109 15.1672 15.1672C15.6109 14.7235 15.6109 14.0068 15.1672 13.5631L9.6041 8L15.1672 2.43686C15.5995 2.00455 15.5995 1.27645 15.1672 0.844141Z" fill="white"></path>
-                        </svg>
-                    </button>
-                    <h1 className="sc-fujyAs gZkLDR"></h1>
-                </div>
-                <div className="popup-content">
-                    <div>
-                        <div className="sc-bkbkJK dCBajj card-col">
-                            <a className="sc-iemWCZ bhFgxG">
-                            <div className="card-image"><img src="https://d120c3intw9gvs.cloudfront.net/contents/asset/0x3878d504f38344d502baab0bd6a9e382c51e7edc/1634830866_7.jpg" alt="image" /></div>
-                            <div className="sc-dIvrsQ jPPVFO">
-                                <p className="typo-body2 status list">
-                                    <span>
-                                        <svg width="1.1875rem" height="0.875rem" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" clipRule="evenodd" d="M13 0C13.67 0 14.27 0.33 14.63 0.84L18.59 6.42C18.84 6.77 18.84 7.23 18.59 7.58L14.63 13.16C14.27 13.67 13.67 14 13 14L2 13.99C0.9 13.99 0 13.1 0 12V2C0 0.9 0.9 0.0100002 2 0.0100002L13 0ZM13.5 8.5C14.3284 8.5 15 7.82843 15 7C15 6.17157 14.3284 5.5 13.5 5.5C12.6716 5.5 12 6.17157 12 7C12 7.82843 12.6716 8.5 13.5 8.5Z" fill="#76ADFF"></path>
-                                        </svg>
-                                    </span>
-                                    고양이7
-                                </p>
-                                <p className="typo-body2">고양이7 입니다</p>
-                                <p className="typo-body2 status transfer">
-                                    <span>
-                                        <svg width="1.125rem" height="0.75rem" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0.801761 9.1074L3.44757 11.6926C3.74154 11.9891 4.25363 11.7853 4.25363 11.3683L4.25363 9.70969L9.95302 9.70969C10.4746 9.70969 10.9013 9.29272 10.9013 8.78309C10.9013 8.27347 10.4746 7.8565 9.95302 7.8565L4.25363 7.8565L4.25363 6.1979C4.25363 5.78093 3.74154 5.57708 3.44756 5.87359L0.801761 8.45879C0.621581 8.63484 0.621581 8.93135 0.801761 9.1074ZM13.7558 2.29694L8.05638 2.29694C7.53481 2.29694 7.10807 2.71391 7.10807 3.22354C7.10807 3.73316 7.53481 4.15013 8.05638 4.15013L13.7558 4.15013L13.7558 5.80873C13.7558 6.2257 14.2679 6.42955 14.5618 6.13304L17.1982 3.54784C17.3783 3.36253 17.3783 3.07528 17.1982 2.88996L14.5618 0.304769C14.2679 0.00825918 13.7558 0.221376 13.7558 0.629076L13.7558 2.29694Z" fill="#EF5DA8"></path>
-                                        </svg>
-                                    </span>
-                                    RaftnCompany | RINKEBY
-                                </p>
-                                <strong className="typo-emphasis">
-                                    <svg width="0.5rem" height="0.875rem" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 1.66683V3.78016C0 4.1335 0.14 4.4735 0.393333 4.72683L2.66667 7.00016L0.386667 9.28016C0.14 9.5335 0 9.8735 0 10.2268V12.3335C0 13.0668 0.6 13.6668 1.33333 13.6668H6.66667C7.4 13.6668 8 13.0668 8 12.3335V10.2268C8 9.8735 7.86 9.5335 7.61333 9.28683L5.33333 7.00016L7.60667 4.7335C7.86 4.48016 8 4.14016 8 3.78683V1.66683C8 0.933496 7.4 0.333496 6.66667 0.333496H1.33333C0.6 0.333496 0 0.933496 0 1.66683Z" fill="#fff"></path>
-                                    </svg>
-                                    0<span className="typo-span bar"></span><span className="typo-span">RINKEBY_ETHER</span><span className="typo-span unit">RINKEBY</span>
-                                </strong>
+                <div className="popup-inner">
+                    <div className="popup-header">
+                        <h1 className="sc-pNWdM eHKJgs"><span>NFT Detail</span></h1>
+                        <button className="sc-jJMGnK jFCSIy popup-close" onClick={e => closeLayer()}>
+                            <svg width="1rem" height="1rem" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.1672 0.844141C14.7235 0.400455 14.0068 0.400455 13.5631 0.844141L8 6.39591L2.43686 0.832765C1.99317 0.389078 1.27645 0.389078 0.832765 0.832765C0.389078 1.27645 0.389078 1.99317 0.832765 2.43686L6.39591 8L0.832765 13.5631C0.389078 14.0068 0.389078 14.7235 0.832765 15.1672C1.27645 15.6109 1.99317 15.6109 2.43686 15.1672L8 9.6041L13.5631 15.1672C14.0068 15.6109 14.7235 15.6109 15.1672 15.1672C15.6109 14.7235 15.6109 14.0068 15.1672 13.5631L9.6041 8L15.1672 2.43686C15.5995 2.00455 15.5995 1.27645 15.1672 0.844141Z" fill="white"></path>
+                            </svg>
+                        </button>
+                        <h1 className="sc-fujyAs gZkLDR"></h1>
+                    </div>
+                    <div className="popup-content detail-content">
+                        {/* <Util result={true} favorite={true} share={true} more={true} link={true} /> */}
+                        <div className="detailbox">
+                            <Title>Pink Cat #123</Title>
+                            <div className="owner">
+                                <Owner 
+                                    img={Images.Img2}
+                                    text="Artblockmaster" 
+                                    type="owner" />
                             </div>
+                            <CardImage src={Images.Img5} />
+                        </div>
+                        {/* <div className="tab">
+                            <Tab
+                                title = "Market"
+                                isSelectd = {true}
+                                action = {1}
+                            />
+                            <Tab
+                                title = "About"
+                                isSelectd = {false}
+                                action = {1}
+                            />
+                        </div> */}
+                        <div className="tab-content" style={{padding:'24px 0'}}>
+                            <div className="title-history">
+                                <StyledFullButtonWrap>
+                                    <Button2 children={<span>View History <span className="text-sub">35 sec ago</span><SvgArrowRight /></span>} fullSize={true} />
+                                </StyledFullButtonWrap>
+                            </div>
+                            <Accordion data={data1} />
+                        </div>
+                        {/* <div className="tab-content">
+                            <Accordion data={data2} />
+                        </div> */}
+                        <div className="current-price">
+                            <Typography variant="body1">Current Price</Typography>
+                            <div className="price">
+                                <Typography variant="emphasis">
+                                    <SvgPrice />1.5<span className="text-sub">($ 1907,02)</span>
+                                </Typography>
+                            </div>
+                            <Button1 children="BUY NOW" type="purple" height={52} fontSize={16} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="sc-dlnjwi dZRKXH popup" style={{display: snsVisible?'block':'none'}}>
+                <div className="popup-inner">
+                    <div className="popup-header">
+                        <h1 className="sc-pNWdM eHKJgs"><span><svg width="1.5rem" height="0.75rem" fill="none" xmlns="http://www.w3.org/2000/svg" style={{verticalAlign:'0px'}}><path d="M17.8333 0.166504H13.1666V2.49984H17.8333C19.7583 2.49984 21.3333 4.07484 21.3333 5.99984C21.3333 7.92484 19.7583 9.49984 17.8333 9.49984H13.1666V11.8332H17.8333C21.0533 11.8332 23.6666 9.21984 23.6666 5.99984C23.6666 2.77984 21.0533 0.166504 17.8333 0.166504ZM10.8333 9.49984H6.16659C4.24159 9.49984 2.66659 7.92484 2.66659 5.99984C2.66659 4.07484 4.24159 2.49984 6.16659 2.49984H10.8333V0.166504H6.16659C2.94659 0.166504 0.333252 2.77984 0.333252 5.99984C0.333252 9.21984 2.94659 11.8332 6.16659 11.8332H10.8333V9.49984ZM7.33325 4.83317H16.6666V7.1665H7.33325V4.83317Z" fill="white"></path></svg> SNS Links</span></h1>
+                        <button className="sc-jJMGnK jFCSIy popup-close" onClick={e => closeSns()}>
+                            <svg width="1rem" height="1rem" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.1672 0.844141C14.7235 0.400455 14.0068 0.400455 13.5631 0.844141L8 6.39591L2.43686 0.832765C1.99317 0.389078 1.27645 0.389078 0.832765 0.832765C0.389078 1.27645 0.389078 1.99317 0.832765 2.43686L6.39591 8L0.832765 13.5631C0.389078 14.0068 0.389078 14.7235 0.832765 15.1672C1.27645 15.6109 1.99317 15.6109 2.43686 15.1672L8 9.6041L13.5631 15.1672C14.0068 15.6109 14.7235 15.6109 15.1672 15.1672C15.6109 14.7235 15.6109 14.0068 15.1672 13.5631L9.6041 8L15.1672 2.43686C15.5995 2.00455 15.5995 1.27645 15.1672 0.844141Z" fill="white"></path>
+                            </svg>
+                        </button>
+                        <h1 className="sc-fujyAs gZkLDR"></h1>
+                    </div>
+                    <div className="popup-content sns-buttons">
+                        <div className="facebook">
+                            <a href="#">
+                                <Sns.SvgFacebook />
+                                <Typography variant="body2" name="description">
+                                    Go to <br />
+                                    Facebook
+                                </Typography>
+                            </a>
+                        </div>
+                        <div className="insta">
+                            <a href="#">
+                                <Sns.SvgInsta />
+                                <Typography variant="body2" name="description">
+                                    Go to <br />
+                                    Instagram
+                                </Typography>
+                            </a>
+                        </div>
+                        <div className="medium">
+                            <a href="#">
+                                <Sns.SvgMedium />
+                                <Typography variant="body2" name="description">
+                                    Go to <br />
+                                    Medium
+                                </Typography>
+                            </a>
+                        </div>
+                        <div className="twitter">
+                            <a href="#">
+                                <Sns.SvgTwitter />
+                                <Typography variant="body2" name="description">
+                                    Go to <br />
+                                    Twitter
+                                </Typography>
                             </a>
                         </div>
                     </div>
-                    <div><div className="sc-bkbkJK dCBajj card-col"><a className="sc-iemWCZ bhFgxG"><div className="card-image"><img src="https://d120c3intw9gvs.cloudfront.net/contents/asset/0x3878d504f38344d502baab0bd6a9e382c51e7edc/1634833545_1.jpg" alt="image" /></div><div className="sc-dIvrsQ jPPVFO"><p className="typo-body2 status list"><span><svg width="1.1875rem" height="0.875rem" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M13 0C13.67 0 14.27 0.33 14.63 0.84L18.59 6.42C18.84 6.77 18.84 7.23 18.59 7.58L14.63 13.16C14.27 13.67 13.67 14 13 14L2 13.99C0.9 13.99 0 13.1 0 12V2C0 0.9 0.9 0.0100002 2 0.0100002L13 0ZM13.5 8.5C14.3284 8.5 15 7.82843 15 7C15 6.17157 14.3284 5.5 13.5 5.5C12.6716 5.5 12 6.17157 12 7C12 7.82843 12.6716 8.5 13.5 8.5Z" fill="#76ADFF"></path></svg></span> 고양이1</p><p className="typo-body2">고양이1 입니다</p><p className="typo-body2 status transfer"><span><svg width="1.125rem" height="0.75rem" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.801761 9.1074L3.44757 11.6926C3.74154 11.9891 4.25363 11.7853 4.25363 11.3683L4.25363 9.70969L9.95302 9.70969C10.4746 9.70969 10.9013 9.29272 10.9013 8.78309C10.9013 8.27347 10.4746 7.8565 9.95302 7.8565L4.25363 7.8565L4.25363 6.1979C4.25363 5.78093 3.74154 5.57708 3.44756 5.87359L0.801761 8.45879C0.621581 8.63484 0.621581 8.93135 0.801761 9.1074ZM13.7558 2.29694L8.05638 2.29694C7.53481 2.29694 7.10807 2.71391 7.10807 3.22354C7.10807 3.73316 7.53481 4.15013 8.05638 4.15013L13.7558 4.15013L13.7558 5.80873C13.7558 6.2257 14.2679 6.42955 14.5618 6.13304L17.1982 3.54784C17.3783 3.36253 17.3783 3.07528 17.1982 2.88996L14.5618 0.304769C14.2679 0.00825918 13.7558 0.221376 13.7558 0.629076L13.7558 2.29694Z" fill="#EF5DA8"></path></svg></span>RaftnCompany | RINKEBY</p><strong className="typo-emphasis"><svg width="0.5rem" height="0.875rem" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 1.66683V3.78016C0 4.1335 0.14 4.4735 0.393333 4.72683L2.66667 7.00016L0.386667 9.28016C0.14 9.5335 0 9.8735 0 10.2268V12.3335C0 13.0668 0.6 13.6668 1.33333 13.6668H6.66667C7.4 13.6668 8 13.0668 8 12.3335V10.2268C8 9.8735 7.86 9.5335 7.61333 9.28683L5.33333 7.00016L7.60667 4.7335C7.86 4.48016 8 4.14016 8 3.78683V1.66683C8 0.933496 7.4 0.333496 6.66667 0.333496H1.33333C0.6 0.333496 0 0.933496 0 1.66683Z" fill="#fff"></path></svg>0<span className="typo-span bar"></span><span className="typo-span">RINKEBY_ETHER</span><span className="typo-span unit">RINKEBY</span></strong></div></a></div></div>
-                </div>
                 </div>
             </div>
         </PageBg>
