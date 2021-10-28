@@ -124,7 +124,7 @@ export default function PageCreateOffer({pageObj}){
                 collectionAddress:assetData.collectionAddress,
                 tokenId:assetData.assetId,
                 protocol:Metamask.ExchangeKey.protocol,
-                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                currencyAddress:Metamask.ExchangeKey.currencyAddressOffer,
                 price:priceValue,
                 expirationTime:expirationTime
             })

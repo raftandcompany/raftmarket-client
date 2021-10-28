@@ -17,7 +17,6 @@ function convertAbi(originAbi) {
             })
 
             item += '('+inputs.join(',')+')'
-
             if (method.stateMutability === 'view' || method.stateMutability === 'pure' || method.stateMutability === 'payable') {
                 item += ' ' + method.stateMutability
             }

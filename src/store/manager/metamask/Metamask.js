@@ -35,6 +35,7 @@ export const ExchangeKey = Object.freeze ({
     companyAddress : "0x4663ca453da16eb9be51e120da680cf31e0a757a",
     protocol : 'erc-721',
     currencyAddress: "0x0000000000000000000000000000000000000000",
+    currencyAddressOffer: "0xdf032bc4b9dc2782bb09352007d4c57b75160b15",
     coinUnit: 100000000000000
 })
 

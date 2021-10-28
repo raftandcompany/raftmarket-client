@@ -142,7 +142,7 @@ export default function PageAsset({pageObj}){
                 collectionAddress:order.data.collectionAddress,
                 tokenId:order.data.assetId,
                 protocol:Metamask.ExchangeKey.protocol,
-                currencyAddress:Metamask.ExchangeKey.currencyAddress,
+                currencyAddress:Metamask.ExchangeKey.currencyAddressOffer,
                 price:order.data.basePrice,
                 expirationTime:order.data.expirationTime,
             })
