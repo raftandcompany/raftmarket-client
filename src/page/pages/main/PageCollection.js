@@ -253,7 +253,7 @@ export default function PageCollection({pageObj}){
             </div>
        
             <div className="sc-dlnjwi dZRKXH popup" style={{display: modalVisible?'block':'none'}}>
-                <div className="popup-inner" style={{z-index:10}}>
+                <div className="popup-inner" style={{zIndex:10}}>
                     <div className="popup-header">
                         <h1 className="sc-pNWdM eHKJgs"><span>NFT Detail</span></h1>
                         <button className="sc-jJMGnK jFCSIy popup-close" onClick={e => closeLayer()}>
@@ -312,7 +312,7 @@ export default function PageCollection({pageObj}){
             </div>
 
             <div className="sc-dlnjwi dZRKXH popup" style={{display: snsVisible?'block':'none'}}>
-                <div className="popup-inner" style={{z-index:10}}>
+                <div className="popup-inner" style={{zIndex:10}}>
                     <div className="popup-header">
                         <h1 className="sc-pNWdM eHKJgs"><span><svg width="1.5rem" height="0.75rem" fill="none" xmlns="http://www.w3.org/2000/svg" style={{verticalAlign:'0px'}}><path d="M17.8333 0.166504H13.1666V2.49984H17.8333C19.7583 2.49984 21.3333 4.07484 21.3333 5.99984C21.3333 7.92484 19.7583 9.49984 17.8333 9.49984H13.1666V11.8332H17.8333C21.0533 11.8332 23.6666 9.21984 23.6666 5.99984C23.6666 2.77984 21.0533 0.166504 17.8333 0.166504ZM10.8333 9.49984H6.16659C4.24159 9.49984 2.66659 7.92484 2.66659 5.99984C2.66659 4.07484 4.24159 2.49984 6.16659 2.49984H10.8333V0.166504H6.16659C2.94659 0.166504 0.333252 2.77984 0.333252 5.99984C0.333252 9.21984 2.94659 11.8332 6.16659 11.8332H10.8333V9.49984ZM7.33325 4.83317H16.6666V7.1665H7.33325V4.83317Z" fill="white"></path></svg> SNS Links</span></h1>
                         <button className="sc-jJMGnK jFCSIy popup-close" onClick={e => closeSns()}>
