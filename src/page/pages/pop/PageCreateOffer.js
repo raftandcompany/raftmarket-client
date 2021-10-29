@@ -104,7 +104,8 @@ export default function PageCreateOffer({pageObj}){
             listingTime: order.listingTime,
             expirationTime: order.expirationTime,
             salt: order.salt,
-            signature: order.signature
+            signature: order.signature,
+            currency: "RINKEBY_WRAPPED_ETHER"
         }
         dataProvider.requestQ(new DataRequest(Rest.ApiType.postOffer, params, TAG,false))
     }
