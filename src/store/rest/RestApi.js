@@ -6,6 +6,7 @@ import * as Asset from  "store/rest/api/Asset"
 import * as History from  "store/rest/api/History"
 import * as Order from "store/rest/api/Order"
 import * as Collection from  "store/rest/api/Collection"
+import * as Search from  "store/rest/api/Search"
 class RestApi {
     constructor() {
         this.TAG = "RestApi"
@@ -91,6 +92,8 @@ class RestApi {
                 return Collection.get(request.params, cancel)
             case Rest.ApiType.getCollectionById :
                 return Collection.getById(request.params, cancel)
+            case Rest.ApiType.getSearch :
+                return Search.get(request.params, cancel)
             default : return null
         }
     }

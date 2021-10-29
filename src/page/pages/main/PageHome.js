@@ -43,6 +43,9 @@ export default function PageHome({pageObj}){
                 console.log(TAG, "response " + response.id)
                 if (response.id !== TAG){return}
                 switch (response.type) {
+                    case  Rest.ApiType.getSearch :
+                        setAssets([response.data])
+                        break
                     case  Rest.ApiType.getAsset :
                         setAssets(response.data.filter(set =>
                             set.assets != null
@@ -73,6 +76,7 @@ export default function PageHome({pageObj}){
 
     function onSearchKeyword (keyword){
         console.log(TAG, "onSearch Keyword " + keyword)
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.getSearch, {searchWord:keyword}, TAG))
     }
     function onSearchBack (){
         console.log(TAG, "onSearchBack")

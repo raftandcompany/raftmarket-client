@@ -37,7 +37,9 @@ export const ApiType = Object.freeze ({
     getListings : "getListings",
     getOffers : "getOffers",
     postListing : "postListing",
-    postOffer : "postOffer"
+    postOffer : "postOffer",
+
+    getSearch : "getSearch"
 })
 
 
