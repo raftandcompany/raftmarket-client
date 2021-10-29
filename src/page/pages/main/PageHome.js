@@ -40,11 +40,14 @@ export default function PageHome({pageObj}){
             let response = dataProvider.response
 
             if (response != null){
-                console.log(TAG, "response " + response.id)
+
                 if (response.id !== TAG){return}
                 switch (response.type) {
                     case  Rest.ApiType.getSearch :
-                        setAssets([response.data])
+                        var obj = new Object()
+                        obj.name = "Search Result"
+                        obj.datas = response.data.map(d => new AssetData(d))
+                        setAssets([obj])
                         break
                     case  Rest.ApiType.getAsset :
                         setAssets(response.data.filter(set =>
