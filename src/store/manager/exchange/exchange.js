@@ -89,7 +89,7 @@ const convertOrder = (apiOrder) => {
         target: apiOrder.collectionAddress,
         howToCall: Define.HowToCall,
         callData: apiOrder.callData,
-        replacementPattern: Define.ReplacementPattern.Sell,
+        replacementPattern: apiOrder.orderType === 'LISTINGS' ? Define.ReplacementPattern.Sell : Define.ReplacementPattern.Buy,
         staticTarget: Define.NullAddress,
         staticExtradata: Define.NullBytes,
         paymentToken: apiOrder.paymentToken,
@@ -501,6 +501,7 @@ const Exchange = {
     ) => {
         const account = await Metamask.getAccount()
         buyOrder = convertOrder(buyOrder)
+        console.log(buyOrder)
         const sellOrder = {
             exchange: exchangeAddress,
             maker: account,
