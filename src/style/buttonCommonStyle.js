@@ -6,13 +6,13 @@ import { rem } from 'style/common/mixin';
 export const setButtonType = type => {
     switch (type) {
         case 'purple' :
-            return `background-color:${color.purpleDark};color:${color.white};`;
+            return `background-color:${color.purpleDark};color:${color.white} !important;`;
         case 'white' :
-            return `background-color:${color.white};color:${color.black};`;
+            return `background-color:${color.white};color:${color.black} !important;`;
         case 'blue' :
-            return `background-color:${color.blueDark};color:${color.white};`;
+            return `background-color:${color.blueDark};color:${color.white} !important;`;
         default :
-            return `background-color:${color.blackLight};color:${color.white};`;
+            return `background-color:${color.blackLight};color:${color.white} !important;`;
     }
 }
 
