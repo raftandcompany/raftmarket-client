@@ -62,7 +62,7 @@ export default function PageRegist({pageObj}){
 
 
     return (
-        <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn}>
+        <PageBg ani={pageObj.isPopup ? slideInUp : fadeIn} style={{padding:'1rem'}}>
             <Title>Welcome, <br />Sign In</Title>
             <InputProfile emailAddress={""} nickName={""} action={data => {
                 regist(data)

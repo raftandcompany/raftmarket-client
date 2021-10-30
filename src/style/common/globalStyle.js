@@ -21,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     padding: 0;
-    background: none;
+    // background: none;
   }
   a, button {
     cursor: pointer;
