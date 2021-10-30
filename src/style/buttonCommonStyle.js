@@ -12,7 +12,7 @@ export const setButtonType = type => {
         case 'blue' :
             return `background-color:${color.blueDark}!important;color:${color.white} !important;`;
         default :
-            return `background-color:${color.blackLight} !important;color:${color.white} !important;`;
+            return `background-color:${color.blackLight};color:${color.white} !important;`;
     }
 }
 
