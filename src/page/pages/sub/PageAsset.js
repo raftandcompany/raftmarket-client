@@ -126,14 +126,15 @@ export default function PageAsset({pageObj}){
                 expirationTime:order.data.expirationTime,
             })
             console.log(TAG + " buyOrder success", hash)
-
+            alert("purchase success")
+            AppPagePresenter().closePopup(pageObj)
         } catch (error) {
             console.error(TAG + " buyOrder", error)
         }
     }
 
     function acceptOrder(order){
-        console.log(TAG+"buyOrder", order)
+        console.log(TAG+"acceptOrder", order)
         try {
             let hash = exchange.acceptOffer(order.data,{
                 exchangeAddress:Metamask.ExchangeKey.defaultAddress,
@@ -146,10 +147,12 @@ export default function PageAsset({pageObj}){
                 price:order.data.basePrice,
                 expirationTime:order.data.expirationTime,
             })
-            console.log(TAG + " buyOrder success", hash)
+            console.log(TAG + " acceptOrder success", hash)
+            alert("Approved")
+            AppPagePresenter().closePopup(pageObj)
 
         } catch (error) {
-            console.error(TAG + " buyOrder", error)
+            console.error(TAG + " acceptOrder", error)
         }
     }
 
