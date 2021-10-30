@@ -60,11 +60,12 @@ export default function PageHome({pageObj}){
                         }))
                         break
                     case  Rest.ApiType.getAssetSearch :
-                        setAssets ([{
-                                name: currentCategory,
-                                datas: response.data.map(d => new AssetData(d))
-                            }]
-                        )
+                        console.log(TAG, response)
+                        var obj = new Object()
+                        obj.name = currentCategory
+                        obj.datas = response.data.map(d => new AssetData(d))
+                        setAssets([obj])
+
                         break
                 }
             }
@@ -91,7 +92,7 @@ export default function PageHome({pageObj}){
         setAssets([])
 
         let data = {collectionCategory:category}
-        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetSearch, data ))
+        dataProvider.requestQ(new DataRequest(Rest.ApiType.getAssetSearch, data , TAG))
     }
 
     const CategoryItem = ({name, category}) =>
