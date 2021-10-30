@@ -128,10 +128,6 @@ export default function PageHome({pageObj}){
                     <CategoryItem name={"Art"} category={Category.Art}/>
                     <CategoryItem name={"Music"} category={Category.Music}/>
                     <CategoryItem name={"Sports"} category={Category.Sports}/>
-                    <CategoryItem name={"Virtual Reality"} category={Category.VirtualRealrity}/>
-                    <CategoryItem name={"Trading Card"} category={Category.TradingCard}/>
-                    <CategoryItem name={"Collective Items"} category={Category.CollectiveItems}/>
-                    <CategoryItem name={"Domain Name"} category={Category.DomainName}/>
                 </div>
             </StyledScrollWrap>
             { assets.map(set => <AssetItemList  key={ uuidv4().toString() } set={ set }/>) }
